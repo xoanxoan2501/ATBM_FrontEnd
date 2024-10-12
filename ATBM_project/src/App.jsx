@@ -1,16 +1,13 @@
-import DefaultLayout from './layouts'
-import HomePage from './pages/Home'
+import DefaultLayout from './layouts';
+import LoginPage from './pages/LoginPage/LoginPage';
 
-
-function App() {
-
-  return (
-    <>
-        <DefaultLayout>
-          <HomePage />
-        </DefaultLayout>
-    </>
-  )
+const App  = () => {
+  return ( 
+    <DefaultLayout>
+      <LoginPage /> 
+    </DefaultLayout>
+   );
 }
+ 
+export default App;
 
-export default App
