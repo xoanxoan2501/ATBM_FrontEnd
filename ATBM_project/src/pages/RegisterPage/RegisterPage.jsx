@@ -1,6 +1,6 @@
 import TextField from "@mui/material/TextField";
 import { Box, Container, Typography } from "@mui/material";
-import DefaultSelect from "../../components/DefaulSelect/DefaultSelect";
+
 import { Checkbox } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { FormGroup } from "@mui/material";
@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import SelectRadio from "../../components/SelectRadio/SelectRadio";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import MyDatePicker from "../../components/DatePicker/DatePicker";
+import CountrySelection from "../../components/CountrySelection/CountrySelection";
 const RegisterPage = (props) => {
   return (
     <Container>
@@ -53,14 +54,7 @@ const RegisterPage = (props) => {
               width: "100%",
             }}
           >
-            <Typography
-              sx={{
-                fontSize: "14px",
-              }}
-            >
-              QUỐC GIA/VÙNG
-            </Typography>
-            <DefaultSelect />
+            <CountrySelection />
             <MyDatePicker />
           </Box>
           <Box

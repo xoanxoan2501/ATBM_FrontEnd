@@ -9,6 +9,12 @@ const theme = extendTheme({
         customText: {
           main: "#000000", //black
         },
+        customBackGround: {
+          main: "#ffffff",
+        },
+        buttonColor: {
+          main: "#000000",
+        },
       },
     },
     dark: {
@@ -16,6 +22,12 @@ const theme = extendTheme({
       palette: {
         customText: {
           main: "#ffffff", //white
+        },
+        customBackGround: {
+          main: "#000000",
+        },
+        buttonColor: {
+          main: "#ffffff",
         },
       },
     },
@@ -37,6 +49,15 @@ const theme = extendTheme({
         root: ({ theme }) => ({
           margin: "0 !important",
           width: "100%",
+        }),
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          padding: "0 !important",
+          width: "100%",
+          boxShadow: "none",
         }),
       },
     },

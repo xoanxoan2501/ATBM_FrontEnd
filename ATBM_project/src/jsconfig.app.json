@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".", // Đặt gốc đường dẫn là thư mục gốc của dự án
+    "paths": {
+      "@/*": ["src/*"] // Thiết lập alias @ trỏ tới thư mục src
+    }
+  },
+  "include": ["src"] // Đảm bảo rằng chỉ có thư mục src được bao gồm
+}

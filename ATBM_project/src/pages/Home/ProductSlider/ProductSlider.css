@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.navigation-wrapper {
+  position: relative;
+}
+
+.keen-slider {
+  height: auto; /* Adjust height to fit content */
+  background-color: transparent; /* Remove background color */
+  border: none; /* Ensure no border */
+}
+
+.keen-slider__slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto; /* Set height to auto to fit content */
+  padding: 0; /* Remove padding for full width display */
+  box-sizing: border-box; /* Include padding in total size */
+}
+
+.category-titles {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px; /* Space between categories and slider */
+  padding: 10px; /* Padding for spacing */
+  background-color: transparent; /* Transparent background */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.category-title {
+  background: none;
+  border: none; /* Remove border */
+  color: #333;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 10px;
+  padding: 0; /* Remove padding for buttons */
+  transition: all 0.3s;
+}
+
+.category-title.active {
+  color: #dbdbdb; /* Text color for the active button */
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: #fff;
+  cursor: pointer;
+}
+
+.arrow--left {
+  left: 5px;
+}
+
+.arrow--right {
+  right: 5px;
+}
+
+.arrow--disabled {
+  fill: rgba(255, 255, 255, 0.5);
+}
+
+.dots {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+}
+
+.dot {
+  border: none;
+  width: 10px;
+  height: 10px;
+  background: #c5c5c5;
+  border-radius: 50%;
+  margin: 0 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dot:focus {
+  outline: none;
+}
+
+.dot.active {
+  background: #000;
+}
