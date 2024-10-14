@@ -1,13 +1,12 @@
-import DefaultLayout from './layouts';
-import LoginPage from './pages/LoginPage/LoginPage';
-
-const App  = () => {
-  return ( 
+import DefaultLayout from "./layouts";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+const App = () => {
+  return (
     <DefaultLayout>
-      <LoginPage /> 
+      <RegisterPage />
     </DefaultLayout>
-   );
-}
- 
-export default App;
+  );
+};
 
+export default App;
