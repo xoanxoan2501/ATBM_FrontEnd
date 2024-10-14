@@ -1,6 +1,9 @@
 import AppleIcon from "@mui/icons-material/Apple";
+//import SamsungIcon from '.Menus/PictureIcon/MyIcon.eps';
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from '@mui/icons-material/Person';
+import MenuIcon from '@mui/icons-material/Menu';
 import Store from "./Menus/Store";
 import Ipad from "./Menus/Ipad";
 import Airpods from "./Menus/Airpods";
@@ -28,6 +31,7 @@ const Header = ({ sx }) => {
           alignItems: "center",
           gap: 2,
         }}
+        
       >
         <AppleIcon />
         <Store />
@@ -47,6 +51,8 @@ const Header = ({ sx }) => {
       >
         <SearchIcon fontSize="small" />
         <LocalMallIcon fontSize="small" />
+        <PersonIcon fontSize="small" />
+        <MenuIcon fontSize="small" />
         <ModeSelection />
       </Box>
     </Box>
