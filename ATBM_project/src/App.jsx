@@ -4,7 +4,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 const App = () => {
   return (
     <DefaultLayout>
-      <RegisterPage />
+      <LoginPage />
     </DefaultLayout>
   );
 };

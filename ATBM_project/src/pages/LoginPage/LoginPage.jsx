@@ -19,7 +19,7 @@ const LoginPage = () => {
             marginTop: '40px'
           }}
         >
-          Đăng nhập vào Apple Store
+          Đăng nhập vào tài khoản SamSung  
         </Typography>
         <Box sx={{
           display: 'flex',
