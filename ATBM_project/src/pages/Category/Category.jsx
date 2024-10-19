@@ -28,6 +28,9 @@ export default function Category() {
             <CardProductCategory
               url={item.urlImage}
               content={item.productName}
+              color={item.color}
+              salePrice={item.priceSale}
+              price={item.price}
             />
           </Item>
         </Grid>

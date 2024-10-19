@@ -56,7 +56,7 @@ const theme = extendTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           padding: "0 !important",
-          width: "100%",
+          // width: "100%",
           boxShadow: "none",
         }),
       },

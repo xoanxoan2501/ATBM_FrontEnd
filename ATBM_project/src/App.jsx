@@ -27,7 +27,7 @@ import Category from "./pages/Category/Category";
 const App = () => {
   return (
     <DefaultLayout>
-      <Category />
+      <HomePage />
     </DefaultLayout>
   );
 };
