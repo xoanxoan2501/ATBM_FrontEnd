@@ -11,6 +11,7 @@ import TVandRadio from "./pages/Home/ProductSlider/TVandRadio/TVandRadio";
 import MobileDetail from "./pages/Product/MobileDetail";
 import CardProductCategory from "./components/CardProductCategory/CardProductCategory";
 import Category from "./pages/Category/Category";
+import Profile from "./pages/Profile/Profile";
 
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
@@ -29,7 +30,7 @@ import Category from "./pages/Category/Category";
 const App = () => {
   return (
     <DefaultLayout>
-      <HomePage />
+      <Profile />
     </DefaultLayout>
   );
 };
