@@ -47,37 +47,11 @@ const Header = ({ sx }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: 2,
+          gap: 1,
         }}
       >
-        <Tooltip
-          title="search"
-          sx={{
-            cursor: "pointer",
-          }}
-        >
-          <SearchIcon fontSize="small" />
-        </Tooltip>
-        <Tooltip
-          title="Cart"
-          sx={{
-            cursor: "pointer",
-          }}
-        >
-          <LocalMallIcon fontSize="small" />
-        </Tooltip>
-        <Tooltip
-          title="Profile"
-          sx={{
-            cursor: "pointer",
-          }}
-        >
-          <PersonIcon fontSize="small" />
-        </Tooltip>
-
-        <ProfileMenu>
-          <MenuIcon fontSize="small" />
-        </ProfileMenu>
+        <SearchIcon fontSize="small" />
+        <LocalMallIcon fontSize="small" />
         <ModeSelection />
       </Box>
     </Box>
