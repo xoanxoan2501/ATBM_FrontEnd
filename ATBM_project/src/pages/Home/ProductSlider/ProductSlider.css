@@ -10,43 +10,47 @@ body {
 }
 
 .keen-slider {
-  height: auto; /* Adjust height to fit content */
-  background-color: transparent; /* Remove background color */
-  border: none; /* Ensure no border */
+  height: fit-content; /* Đảm bảo chiều cao đầy đủ cho slider */
+  /* Không có màu nền */
 }
 
 .keen-slider__slide {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: auto; /* Set height to auto to fit content */
-  padding: 0; /* Remove padding for full width display */
-  box-sizing: border-box; /* Include padding in total size */
+  height: 868px; /* Đặt chiều cao cho từng slide */
+  max-height: 100vh; /* Đảm bảo không vượt quá chiều cao của viewport */
 }
+
+/* Không có màu nền cho các slide */
+
+/* .number-slide1, .number-slide2, .number-slide3, .number-slide4, .number-slide5, .number-slide6 {
+  Không sử dụng màu nền hoặc gradient
+} */
 
 .category-titles {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  margin-bottom: 20px; /* Space between categories and slider */
-  padding: 10px; /* Padding for spacing */
-  background-color: transparent; /* Transparent background */
-  z-index: 10; /* Ensure it appears above other elements */
+  margin-bottom: 0px; /* Khoảng cách giữa danh mục và slider */
+  padding: 0px; /* Thêm padding để không bị cắt bớt */
+  z-index: 10; /* Đảm bảo danh mục nằm trên các phần tử khác */
 }
 
 .category-title {
-  background: none;
-  border: none; /* Remove border */
+  background: none; /* Không có màu nền */
+  border: 2px solid transparent;
+  border-radius: 5px;
   color: #333;
   cursor: pointer;
   font-size: 16px;
   margin: 0 10px;
-  padding: 0; /* Remove padding for buttons */
+  padding: 10px 20px;
   transition: all 0.3s;
 }
 
 .category-title.active {
-  color: #dbdbdb; /* Text color for the active button */
+  border-color: #007bff; /* Màu sắc của nút đang hoạt động */
+  color: #007bff; /* Màu chữ của nút đang hoạt động */
 }
 
 .arrow {
@@ -68,7 +72,7 @@ body {
 }
 
 .arrow--disabled {
-  fill: rgba(255, 255, 255, 0.5);
+  fill: #fff;
 }
 
 .dots {
@@ -81,7 +85,6 @@ body {
   border: none;
   width: 10px;
   height: 10px;
-  background: #c5c5c5;
   border-radius: 50%;
   margin: 0 5px;
   padding: 5px;
