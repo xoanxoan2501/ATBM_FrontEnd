@@ -3,7 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import "./Slider.css";
 
-export default function Slider() {
+export default function Slider(props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -23,16 +23,13 @@ export default function Slider() {
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
           <div className="keen-slider__slide number-slide1">
-            <img src="/images/16pro.jpg" alt="Slide 1" />
+            <img src={props.url1} alt="Slide 1" />
           </div>
           <div className="keen-slider__slide number-slide2">
-            <img src="/images/HOME_R12_KV_Main-KV_pc.webp" alt="Slide 2" />
+            <img src={props.url2} alt="Slide 2" />
           </div>
           <div className="keen-slider__slide number-slide3">
-            <img
-              src="/images/24_ym_2h_f01_01_kv_1_alt_pc_1440x640.jpg"
-              alt="Slide 3"
-            />
+            <img src={props.url3} alt="Slide 3" />
           </div>
         </div>
 

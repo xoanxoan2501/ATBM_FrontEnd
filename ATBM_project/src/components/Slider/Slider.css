@@ -64,7 +64,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  fill: #fff;
+  fill: #939191; /* Màu xám cho trạng thái bình thường */
   cursor: pointer;
 }
 
@@ -77,5 +77,17 @@ body {
 }
 
 .arrow--disabled {
-  fill: rgba(255, 255, 255, 0.5);
+  fill: rgba(255, 255, 255, 0.5); /* Màu xám cho nút vô hiệu hóa */
+  cursor: not-allowed; /* Hiển thị con trỏ không cho phép */
+}
+
+/* Thay đổi màu khi chuột di qua nút */
+.arrow:hover {
+  fill: rgb(0, 0, 0); /* Màu đen khi di chuột qua */
+}
+
+/* Thay đổi màu cho các nút vô hiệu hóa */
+.arrow--disabled {
+  fill: #939191; /* Màu xám cho nút vô hiệu hóa */
+  cursor: not-allowed; /* Hiển thị con trỏ không cho phép */
 }

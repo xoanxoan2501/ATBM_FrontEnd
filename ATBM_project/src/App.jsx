@@ -8,7 +8,7 @@ import CardSlider from "./pages/Home/Item/CardSlider/CardSlider";
 import ProductPhone from "./pages/Home/ProductSlider/ProductPhone";
 import CardTV from "./components/CardTV/CardTV";
 import TVandRadio from "./pages/Home/ProductSlider/TVandRadio/TVandRadio";
-import MobileDetail from './pages/Product/MobileDetail';
+import MobileDetail from "./pages/Product/MobileDetail";
 import CardProductCategory from "./components/CardProductCategory/CardProductCategory";
 import Category from "./pages/Category/Category";
 
@@ -29,7 +29,7 @@ import Category from "./pages/Category/Category";
 const App = () => {
   return (
     <DefaultLayout>
-      <MobileDetail/>
+      <HomePage />
     </DefaultLayout>
   );
 };
