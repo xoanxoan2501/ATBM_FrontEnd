@@ -62,5 +62,4 @@ const MobileDetail = (props) => {
     </>
   );
 };
-
 export default MobileDetail;

@@ -8,7 +8,11 @@ import CardSlider from "./pages/Home/Item/CardSlider/CardSlider";
 import ProductPhone from "./pages/Home/ProductSlider/ProductPhone";
 import CardTV from "./components/CardTV/CardTV";
 import TVandRadio from "./pages/Home/ProductSlider/TVandRadio/TVandRadio";
-import MobileDetail from './pages/Product/MobileDetail';
+import MobileDetail from "./pages/Product/MobileDetail";
+import CardProductCategory from "./components/CardProductCategory/CardProductCategory";
+import Category from "./pages/Category/Category";
+import Profile from "./pages/Profile/Profile";
+
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
 // * 2: Thực hiện khởi tạo hoặc cập nhật các giá trị cho state
@@ -26,7 +30,7 @@ import MobileDetail from './pages/Product/MobileDetail';
 const App = () => {
   return (
     <DefaultLayout>
-      <MobileDetail/>
+      <Profile />
     </DefaultLayout>
   );
 };

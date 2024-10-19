@@ -81,7 +81,7 @@ body {
   justify-content: center;
   margin-bottom: 0px; /* Khoảng cách giữa danh mục và slider */
   padding: 0px; /* Thêm padding để không bị cắt bớt */
-  background-color: white; /* Màu nền cho khu vực danh mục */
+  /* background-color: white; Màu nền cho khu vực danh mục */
   z-index: 10; /* Đảm bảo danh mục nằm trên các phần tử khác */
 }
 
