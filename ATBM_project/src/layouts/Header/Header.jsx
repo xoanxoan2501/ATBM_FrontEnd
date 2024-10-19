@@ -2,8 +2,8 @@ import AppleIcon from "@mui/icons-material/Apple";
 //import SamsungIcon from '.Menus/PictureIcon/MyIcon.eps';
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
-import PersonIcon from '@mui/icons-material/Person';
-import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from "@mui/icons-material/Person";
+import MenuIcon from "@mui/icons-material/Menu";
 import Store from "./Menus/Store";
 import Ipad from "./Menus/Ipad";
 import Airpods from "./Menus/Airpods";
@@ -12,6 +12,8 @@ import Mac from "./Menus/Mac";
 import Watch from "./Menus/Watch";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import ModeSelection from "../../components/Modeselection";
+import Tooltip from "@mui/material/Tooltip";
+import ProfileMenu from "./Profile/Profile";
 
 const Header = ({ sx }) => {
   console.log(sx);
@@ -31,7 +33,6 @@ const Header = ({ sx }) => {
           alignItems: "center",
           gap: 2,
         }}
-        
       >
         <AppleIcon />
         <Store />
@@ -46,13 +47,37 @@ const Header = ({ sx }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: 1,
+          gap: 2,
         }}
       >
-        <SearchIcon fontSize="small" />
-        <LocalMallIcon fontSize="small" />
-        <PersonIcon fontSize="small" />
-        <MenuIcon fontSize="small" />
+        <Tooltip
+          title="search"
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          <SearchIcon fontSize="small" />
+        </Tooltip>
+        <Tooltip
+          title="Cart"
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          <LocalMallIcon fontSize="small" />
+        </Tooltip>
+        <Tooltip
+          title="Profile"
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          <PersonIcon fontSize="small" />
+        </Tooltip>
+
+        <ProfileMenu>
+          <MenuIcon fontSize="small" />
+        </ProfileMenu>
         <ModeSelection />
       </Box>
     </Box>
