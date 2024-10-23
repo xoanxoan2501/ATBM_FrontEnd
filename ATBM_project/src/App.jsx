@@ -30,7 +30,7 @@ import Profile from "./pages/Profile/Profile";
 const App = () => {
   return (
     <DefaultLayout>
-      <Profile />
+      <Category />
     </DefaultLayout>
   );
 };
