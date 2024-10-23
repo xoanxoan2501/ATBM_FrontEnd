@@ -12,6 +12,7 @@ import MobileDetail from "./pages/Product/MobileDetail";
 import CardProductCategory from "./components/CardProductCategory/CardProductCategory";
 import Category from "./pages/Category/Category";
 import Profile from "./pages/Profile/Profile";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
@@ -29,9 +30,34 @@ import Profile from "./pages/Profile/Profile";
 // * được gọi mỗi khi giá trị của dependency thay đổi => thực hiện logic với các state
 const App = () => {
   return (
-    <DefaultLayout>
-      <Category />
-    </DefaultLayout>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <DefaultLayout>
+              <HomePage />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/login-page"
+          element={
+            <DefaultLayout>
+              <LoginPage />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/register-page"
+          element={
+            <DefaultLayout>
+              <RegisterPage />
+            </DefaultLayout>
+          }
+        />
+      </Routes>
+    </Router>
   );
 };
 
