@@ -1,8 +1,43 @@
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import Link from '@mui/material/Link'
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { Button } from '@mui/material'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { authAPI } from '../../apis/authAPI'
+import { useNavigate } from 'react-router-dom'
 const LoginPage = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  }) 
+
+  const navigate = useNavigate()
+  const formDataSchema = z.object({
+    email: z.string().email({message: 'Invalid email address'}),
+    password: z.string().min(6,{message:'Password must be at least 6 characters long'})
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: zodResolver(formDataSchema)
+  })
+
+  const handleLogin= (data) => {
+    authAPI.loginAPI(data).then((res) => {
+      const data = res.result;
+      if (data.authenticated === true) {
+        localStorage.setItem('accesstoken', data.token)
+        navigate('/')
+      }
+    })
+  }
   return (
     <Box>
       <Box
@@ -19,19 +54,28 @@ const LoginPage = () => {
             marginTop: '40px'
           }}
         >
-          Đăng nhập vào tài khoản SamSung  
+          Đăng nhập vào tài khoản Apple 
         </Typography>
-        <Box sx={{
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <Box sx={{
+          gap: 2 ,
+          marginTop: '20px'
+        }}>
+          <Box sx={{
           display: 'flex',
           flexDirection: 'column',
           gap: 2 ,
           marginTop: '20px'
         }}>
         <TextField
-          required
           id="outlined-required"
-          label="Username or Phone"
-          defaultValue=""
+          label="Email"
+          error={errors.email}
+          {...register('email')}	
+          value={formData.email}
+          onChange={(e) => 
+            setFormData({...formData, email: e.target.value })
+          }
           sx={{
             width: '480px',
             height: '56px',
@@ -40,11 +84,19 @@ const LoginPage = () => {
             }
           }}
         />
+        {errors.email && (
+          <Typography color="red">{errors.email.message}</Typography>
+        )}
           <TextField
-            id="outlined-password-input"
+            id="outlined"
             label="Password"
+            error={errors.password}
+            {...register('password')}
+            value={formData.password}
             type="password"
-            autoComplete="current-password"
+            onChange={(e) => 
+              setFormData({...formData, password: e.target.value })
+            }
             sx={{
               width: '480px',
               height: '56px',
@@ -53,22 +105,40 @@ const LoginPage = () => {
               }
             }}
           />
+          {errors.password && (
+            <Typography color="red">{errors.password.message}</Typography>
+          )}
         </Box>
+        <Button type="submit" variant="contained" sx={{
+            marginTop: '24px',
+            backgroundColor: '#1976d2',
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#115293'
+            }
+          }}>
+            Đăng nhập
+          </Button>
+          </Box>
+        
+        </form> 
+        
         <Box sx={{
             marginTop:'24px',
             textAlign: 'center'
         }}>
-        <Link href="/forget-password">Bạn đã quên mật khẩu</Link>
+        <Link to={'/forgot-password'}>Bạn đã quên mật khẩu</Link>
         <Typography sx={{
             marginTop:'20px'
         }}>
             Bạn đã có Tài khoản? 
-            <Link href="/register">Tạo tài khoản ngay bây giờ</Link>
+            <Link to={'/register-page'}>Tạo tài khoản ngay bây giờ</Link>
         </Typography>
         </Box>
       </Box>
     </Box>
   )
 }
+
 
 export default LoginPage
