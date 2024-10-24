@@ -31,8 +31,9 @@ const LoginPage = () => {
 
   const handleLogin= (data) => {
     authAPI.loginAPI(data).then((res) => {
-      const data = res.result;
-      if (data.authenticated === true) {
+      const data = res.data;
+      console.log(data.authenticated)
+      if ( data.authenticated === true) {
         localStorage.setItem('accesstoken', data.token)
         navigate('/')
       }
@@ -57,10 +58,6 @@ const LoginPage = () => {
           Đăng nhập vào tài khoản Apple 
         </Typography>
         <form onSubmit={handleSubmit(handleLogin)}>
-          <Box sx={{
-          gap: 2 ,
-          marginTop: '20px'
-        }}>
           <Box sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -109,20 +106,17 @@ const LoginPage = () => {
             <Typography color="red">{errors.password.message}</Typography>
           )}
         </Box>
-        <Button type="submit" variant="contained" sx={{
+        <Button color="primary" type="submit" sx={{
             marginTop: '24px',
-            backgroundColor: '#1976d2',
-            color: '#fff',
+            backgroundColor: 'black',
+            color: 'white',
             '&:hover': {
-              backgroundColor: '#115293'
+              backgroundColor: 'grey'
             }
           }}>
             Đăng nhập
-          </Button>
-          </Box>
-        
+        </Button>
         </form> 
-        
         <Box sx={{
             marginTop:'24px',
             textAlign: 'center'
