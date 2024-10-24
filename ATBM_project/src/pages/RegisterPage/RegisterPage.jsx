@@ -7,18 +7,26 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
 import MyDatePicker from "../../components/DatePicker/DatePicker"; // Đảm bảo bạn đã có DatePicker
-
+import { useNavigate, Link } from "react-router-dom"; // Import useNavigate
+import { authAPI } from "../../apis/authAPI";
 // Định nghĩa schema với Zod
 const formDataSchema = z
   .object({
     email: z.string().email({ message: "Invalid email address" }),
     password: z
       .string()
-      .min(6, { message: "Password must be at least 6 characters long" }),
+      .min(8, { message: "Password must be at least 8 characters long" }) // Độ dài tối thiểu
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        {
+          message:
+            "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+        }
+      ), // Kiểm tra mật khẩu phải đủ mạnh
     firstname: z.string().min(3, { message: "First name is required" }),
     lastname: z.string().min(3, { message: "Last name is required" }),
-    confirmPassword: z.string().min(6, {
-      message: "Confirm password must be at least 6 characters long",
+    confirmPassword: z.string().min(8, {
+      message: "Confirm password must be at least 8 characters long",
     }),
     dob: z.date().refine((date) => dayjs().diff(date, "years") >= 16, {
       message: "You must be at least 16 years old",
@@ -29,7 +37,7 @@ const formDataSchema = z
     path: ["confirmPassword"],
   });
 
-const RegisterPage = (props) => {
+const RegisterPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -48,10 +56,25 @@ const RegisterPage = (props) => {
     resolver: zodResolver(formDataSchema),
   });
 
-  const handleRegister = (data) => {
-    const newData = { ...data, dob: formData.dob };
+  const navigate = useNavigate(); // Khởi tạo useNavigate
+
+  const handleRegister = async (data) => {
+    // Chỉ gửi những trường cần thiết theo yêu cầu của server
+    const newData = {
+      email: data.email,
+      password: data.password,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      dob: dayjs(formData.dob).format("YYYY-MM-DD"), // Định dạng lại ngày sinh
+    };
+
     console.log("Dữ liệu đăng ký:", newData);
-    console.log("Lỗi:", errors);
+
+    try {
+      navigate("/"); // Điều hướng đến trang chính
+    } catch (error) {
+      console.error("Đăng ký thất bại:", error); // Xử lý lỗi nếu cần
+    }
   };
 
   return (
@@ -144,12 +167,12 @@ const RegisterPage = (props) => {
                 error={!!errors.email}
                 variant="outlined"
                 {...register("email")}
-                value={formData.eamil}
+                value={formData.email} // Sửa lỗi chính tả từ eamil thành email
                 onChange={(e) =>
-                  setFormData({ ...formData, eamil: e.target.value })
+                  setFormData({ ...formData, email: e.target.value })
                 }
               />
-              {errors.username && (
+              {errors.email && (
                 <Typography sx={{ color: "red" }}>
                   {errors.email.message}
                 </Typography>
@@ -195,14 +218,44 @@ const RegisterPage = (props) => {
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                marginTop: "20px",
+                justifyContent: "center", // Căn giữa theo chiều ngang
+                alignItems: "center", // Căn giữa theo chiều dọc
+                marginTop: "10px",
+                gap: 2,
               }}
             >
-              <Button variant="contained" type="submit">
-                Đăng kí
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: "white", // Đổi màu nền thành trắng
+                  color: "black", // Đổi màu chữ thành đen
+                  border: "2px solid black", // Tạo viền màu đen
+                  "&:hover": {
+                    backgroundColor: "black", // Màu nền khi hover
+                    color: "white", // Màu chữ khi hover
+                  },
+                }}
+              >
+                Register
               </Button>
+
+              <Link to={"/login-page"}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "white", // Đổi màu nền thành trắng
+                    color: "black", // Đổi màu chữ thành đen
+                    border: "2px solid black", // Tạo viền màu đen
+                    "&:hover": {
+                      backgroundColor: "black", // Màu nền khi hover
+                      color: "white", // Màu chữ khi hover
+                    },
+                  }}
+                >
+                  Back to Login
+                </Button>
+              </Link>
             </Box>
           </form>
         </Container>

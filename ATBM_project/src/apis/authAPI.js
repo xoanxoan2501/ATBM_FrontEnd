@@ -1,10 +1,10 @@
 import instance from "./apiConfig";
+
 const registerAPI = async (data) => {
-  console.log("🚀 ~ registerAPI ~ data:", data);
+  console.log("🚀 ~ loginAPI ~ data:", data);
+  const response = await instance.post("/users", data);
 
-  //   const response = await instance.post("/user", data);
-
-  //   return response.data;
+  return response.data;
 };
 
 export const authAPI = {

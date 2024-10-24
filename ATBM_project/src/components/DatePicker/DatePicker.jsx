@@ -22,7 +22,7 @@ export default function MyDatePicker({ dob, setFormData, setValue }) {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer components={["DatePicker"]}>
           <DatePicker
-            value={dob ? dayjs(dob) : null} // Đảm bảo `dob` được chuyển sang đối tượng `dayjs`
+            value={dob ? dayjs(dob) : null} // Đảm bảo dob được chuyển sang đối tượng dayjs
             onChange={handleDateChange}
             renderInput={(params) => (
               <TextField {...params} label="Ngày sinh" />
