@@ -56,6 +56,14 @@ const App = () => {
             </DefaultLayout>
           }
         />
+         {/* <Route
+          path="/productDetail-page"
+          element={
+            <DefaultLayout>
+              <ProductDetail />
+            </DefaultLayout>
+          }
+        /> */}
       </Routes>
     </Router>
   );

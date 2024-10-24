@@ -1,6 +1,8 @@
+import MobileDetail from '../Product/MobileDetail'
+
 const ProductDetailPage = () => {
   return ( 
-  <div>Product Detail Page</div>
+  <MobileDetail />
  )
 }
 
