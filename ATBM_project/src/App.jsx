@@ -13,7 +13,11 @@ import CardProductCategory from "./components/CardProductCategory/CardProductCat
 import Category from "./pages/Category/Category";
 import Profile from "./pages/Profile/Profile";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-
+import User from "./pages/Admin/user/user";
+import Product from "./pages/Admin/Product/Product";
+import AppBar from "./pages/Admin/AppBar/AppBar";
+import CategoryAdmin from "./pages/Admin/Category/Category";
+import CategoryItem from "./pages/Admin/Category/CategoryItem/CategoryItem";
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
 // * 2: Thực hiện khởi tạo hoặc cập nhật các giá trị cho state
