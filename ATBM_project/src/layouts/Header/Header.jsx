@@ -51,6 +51,7 @@ const Header = ({ sx }) => {
         }}
       >
         <SearchIcon fontSize="small" />
+        <PersonIcon />
         <LocalMallIcon fontSize="small" />
         <ModeSelection />
       </Box>

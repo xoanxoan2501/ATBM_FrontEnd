@@ -34,36 +34,35 @@ import CategoryItem from "./pages/Admin/Category/CategoryItem/CategoryItem";
 // * được gọi mỗi khi giá trị của dependency thay đổi => thực hiện logic với các state
 const App = () => {
   return (
-    <User />
-    // <Router>
-    //   <Routes>
-    //     <Route
-    //       path="/"
-    //       element={
-    //         <DefaultLayout>
-    //           <HomePage />
-    //         </DefaultLayout>
-    //       }
-    //     />
-    //     <Route
-    //       path="/login-page"
-    //       element={
-    //         <DefaultLayout>
-    //           <LoginPage />
-    //         </DefaultLayout>
-    //       }
-    //     />
-    //     <Route
-    //       path="/register-page"
-    //       element={
-    //         <DefaultLayout>
-    //           <RegisterPage />
-    //         </DefaultLayout>
-    //       }
-    //     />
-    //   </Routes>
-    // </Router>
-  );
-};
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <DefaultLayout>
+              <HomePage />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/login-page"
+          element={
+            <DefaultLayout>
+              <LoginPage />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/register-page"
+          element={
+            <DefaultLayout>
+              <RegisterPage />
+            </DefaultLayout>
+          }
+        />
+      </Routes>
+    </Router>
+  )
+}
 
-export default App;
+export default App
