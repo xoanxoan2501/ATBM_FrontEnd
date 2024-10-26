@@ -62,6 +62,7 @@ const App = () => {
             </DefaultLayout>
           }
         />
+<<<<<<< HEAD
 
         <Route
           path="/admin/user"
@@ -92,5 +93,11 @@ const App = () => {
     </Router>
   );
 };
+=======
+      </Routes>
+    </Router>
+  )
+}
+>>>>>>> b259b657e72c1ba7fe33084a6db32161ec883367
 
-export default App;
+export default App
