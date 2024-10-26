@@ -1,71 +1,80 @@
 import TextField from "@mui/material/TextField";
 import { Box, Container, Typography } from "@mui/material";
-
-import { Checkbox } from "@mui/material";
-import { FormControlLabel } from "@mui/material";
-import { FormGroup } from "@mui/material";
-import Button from "@mui/material/Button";
-import SelectRadio from "../../components/SelectRadio/SelectRadio";
-import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
-import MyDatePicker from "../../components/DatePicker/DatePicker";
-import CountrySelection from "../../components/CountrySelection/CountrySelection";
+import { Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authAPI } from "../../apis/authAPI";
 import dayjs from "dayjs";
-
-const minimumAgeDate = new Date();
-minimumAgeDate.setFullYear(minimumAgeDate.getFullYear() - 16);
-
-const RegisterPage = (props) => {
-  // Định nghĩa schema cho formData
-  const formDataSchema = z.object({
-    username: z.string().email({ message: "Invalid username address" }),
+import MyDatePicker from "../../components/DatePicker/DatePicker"; // Đảm bảo bạn đã có DatePicker
+import { useNavigate, Link } from "react-router-dom"; // Import useNavigate
+import { authAPI } from "../../apis/authAPI";
+// Định nghĩa schema với Zod
+const formDataSchema = z
+  .object({
+    email: z.string().email({ message: "Invalid email address" }),
     password: z
       .string()
-      .min(6, { message: "Password must be at least 6 characters long" }),
-    firstName: z.string().min(3, { message: "First name is required" }),
-    lastName: z.string().min(3, { message: "Last name is required" }),
-    confirmPassword: z.string().min(6, {
-      message: "Confirm password must be at least 6 characters long",
+      .min(8, { message: "Password must be at least 8 characters long" }) // Độ dài tối thiểu
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        {
+          message:
+            "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+        }
+      ), // Kiểm tra mật khẩu phải đủ mạnh
+    firstname: z.string().min(3, { message: "First name is required" }),
+    lastname: z.string().min(3, { message: "Last name is required" }),
+    confirmPassword: z.string().min(8, {
+      message: "Confirm password must be at least 8 characters long",
     }),
+    dob: z.date().refine((date) => dayjs().diff(date, "years") >= 16, {
+      message: "You must be at least 16 years old",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
 
-  // Kiểm tra confirmPassword khớp với password
-  const extendedFormDataSchema = formDataSchema.refine(
-    (data) => data.password === data.confirmPassword,
-    {
-      message: "Passwords do not match",
-      path: ["confirmPassword"], // Đặt lỗi vào trường confirmPassword
-    }
-  );
-
+const RegisterPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     firstname: "",
     lastname: "",
     confirmPassword: "",
-    dob: dayjs(Date.now()).format("YYYY-MM-DD"),
+    dob: dayjs().toDate(),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: zodResolver(formDataSchema),
   });
 
-  const handleRegister = (data) => {
-    const newData = { ...data, dob: formData.dob };
-    console.log("🚀 ~ handleRegister ~ newData:", newData);
+  const navigate = useNavigate(); // Khởi tạo useNavigate
 
-    authAPI.registerAPI(newData).then((res) => {
-      console.log("🚀 ~ handleRegister ~ res", res);
-    });
+  const handleRegister = async (data) => {
+    // Chỉ gửi những trường cần thiết theo yêu cầu của server
+    const newData = {
+      email: data.email,
+      password: data.password,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      dob: dayjs(formData.dob).format("YYYY-MM-DD"), // Định dạng lại ngày sinh
+    };
+
+    console.log("Dữ liệu đăng ký:", newData);
+
+    try {
+      navigate("/"); // Điều hướng đến trang chính
+    } catch (error) {
+      console.error("Đăng ký thất bại:", error); // Xử lý lỗi nếu cần
+    }
   };
 
   return (
@@ -98,40 +107,30 @@ const RegisterPage = (props) => {
         </Typography>
         <Container sx={{ width: "48%" }}>
           <form onSubmit={handleSubmit(handleRegister)}>
-            <Box
-              sx={{
-                display: "flex",
-                gap: 2,
-              }}
-            >
+            <Box sx={{ display: "flex", gap: 2 }}>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <TextField
-                  id="outlined-basic"
-                  label="first name"
-                  error={errors.firstname}
+                  id="firstname"
+                  label="First Name"
+                  error={!!errors.firstname}
                   variant="outlined"
                   {...register("firstname")}
-                  value={formData.firstName}
+                  value={formData.firstname}
                   onChange={(e) =>
                     setFormData({ ...formData, firstname: e.target.value })
                   }
                 />
-                {errors.firstName && (
+                {errors.firstname && (
                   <Typography sx={{ color: "red" }}>
-                    {errors.firstName.message}
+                    {errors.firstname.message}
                   </Typography>
                 )}
               </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <TextField
-                  id="outlined-basic"
-                  label="last name"
-                  error={errors.lastname}
+                  id="lastname"
+                  label="Last Name"
+                  error={!!errors.lastname}
                   variant="outlined"
                   {...register("lastname")}
                   value={formData.lastname}
@@ -139,72 +138,124 @@ const RegisterPage = (props) => {
                     setFormData({ ...formData, lastname: e.target.value })
                   }
                 />
-                {errors.lastName && (
+                {errors.lastname && (
                   <Typography sx={{ color: "red" }}>
                     {errors.lastname.message}
                   </Typography>
                 )}
               </Box>
             </Box>
-            <Box
-              sx={{
-                marginTop: "32px",
-                width: "100%",
-              }}
-            >
-              <MyDatePicker />
-            </Box>
-            <Box
-              sx={{
-                marginTop: "20px",
-                gap: 2,
-                marginBottom: "20px",
-              }}
-            >
-              <hr></hr>
-              <Box sx={{ gap: 2, marginTop: "15px", marginBottom: "20px" }}>
-                <TextField
-                  sx={{
-                    width: "100%",
-                  }}
-                  id="outlined-basic"
-                  label="email "
-                  variant="outlined"
-                  value={formData.username}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  sx={{
-                    width: "100%",
-                  }}
-                  id="outlined-basic"
-                  label="Mật Khẩu"
-                  variant="outlined"
-                />
-              </Box>
+
+            {/* DatePicker cho ngày sinh */}
+            <Box sx={{ marginTop: "20px" }}>
+              <MyDatePicker
+                dob={formData.dob} // Truyền giá trị dob
+                setFormData={setFormData} // Truyền hàm setFormData
+                setValue={setValue} // Truyền hàm setValue từ react-hook-form
+              />
+              {errors.dob && (
+                <Typography sx={{ color: "red" }}>
+                  {errors.dob.message}
+                </Typography>
+              )}
             </Box>
 
-            <Box>
+            <Box sx={{ marginTop: "20px" }}>
               <TextField
-                sx={{
-                  width: "100%",
-                }}
-                id="outlined-basic"
-                label="Nhập lại mật Khẩu"
+                id="email"
+                label="Email"
+                error={!!errors.email}
+                variant="outlined"
+                {...register("email")}
+                value={formData.email} // Sửa lỗi chính tả từ eamil thành email
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
+              {errors.email && (
+                <Typography sx={{ color: "red" }}>
+                  {errors.email.message}
+                </Typography>
+              )}
+            </Box>
+            <Box sx={{ marginTop: "20px" }}>
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                error={!!errors.password}
+                {...register("password")}
+                variant="outlined"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              {errors.password && (
+                <Typography sx={{ color: "red" }}>
+                  {errors.password.message}
+                </Typography>
+              )}
+            </Box>
+            <Box sx={{ marginTop: "15px" }}>
+              <TextField
+                label="Confirm Password"
+                type="password"
+                error={!!errors.confirmPassword}
+                {...register("confirmPassword")}
                 variant="outlined"
                 value={formData.confirmPassword}
+                onChange={(e) =>
+                  setFormData({ ...formData, confirmPassword: e.target.value })
+                }
               />
+              {errors.confirmPassword && (
+                <Typography sx={{ color: "red" }}>
+                  {errors.confirmPassword.message}
+                </Typography>
+              )}
             </Box>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                justifyContent: "center", // Căn giữa theo chiều ngang
+                alignItems: "center", // Căn giữa theo chiều dọc
                 marginTop: "10px",
+                gap: 2,
               }}
             >
-              <Button variant="contained">Tiếp tục</Button>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  backgroundColor: "white", // Đổi màu nền thành trắng
+                  color: "black", // Đổi màu chữ thành đen
+                  border: "2px solid black", // Tạo viền màu đen
+                  "&:hover": {
+                    backgroundColor: "black", // Màu nền khi hover
+                    color: "white", // Màu chữ khi hover
+                  },
+                }}
+              >
+                Register
+              </Button>
+
+              <Link to={"/login-page"}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "white", // Đổi màu nền thành trắng
+                    color: "black", // Đổi màu chữ thành đen
+                    border: "2px solid black", // Tạo viền màu đen
+                    "&:hover": {
+                      backgroundColor: "black", // Màu nền khi hover
+                      color: "white", // Màu chữ khi hover
+                    },
+                  }}
+                >
+                  Back to Login
+                </Button>
+              </Link>
             </Box>
           </form>
         </Container>

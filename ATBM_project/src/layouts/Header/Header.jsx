@@ -74,6 +74,7 @@ const Header = ({ sx }) => {
         }}
       >
         <SearchIcon fontSize="small" />
+        <PersonIcon />
         <LocalMallIcon fontSize="small" />
         <div>
           <Button
