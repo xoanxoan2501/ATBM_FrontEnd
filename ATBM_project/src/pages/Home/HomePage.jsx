@@ -9,9 +9,6 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 export default function HomePage() {
-  useEffect(() => {
-    instance.get('/users')
-  })
   return (
     // * code cho phan body
     <Container>
