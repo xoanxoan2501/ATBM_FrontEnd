@@ -8,10 +8,12 @@ import CardSlider from "./pages/Home/Item/CardSlider/CardSlider";
 import ProductPhone from "./pages/Home/ProductSlider/ProductPhone";
 import CardTV from "./components/CardTV/CardTV";
 import TVandRadio from "./pages/Home/ProductSlider/TVandRadio/TVandRadio";
-import MobileDetail from "./pages/Product/MobileDetail";
+
 import CardProductCategory from "./components/CardProductCategory/CardProductCategory";
 import Category from "./pages/Category/Category";
 import Profile from "./pages/Profile/Profile";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import Search from './components/Search/search';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import User from "./pages/Admin/user/user";
 import Product from "./pages/Admin/Product/Product";
@@ -57,6 +59,22 @@ const App = () => {
           element={
             <DefaultLayout>
               <RegisterPage />
+            </DefaultLayout>
+          }
+        />
+         <Route
+          path="/productDetail-page"
+          element={
+            <DefaultLayout>
+              <ProductDetail />
+            </DefaultLayout>
+          }
+        />
+      <Route
+          path="/search"
+          element={
+            <DefaultLayout>
+              <Search />
             </DefaultLayout>
           }
         />

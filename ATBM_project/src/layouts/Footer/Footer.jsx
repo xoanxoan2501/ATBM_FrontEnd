@@ -9,7 +9,7 @@ const spacing = 2;
 const Footer = () => {
   return (
     <Box sx={{ backgroundColor: '#F5F5F5', padding: spacing, width: '100%' }}>
-      <Grid container spacing={spacing}  justifyContent='space-between' >
+      <Grid container spacing={spacing}  justifyContent='flex-start' >
         <Grid item xs={12} md={2}>
           <FormLabel component="legend">Sản Phẩm & Dịch Vụ</FormLabel>
             <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
@@ -43,7 +43,7 @@ const Footer = () => {
               Màn hình
             </Typography>
         </Grid>
-        <Grid item xs={12} md={2}>
+        {/* <Grid item xs={12} md={2}>
           <FormLabel component="legend">Mua Trực Tuyến</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Ưu đãi độc quyền
@@ -72,7 +72,7 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Ưu đãi chính phủ
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={2}>
           <FormLabel component="legend">Tài khoản</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
@@ -87,8 +87,7 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Samsung Members
           </Typography>
-        </Grid>
-        <Grid item xs={12} md={2}>
+
           <FormLabel component="legend">Giới thiệu về chúng tôi</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Thông tin về công ty 
@@ -99,7 +98,33 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Nhận diện thương hiệu
           </Typography>
-        </Grid>
+        </Grid> 
+        <Grid item xs={12} md={8} container justifyContent="center">
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2,
+                padding: 2,
+            }}
+        >
+            <Typography
+                variant="body1"
+                component="b"
+                sx={{
+                    fontSize: '2rem',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                }}
+            >
+                Chúng tôi có thể giúp bạn tìm kiếm?
+            </Typography>
+            <Link to="/search">
+                <button>Tìm kiếm</button>
+            </Link>
+        </Box>
+        </Grid>      
       </Grid>
     </Box>
   );

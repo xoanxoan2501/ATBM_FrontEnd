@@ -21,7 +21,7 @@ const  HeaderNavigation= () => {
           alignItems: "center",
           gap: 2,
         }}>
-            <h1>GALAXY WATCH7(BLUETOOTH,44mm)</h1>
+            <h1>IPHONE 13 SERIES</h1>
             <Button variant="contained" size="small" 
             sx={{
                 borderRadius: "20px",

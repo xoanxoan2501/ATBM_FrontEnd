@@ -38,3 +38,37 @@
     height: 100%;
     object-fit: cover;
   }
+ul{
+    list-style: none;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+}
+
+ul li{
+    width: 40px;
+    height: 40px;
+    background-color: pink;
+    border-radius: 50%;
+    border: grey solid 1px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+ul li:hover{
+    transform: scale(1.1);
+}
+#pink{
+  background-color: #FADDD7;
+}
+#green{
+  background-color: #576856;
+}
+#black{
+  background-color: #232A31;
+}
+#white{
+  background-color: #FAF6F2;
+}
+#blue{
+  background-color: #276787;
+}
