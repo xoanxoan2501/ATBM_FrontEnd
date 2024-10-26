@@ -1,6 +1,5 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { userAPI } from '@/apis/UserAPI';
+
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,10 +8,13 @@ import TableContainer from '@mui/material/TableContainer';
 
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-
+import { stableSort, getComparator } from '@/utils/formatters';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-
+import { categoryAdminAPI } from '@/apis/categoryAdminAPI';
+import { useEffect } from 'react';
+import EnhancedTableHeadCateGory from './EnhancedTableHead/EnhancedTableHead';
+import EnhancedTableToolbarCateGogy from './EnhancedTableToobar/EnhancedTableToobar';
 import {
   Dialog,
   DialogActions,
@@ -23,31 +25,22 @@ import {
   Snackbar,
   Alert,
 } from '@mui/material';
-import { useEffect } from 'react';
-import { stableSort, getComparator } from '@/utils/formatters';
-import EnhancedTableToolbar from './EnhancedTableToobar/EnhancedTableToobar';
-import EnhancedTableHead from './EnhancedTableHead/EnhancedTableHead';
-import { date } from 'zod';
-const createData = (id, email, firstname, lastname, dob, roles) => {
+
+const createData = (id, name) => {
   let newRoles = '';
-  roles.map((role) => (newRoles += role + ' '));
-  return { id, email, firstname, lastname, dob, roles: newRoles };
+
+  return { id, name };
 };
-export default function User() {
+
+// const initialRows = [createData(1, 'Electronics'), createData(2, 'Furniture')];
+
+export default function CategoryAdmin() {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('email');
+  const [orderBy, setOrderBy] = React.useState('name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [editUser, setEditUser] = React.useState(null);
-  const [addUser, setAddUser] = React.useState({
-    email: '',
-    firstname: '',
-    lastname: '',
-    dob: '',
-    roles: '',
-    password: '',
-  });
+  const [addCategory, setAddCategory] = React.useState({ name: '' });
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [isEditing, setIsEditing] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -90,63 +83,40 @@ export default function User() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleAddUser = () => {
+  const handleAddCategory = () => {
     setDialogOpen(true);
     setIsEditing(false);
-    setAddUser({
-      email: '',
-      firstname: '',
-      lastname: '',
-      dob: '',
-      roles: '',
-      password: '',
-    });
+    setAddCategory({ name: '' });
   };
 
-  const handleEditUser = () => {
+  const handleEditCategory = () => {
     if (selected.length === 1) {
-      const userToEdit = rows.find((row) => row.id === selected[0]);
-      setAddUser(userToEdit);
+      const categoryToEdit = rows.find((row) => row.id === selected[0]);
+      setAddCategory(categoryToEdit);
       setDialogOpen(true);
       setIsEditing(true);
     }
   };
 
-  const handleDeleteUser = async () => {
+  const handleDeleteCategory = async () => {
     try {
       await Promise.all(
-        selected.map(async (userId) => {
-          await userAPI.deleteUserAPI(userId); // Gọi API để xóa người dùng
+        selected.map(async (categoriesId) => {
+          await categoryAdminAPI.deleteCategoryAPI(categoriesId); // Gọi API để xóa categogies
         })
       );
       const newRows = rows.filter((row) => !selected.includes(row.id));
       setRows(newRows);
       setSelected([]);
     } catch (error) {
-      setErrorMessage('Xóa người dùng thất bại!');
+      setErrorMessage('Xóa thất bại!');
       setOpenErrorSnackbar(true);
     }
   };
 
-  const handleSaveUser = async () => {
+  const handleSaveCategory = async () => {
     // Kiểm tra các trường bắt buộc
-    if (
-      !addUser.email ||
-      !addUser.firstname ||
-      !addUser.lastname ||
-      !addUser.dob ||
-      !addUser.roles ||
-      !addUser.password
-    ) {
+    if (!addCategory.id || !addCategory.name) {
       setErrorMessage('Tất cả các trường đều bắt buộc!');
       setOpenErrorSnackbar(true);
       return;
@@ -154,21 +124,21 @@ export default function User() {
 
     try {
       if (isEditing) {
-        // Cập nhật người dùng
-        await userAPI.updateUserAPI(addUser, addUser.id); // Gọi API để cập nhật người dùng
+        // Cập nhật category
+        await categoryAdminAPI.updateCategoryAPI(addCategory, addCategory.id); // Gọi API để cập nhật người dùng
         const updatedRows = rows.map((row) =>
-          row.id === addUser.id ? addUser : row
+          row.id === addCategory.id ? addCategory : row
         );
         setRows(updatedRows);
       } else {
-        // Thêm người dùng mới
-        const newUserResponse = await postUserAPI(addUser); // Gọi API để thêm người dùng
-        setRows([...rows, newUserResponse]); // Cập nhật trạng thái với dữ liệu từ API
+        // Thêm category
+        const newCategoryResponse = await postCategoryAPI(addCategory); // Gọi API để thêm người dùng
+        setRows([...rows, newCategoryResponse]); // Cập nhật trạng thái với dữ liệu từ API
       }
     } catch (error) {
       const errorMessage = isEditing
-        ? 'Cập nhật người dùng thất bại!'
-        : 'Thêm người dùng thất bại!';
+        ? 'Cập nhật category thành công'
+        : 'Thêm category thất bại!';
       setErrorMessage(errorMessage);
       setOpenErrorSnackbar(true);
     }
@@ -189,38 +159,33 @@ export default function User() {
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
   useEffect(() => {
-    userAPI.getUsersAPI().then((data) => {
+    categoryAdminAPI.getCategoryAPI().then((data) => {
       setRows(
-        data.data.map((user) =>
-          createData(
-            user.id,
-            user.email,
-            user.firstname,
-            user.lastname,
-            user.dob,
-            user.roles
-          )
+        data.data.map((categories) =>
+          createData(categories.id, categories.name)
         )
       );
     });
   }, []);
+
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar
+        <EnhancedTableToolbarCateGogy
           numSelected={selected.length}
-          onDelete={handleDeleteUser}
-          onAdd={handleAddUser}
-          onEdit={handleEditUser}
+          onDelete={handleDeleteCategory}
+          onAdd={handleAddCategory}
+          onEdit={handleEditCategory}
         />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={'medium'}
+            size="medium"
           >
-            <EnhancedTableHead
+            <EnhancedTableHeadCateGory
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -229,7 +194,13 @@ export default function User() {
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {rows
+                .slice()
+                .sort(
+                  (a, b) =>
+                    (a[orderBy] < b[orderBy] ? -1 : 1) *
+                    (order === 'desc' ? -1 : 1)
+                )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
@@ -249,9 +220,7 @@ export default function User() {
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
+                          inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
                       <TableCell
@@ -259,22 +228,16 @@ export default function User() {
                         id={labelId}
                         scope="row"
                         padding="none"
+                        align="right"
                       >
-                        {row.email}
+                        {row.id}
                       </TableCell>
-                      <TableCell align="left">{row.firstname}</TableCell>
-                      <TableCell align="left">{row.lastname}</TableCell>
-                      <TableCell align="left">{row.dob}</TableCell>
-                      <TableCell align="left">{row.roles}</TableCell>
+                      <TableCell>{row.name}</TableCell>
                     </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
+                <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -287,82 +250,36 @@ export default function User() {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onPageChange={(event, newPage) => setPage(newPage)}
+          onRowsPerPageChange={(event) =>
+            setRowsPerPage(parseInt(event.target.value, 10))
+          }
         />
       </Paper>
-
-      {/* Dialog for Add/Edit */}
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>{isEditing ? 'Edit User' : 'Add User'}</DialogTitle>
+        <DialogTitle>
+          {isEditing ? 'Edit Category' : 'Add Category'}
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            label="Email"
-            type="email"
+            label="Category Name"
+            type="text"
             fullWidth
-            value={addUser.email}
-            onChange={(e) =>
-              setAddUser((prev) => ({ ...prev, email: e.target.value }))
-            }
-          />
-          <TextField
-            margin="dense"
-            label="First Name"
-            fullWidth
-            value={addUser.firstname}
-            onChange={(e) =>
-              setAddUser((prev) => ({ ...prev, firstname: e.target.value }))
-            }
-          />
-          <TextField
-            margin="dense"
-            label="Last Name"
-            fullWidth
-            value={addUser.lastname}
-            onChange={(e) =>
-              setAddUser((prev) => ({ ...prev, lastname: e.target.value }))
-            }
-          />
-          <TextField
-            margin="dense"
-            label="Date of Birth"
-            type="date"
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            value={addUser.dob}
-            onChange={(e) =>
-              setAddUser((prev) => ({ ...prev, dob: e.target.value }))
-            }
-          />
-          <TextField
-            margin="dense"
-            label="Roles"
-            fullWidth
-            value={addUser.roles}
-            onChange={(e) =>
-              setAddUser((prev) => ({ ...prev, roles: e.target.value }))
-            }
-          />
-          <TextField
-            margin="dense"
-            label="password"
-            type="password"
-            fullWidth
-            value={addUser.password}
-            onChange={(e) =>
-              setAddUser((prev) => ({ ...prev, password: e.target.value }))
+            value={addCategory.name}
+            onChange={(event) =>
+              setAddCategory({ ...addCategory, name: event.target.value })
             }
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleSaveUser}>Save</Button>
+          <Button onClick={handleSaveCategory} color="primary">
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
-
-      {/* Error Snackbar */}
       <Snackbar
         open={openErrorSnackbar}
         autoHideDuration={6000}
