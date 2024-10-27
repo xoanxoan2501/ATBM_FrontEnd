@@ -4,6 +4,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import { Button, TextField } from '@mui/material';
 
 const spacing = 2;
 const Footer = () => {
@@ -109,20 +110,70 @@ const Footer = () => {
                 padding: 2,
             }}
         >
-            <Typography
-                variant="body1"
-                component="b"
+            <h1>LOOKING FOR SOMETHING ELSE?</h1>
+            <Box
+            sx={{
+              display: 'flex',
+            }}>
+            <Box 
+            sx={{ 
+              width: 500, 
+              maxWidth: "100%",
+              height: "50px"
+              }}>
+              <TextField
+                fullWidth
+                label="Search"
+                id="fullWidth"
                 sx={{
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
+                  borderRadius: "40px", // Bo góc cho TextField
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "40px", // Bo góc khi TextField đang focus
+                  },
                 }}
-            >
-                Chúng tôi có thể giúp bạn tìm kiếm?
-            </Typography>
-            <Link to="/search">
-                <button>Tìm kiếm</button>
-            </Link>
+              />
+            </Box>
+            <Button
+                variant="outlined"
+                sx={{ 
+                  borderColor: "black", 
+                  borderRadius: "20px",
+                  marginLeft: "10px",
+                  marginTop: "10px",
+                  backgroundColor: "#212121",
+                  color: "#ffffff",
+                  fontWeight: "bold",
+                  
+                }}>
+                Search
+              </Button>
+            </Box>
+            <Box sx={{ display: "flex", gap: 2, marginTop: "15px" }}>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Garaxy Gplis
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Television{" "}
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Iphone 16{" "}
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Tai nghe{" "}
+              </Button>
+            </Box>
         </Box>
         </Grid>      
       </Grid>

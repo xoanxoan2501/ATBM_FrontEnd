@@ -8,7 +8,7 @@ import CardSlider from "./pages/Home/Item/CardSlider/CardSlider";
 import ProductPhone from "./pages/Home/ProductSlider/ProductPhone";
 import CardTV from "./components/CardTV/CardTV";
 import TVandRadio from "./pages/Home/ProductSlider/TVandRadio/TVandRadio";
-
+import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import CardProductCategory from "./components/CardProductCategory/CardProductCategory";
 import Category from "./pages/Category/Category";
 import Profile from "./pages/Profile/Profile";
@@ -71,10 +71,10 @@ const App = () => {
           }
         />
       <Route
-          path="/search"
+          path="/shopping-cart"
           element={
             <DefaultLayout>
-              <Search />
+              <ShoppingCart/>
             </DefaultLayout>
           }
         />
