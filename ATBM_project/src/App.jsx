@@ -2,20 +2,11 @@ import DefaultLayout from './layouts';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/Home/HomePage';
-import Endow from './pages/Home/Item/Endow/Endow';
-import ProductSlider from './pages/Home/ProductSlider/ProductSlider';
-import CardSlider from './pages/Home/Item/CardSlider/CardSlider';
-import ProductPhone from './pages/Home/ProductSlider/ProductPhone';
-import CardTV from './components/CardTV/CardTV';
-import TVandRadio from './pages/Home/ProductSlider/TVandRadio/TVandRadio';
-import MobileDetail from './pages/Product/MobileDetail';
-import CardProductCategory from './components/CardProductCategory/CardProductCategory';
-import Category from './pages/Category/Category';
-import Profile from './pages/Profile/Profile';
+
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import User from './pages/Admin/user/user';
 import ProductAdmin from './pages/Admin/Product/ProductAdmin';
-import AppBar from './pages/Admin/AppBar/AppBar';
+
 import CategoryAdmin from './pages/Admin/CategoryAdmin/CategoryAdmin';
 
 import AdminLayout from './layouts/AdminLayouts/AdminLayout';
@@ -62,7 +53,6 @@ const App = () => {
             </DefaultLayout>
           }
         />
-<<<<<<< HEAD
 
         <Route
           path="/admin/user"
@@ -93,11 +83,5 @@ const App = () => {
     </Router>
   );
 };
-=======
-      </Routes>
-    </Router>
-  )
-}
->>>>>>> b259b657e72c1ba7fe33084a6db32161ec883367
 
-export default App
+export default App;
