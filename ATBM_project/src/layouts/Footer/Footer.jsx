@@ -4,12 +4,13 @@ import FormLabel from '@mui/material/FormLabel';
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import { Button, TextField } from '@mui/material';
 
 const spacing = 2;
 const Footer = () => {
   return (
     <Box sx={{ backgroundColor: '#F5F5F5', padding: spacing, width: '100%' }}>
-      <Grid container spacing={spacing}  justifyContent='space-between' >
+      <Grid container spacing={spacing}  justifyContent='flex-start' >
         <Grid item xs={12} md={2}>
           <FormLabel component="legend">Sản Phẩm & Dịch Vụ</FormLabel>
             <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
@@ -43,7 +44,7 @@ const Footer = () => {
               Màn hình
             </Typography>
         </Grid>
-        <Grid item xs={12} md={2}>
+        {/* <Grid item xs={12} md={2}>
           <FormLabel component="legend">Mua Trực Tuyến</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Ưu đãi độc quyền
@@ -72,7 +73,7 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Ưu đãi chính phủ
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={2}>
           <FormLabel component="legend">Tài khoản</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
@@ -87,8 +88,7 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Samsung Members
           </Typography>
-        </Grid>
-        <Grid item xs={12} md={2}>
+
           <FormLabel component="legend">Giới thiệu về chúng tôi</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Thông tin về công ty 
@@ -99,7 +99,83 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Nhận diện thương hiệu
           </Typography>
-        </Grid>
+        </Grid> 
+        <Grid item xs={12} md={8} container justifyContent="center">
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2,
+                padding: 2,
+            }}
+        >
+            <h1>LOOKING FOR SOMETHING ELSE?</h1>
+            <Box
+            sx={{
+              display: 'flex',
+            }}>
+            <Box 
+            sx={{ 
+              width: 500, 
+              maxWidth: "100%",
+              height: "50px"
+              }}>
+              <TextField
+                fullWidth
+                label="Search"
+                id="fullWidth"
+                sx={{
+                  borderRadius: "40px", // Bo góc cho TextField
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "40px", // Bo góc khi TextField đang focus
+                  },
+                }}
+              />
+            </Box>
+            <Button
+                variant="outlined"
+                sx={{ 
+                  borderColor: "black", 
+                  borderRadius: "20px",
+                  marginLeft: "10px",
+                  marginTop: "10px",
+                  backgroundColor: "#212121",
+                  color: "#ffffff",
+                  fontWeight: "bold",
+                  
+                }}>
+                Search
+              </Button>
+            </Box>
+            <Box sx={{ display: "flex", gap: 2, marginTop: "15px" }}>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Garaxy Gplis
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Television{" "}
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Iphone 16{" "}
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: "black", borderRadius: "20px" }}
+              >
+                Tai nghe{" "}
+              </Button>
+            </Box>
+        </Box>
+        </Grid>      
       </Grid>
     </Box>
   );
