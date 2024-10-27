@@ -74,46 +74,6 @@ export default function HomePage() {
               // Đảm bảo thẻ ở giữa toàn bộ chiều cao màn hình
             }}
           >
-            <h1>LOOKING FOR SOMETHING ELSE? </h1>
-            <Box sx={{ width: 500, maxWidth: "100%" }}>
-              <TextField
-                fullWidth
-                label="Search"
-                id="fullWidth"
-                sx={{
-                  borderRadius: "40px", // Bo góc cho TextField
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "40px", // Bo góc khi TextField đang focus
-                  },
-                }}
-              />
-            </Box>
-            <Box sx={{ display: "flex", gap: 2, marginTop: "15px" }}>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: "black", borderRadius: "20px" }}
-              >
-                Garaxy Gplis
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: "black", borderRadius: "20px" }}
-              >
-                Television{" "}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: "black", borderRadius: "20px" }}
-              >
-                Iphone 16{" "}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: "black", borderRadius: "20px" }}
-              >
-                Tai nghe{" "}
-              </Button>
-            </Box>
           </Box>
         </Box>
       </Box>
