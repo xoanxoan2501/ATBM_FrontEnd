@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Paper, Grid, Box, Chip } from "@mui/material";
+import { Container, Paper, Grid, Box, Chip, Typography } from "@mui/material";
+import {Card, CardContent, CardActionArea} from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -38,21 +39,37 @@ const MobileDetail = (props) => {
         <Container maxWidth="lg">
           <Paper elevation={0}>
             <Grid container spacing={2}>
-              {/* Left Side with Slider */}
               <Grid item className={classes.left}>
                 <Box position="relative">
                   <Slider
                     url1="/images/image-removebg-preview-12.png"
                     url2="/images/image-removebg-preview-12.png"
                     url3="/images/image-removebg-preview-12.png"
-                  />
-                  <NewChip label={props.label} size="small" />
+                  />              
                 </Box>
               </Grid>
 
               <Grid item className={classes.right}>
-                <Box p={2}>
-                  <h2>Product Info</h2>
+                <Box >
+                  <h2>IPHONE 13</h2>
+                    <p>- Thanh toán trước ưu đãi đến 8% tối đa 1 triệu</p>
+                    <p>- Màn hình Super Retina XDR</p>
+                    <p>- Hệ thống camera kép 12MP: Camera Chính và Ultra Wide</p>
+                    <p>- Chip A15 Bionic</p>
+                  <h3>Màu sắc</h3>
+                  <ul>
+                    <li className='color-item' id='pink'></li>
+                    <li className='color-item' id='green'></li>
+                    <li className='color-item' id='black'></li>
+                    <li className='color-item' id='white'></li>
+                    <li className='color-item' id='blue'></li>
+                  </ul>
+                  <h3>Price</h3>
+                  <Box>
+                    <span className='down'>-</span>
+                    <input type='text' value='0'></input>
+                    <span className='up'>+</span>
+                  </Box>
                 </Box>
               </Grid>
             </Grid>
