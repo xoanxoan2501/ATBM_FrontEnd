@@ -22,7 +22,7 @@ export default function Ipad() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Ipad
+        Giới thiệu
       </Button>
       <Menu
         id="basic-menu"

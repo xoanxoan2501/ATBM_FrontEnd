@@ -1,16 +1,16 @@
-import React from "react";
-import { Container, Paper, Grid, Box, Chip, Typography } from "@mui/material";
-import {Card, CardContent, CardActionArea} from '@mui/material';
+import React, { useEffect, useState } from "react";
+import { Container, Paper, Grid, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { styled } from "@mui/system";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./style.css";
 import Slider from "../../components/Slider/Slider";
 import HeaderNavigation from './HeaderNavigation/HeaderNavigation';
+import { productsAdminAPI } from '@/apis/productAdminAPI';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   left: {
@@ -20,18 +20,30 @@ const useStyles = makeStyles((theme) => ({
     flex: "1 1 0",
   },
 }));
-const NewChip = styled(Chip)(({ theme }) => ({
-  position: "absolute",
-  top: 10,
-  left: 10,
-  backgroundColor: "#1e88e5", // Màu xanh cho chip "Mới"
-  color: "#fff",
-  fontWeight: "bold",
-  zIndex: 2, // Đảm bảo chip luôn nằm trên cùng
-}));
 
-const MobileDetail = (props) => {
+const MobileDetail = () => {
   const classes = useStyles();
+  const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(0);
+  const { id: productId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    productsAdminAPI.getproductsAPI().then((data) => {
+      const productFound = data.data.find((product) => product.id === productId);
+      if (productFound) {
+        setProduct(productFound);
+      } else {
+        navigate("/not-found");
+      }
+    });
+  }, [productId, navigate]);
+  const handleQuantityChange = (type) => {
+    setQuantity((prevQuantity) => 
+      type === "increment" ? prevQuantity + 1 : Math.max(0, prevQuantity - 1)
+    );
+  };
+
   return (
     <>
       <HeaderNavigation />
@@ -50,26 +62,35 @@ const MobileDetail = (props) => {
               </Grid>
 
               <Grid item className={classes.right}>
-                <Box >
-                  <h2>IPHONE 13</h2>
-                    <p>- Thanh toán trước ưu đãi đến 8% tối đa 1 triệu</p>
-                    <p>- Màn hình Super Retina XDR</p>
-                    <p>- Hệ thống camera kép 12MP: Camera Chính và Ultra Wide</p>
-                    <p>- Chip A15 Bionic</p>
-                  <h3>Màu sắc</h3>
-                  <ul>
-                    <li className='color-item' id='pink'></li>
-                    <li className='color-item' id='green'></li>
-                    <li className='color-item' id='black'></li>
-                    <li className='color-item' id='white'></li>
-                    <li className='color-item' id='blue'></li>
-                  </ul>
-                  <h3>Price</h3>
-                  <Box>
-                    <span className='down'>-</span>
-                    <input type='text' value='0'></input>
-                    <span className='up'>+</span>
+                <Box>
+                  <Typography variant="h2">IPHONE 13</Typography>
+                  <Box className='dis'>
+                    <Typography>- Thanh toán trước ưu đãi đến 8% tối đa 1 triệu</Typography>
+                    <Typography>- Màn hình Super Retina XDR</Typography>
+                    <Typography>- Hệ thống camera kép 12MP: Camera Chính và Ultra Wide</Typography>
+                    <Typography>- Chip A15 Bionic</Typography>
                   </Box>
+                  <Typography variant="h4">Màu sắc</Typography>
+                  <ul>
+                    {["pink", "green", "black", "white", "blue"].map((color) => (
+                      <li key={color} className='color-item' id={color}></li>
+                    ))}
+                  </ul>
+                  <Box>
+                    <Typography variant="h4">Giá tiền</Typography>
+                    <Box className="price-box">
+                      <Typography variant="h6">150,000 VND</Typography>
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Typography variant="h4">Số lượng</Typography>
+                    <Box className="quantity-box">
+                    <span className="down" onClick={() => handleQuantityChange("decrement")}>-</span>
+                    <input type="text" value={quantity} readOnly />
+                    <span className="up" onClick={() => handleQuantityChange("increment")}>+</span>
+                    </Box>
+                  </Box>
+                 
                 </Box>
               </Grid>
             </Grid>
@@ -79,4 +100,5 @@ const MobileDetail = (props) => {
     </>
   );
 };
+
 export default MobileDetail;

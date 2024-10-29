@@ -1,22 +1,19 @@
 import React, { useState, useRef } from "react";
 import AppleIcon from "@mui/icons-material/Apple";
-// import SamsungIcon from '.Menus/PictureIcon/MyIcon.eps';
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
-import MenuIcon from "@mui/icons-material/Menu";
 import Store from "./Menus/Store";
 import Ipad from "./Menus/Ipad";
-import Airpods from "./Menus/Airpods";
 import Iphone from "./Menus/Iphone";
 import Mac from "./Menus/Mac";
-import Watch from "./Menus/Watch";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import ModeSelection from "../../components/Modeselection";
-import Tooltip from "@mui/material/Tooltip";
-import ProfileMenu from "./Profile/Profile";
-import { MenuItem, IconButton, Popper, ClickAwayListener, Grow, MenuList, Paper, Button } from '@mui/material';
-
+import {
+  IconButton,
+  Paper,
+  InputBase, // Sửa lỗi ở đây
+} from "@mui/material";
 
 const Header = ({ sx }) => {
   const [open, setOpen] = useState(false);
@@ -34,7 +31,7 @@ const Header = ({ sx }) => {
   };
 
   const handleListKeyDown = (event) => {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -62,8 +59,26 @@ const Header = ({ sx }) => {
         <Mac />
         <Ipad />
         <Iphone />
-        <Watch />
-        <Airpods />
+        <Box
+          component="form"
+          sx={{ p: '0px 4px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            width: 500,
+            height: 35,
+            border: '1px solid',
+            borderRadius: 10,
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search"
+            inputProps={{ 'aria-label': 'search google maps' }}
+          />
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Box>
       </Box>
       <Box
         sx={{
@@ -73,54 +88,9 @@ const Header = ({ sx }) => {
           gap: 1,
         }}
       >
-        <SearchIcon fontSize="small" />
+
         <PersonIcon />
         <LocalMallIcon fontSize="small" />
-        <div>
-          <Button
-            ref={anchorRef}
-            id="composition-button"
-            aria-controls={open ? 'composition-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
-          >
-            <PersonIcon fontSize="small" />
-          </Button>
-          <Popper
-            open={open}
-            anchorEl={anchorRef.current}
-            role={undefined}
-            placement="bottom-start"
-            transition
-            disablePortal
-          >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{
-                  transformOrigin:
-                    placement === 'bottom-start' ? 'left top' : 'left bottom',
-                }}
-              >
-                <Paper>
-                  <ClickAwayListener onClickAway={handleClose}>
-                    <MenuList
-                      autoFocusItem={open}
-                      id="composition-menu"
-                      aria-labelledby="composition-button"
-                      onKeyDown={handleListKeyDown}
-                    >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
-        </div>
         <ModeSelection />
       </Box>
     </Box>

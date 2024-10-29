@@ -106,6 +106,11 @@ const LoginPage = () => {
             <Typography color="red">{errors.password.message}</Typography>
           )}
         </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
         <Button color="primary" type="submit" sx={{
             marginTop: '24px',
             backgroundColor: 'black',
@@ -116,6 +121,8 @@ const LoginPage = () => {
           }}>
             Đăng nhập
         </Button>
+        </Box>
+        
         </form> 
         <Box sx={{
             marginTop:'24px',

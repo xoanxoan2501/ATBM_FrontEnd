@@ -22,7 +22,7 @@ export default function Mac() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Mac
+        Sản phẩm
       </Button>
       <Menu
         id="basic-menu"

@@ -22,7 +22,7 @@ export default function Store() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Store
+        Trang chủ
       </Button>
       <Menu
         id="basic-menu"
