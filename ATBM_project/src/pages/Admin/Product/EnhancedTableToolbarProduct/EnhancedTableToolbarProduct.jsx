@@ -36,9 +36,7 @@ export default function EnhancedTableToolbarProduct(props) {
           variant="h6"
           id="tableTitle"
           component="div"
-        >
-          Category Management
-        </Typography>
+        ></Typography>
       )}
 
       {numSelected > 0 ? (

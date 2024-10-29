@@ -15,6 +15,14 @@ const postproductsAPI = async (data) => {
   console.log('🚀 ~ loginAPI ~ data:', data);
   return response.data;
 };
+const checkCategoryExists = async (categoryId) => {
+  try {
+    const response = await instance.get(`/categories/${categoryId}`);
+    return response.status === 200; // Trả về true nếu category tồn tại
+  } catch (error) {
+    return false; // Trả về false nếu category không tồn tại hoặc có lỗi
+  }
+};
 
 const deleteproductsAPI = async (productsId) => {
   const response = await instance.delete(`/products/${productsId}`);
@@ -26,4 +34,5 @@ export const productsAdminAPI = {
   updateproductsAPI,
   deleteproductsAPI,
   postproductsAPI,
+  checkCategoryExists,
 };

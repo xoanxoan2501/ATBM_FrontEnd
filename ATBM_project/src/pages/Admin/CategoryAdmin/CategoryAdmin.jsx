@@ -116,7 +116,7 @@ export default function CategoryAdmin() {
 
   const handleSaveCategory = async () => {
     // Kiểm tra các trường bắt buộc
-    if (!addCategory.id || !addCategory.name) {
+    if (!addCategory.name) {
       setErrorMessage('Tất cả các trường đều bắt buộc!');
       setOpenErrorSnackbar(true);
       return;
@@ -125,15 +125,17 @@ export default function CategoryAdmin() {
     try {
       if (isEditing) {
         // Cập nhật category
-        await categoryAdminAPI.updateCategoryAPI(addCategory, addCategory.id); // Gọi API để cập nhật người dùng
+        await categoryAdminAPI.updateCategoryAPI(addCategory, addCategory.id); // Gọi API để cập nhật category
         const updatedRows = rows.map((row) =>
           row.id === addCategory.id ? addCategory : row
         );
         setRows(updatedRows);
       } else {
         // Thêm category
-        const newCategoryResponse = await postCategoryAPI(addCategory); // Gọi API để thêm người dùng
-        setRows([...rows, newCategoryResponse]); // Cập nhật trạng thái với dữ liệu từ API
+        const newCategoryResponse =
+          await categoryAdminAPI.postCategoryAPI(addCategory); // Gọi API để thêm category
+        const data = newCategoryResponse.data;
+        setRows([...rows, data]); // Cập nhật trạng thái với dữ liệu từ API
       }
     } catch (error) {
       const errorMessage = isEditing
@@ -223,7 +225,7 @@ export default function CategoryAdmin() {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
@@ -231,7 +233,7 @@ export default function CategoryAdmin() {
                         align="right"
                       >
                         {row.id}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell>{row.name}</TableCell>
                     </TableRow>
                   );

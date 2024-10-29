@@ -5,7 +5,7 @@ import { visuallyHidden } from '@mui/utils';
 import { Box, Checkbox, TableCell, TableRow } from '@mui/material';
 
 const headCells = [
-  { id: 'id', numeric: true, disablePadding: true, label: 'ID' },
+  // { id: 'id', numeric: true, disablePadding: true, label: 'ID' },
   { id: 'name', numeric: false, disablePadding: false, label: 'Category Name' },
 ];
 
