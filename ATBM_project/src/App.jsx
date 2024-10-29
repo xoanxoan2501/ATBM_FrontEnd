@@ -15,11 +15,9 @@ import Profile from "./pages/Profile/Profile";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Search from './components/Search/search';
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import User from "./pages/Admin/user/user";
-import Product from "./pages/Admin/Product/Product";
-import AppBar from "./pages/Admin/AppBar/AppBar";
-import CategoryAdmin from "./pages/Admin/Category/Category";
-import CategoryItem from "./pages/Admin/Category/CategoryItem/CategoryItem";
+
+
+
 
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
@@ -79,31 +77,6 @@ const App = () => {
             </DefaultLayout>
           }
         />
-        <Route
-          path="/admin/user"
-          element={
-            <AdminLayout>
-              <User />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/categoryAdmin"
-          element={
-            <AdminLayout>
-              <CategoryAdmin />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/ProductAdmin"
-          element={
-            <AdminLayout>
-              <ProductAdmin />
-            </AdminLayout>
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
