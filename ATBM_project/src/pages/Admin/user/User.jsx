@@ -121,17 +121,45 @@ export default function User() {
     }
   };
 
+  // const handleDeleteUser = async () => {
+  //   try {
+  //     await Promise.all(
+  //       selected.map(async (userId) => {
+  //         await userAPI.deleteUserAPI(userId); // Gọi API để xóa người dùng
+  //       })
+  //     );
+  //     const newRows = rows.filter((row) => !selected.includes(row.id));
+  //     setRows(newRows);
+  //     setSelected([]);
+  //   } catch (error) {
+  //     setErrorMessage('Xóa người dùng thất bại!');
+  //     setOpenErrorSnackbar(true);
+  //   }
+  // };
+
   const handleDeleteUser = async () => {
+    // Hiển thị thông báo xác nhận
+    const confirmDelete = window.confirm(
+      'Bạn có chắc chắn muốn xóa người dùng này không?'
+    );
+
+    // Nếu người dùng chọn "Cancel", thoát khỏi hàm mà không xóa
+    if (!confirmDelete) return;
+
     try {
+      // Tiến hành xóa nếu người dùng chọn "OK"
       await Promise.all(
         selected.map(async (userId) => {
           await userAPI.deleteUserAPI(userId); // Gọi API để xóa người dùng
         })
       );
+
+      // Cập nhật danh sách người dùng sau khi xóa
       const newRows = rows.filter((row) => !selected.includes(row.id));
       setRows(newRows);
       setSelected([]);
     } catch (error) {
+      // Hiển thị thông báo lỗi nếu xóa thất bại
       setErrorMessage('Xóa người dùng thất bại!');
       setOpenErrorSnackbar(true);
     }
@@ -295,6 +323,7 @@ export default function User() {
       {/* Dialog for Add/Edit */}
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{isEditing ? 'Edit User' : 'Add User'}</DialogTitle>
+
         <DialogContent>
           <TextField
             autoFocus
@@ -356,6 +385,7 @@ export default function User() {
             }
           />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={handleSaveUser}>Save</Button>

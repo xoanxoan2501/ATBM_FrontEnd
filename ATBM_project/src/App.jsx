@@ -11,6 +11,9 @@ import CategoryAdmin from './pages/Admin/CategoryAdmin/CategoryAdmin';
 
 import AdminLayout from './layouts/AdminLayouts/AdminLayout';
 import NotFoundPage from './pages/404/NotFoundPage';
+import { ToastContainer, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Category from './pages/Category/Category';
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
 // * 2: Thực hiện khởi tạo hoặc cập nhật các giá trị cho state
@@ -27,60 +30,84 @@ import NotFoundPage from './pages/404/NotFoundPage';
 // * được gọi mỗi khi giá trị của dependency thay đổi => thực hiện logic với các state
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <DefaultLayout>
-              <HomePage />
-            </DefaultLayout>
-          }
-        />
-        <Route
-          path="/login-page"
-          element={
-            <DefaultLayout>
-              <LoginPage />
-            </DefaultLayout>
-          }
-        />
-        <Route
-          path="/register-page"
-          element={
-            <DefaultLayout>
-              <RegisterPage />
-            </DefaultLayout>
-          }
-        />
+    <>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <DefaultLayout>
+                <HomePage />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/login-page"
+            element={
+              <DefaultLayout>
+                <LoginPage />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/register-page"
+            element={
+              <DefaultLayout>
+                <RegisterPage />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/category-page"
+            element={
+              <DefaultLayout>
+                <Category />
+              </DefaultLayout>
+            }
+          />
 
-        <Route
-          path="/admin/user"
-          element={
-            <AdminLayout>
-              <User />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/categoryAdmin"
-          element={
-            <AdminLayout>
-              <CategoryAdmin />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/ProductAdmin"
-          element={
-            <AdminLayout>
-              <ProductAdmin />
-            </AdminLayout>
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
+          <Route
+            path="/admin/user"
+            element={
+              <AdminLayout>
+                <User />
+              </AdminLayout>
+            }
+          />
+
+          <Route
+            path="/admin/categoryAdmin"
+            element={
+              <AdminLayout>
+                <CategoryAdmin />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path="/admin/ProductAdmin"
+            element={
+              <AdminLayout>
+                <ProductAdmin />
+              </AdminLayout>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transitio={Bounce}
+      />
+    </>
   );
 };
 

@@ -5,10 +5,9 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-
+import { categoryAdminAPI } from '@/apis/categoryAdminAPI';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { productsAdminAPI } from '@/apis/productAdminAPI';
@@ -25,6 +24,7 @@ import {
   Snackbar,
   Alert,
 } from '@mui/material';
+import { toast } from 'react-toastify';
 
 const createData = (
   id,
@@ -33,7 +33,7 @@ const createData = (
   price,
   quantity,
   image,
-  Product_id
+  category_id
 ) => {
   let newRoles = '';
 
@@ -46,7 +46,7 @@ const createData = (
     price,
     quantity,
     image,
-    Product_id,
+    category_id,
   };
 };
 
@@ -112,7 +112,7 @@ export default function ProductAdmin() {
       price: '',
       quantity: '',
       image: '',
-      Product_id: '',
+      category_id: '',
     });
   };
 
@@ -126,17 +126,22 @@ export default function ProductAdmin() {
   };
 
   const handleDeleteProduct = async () => {
+    const confirmDelete = window.confirm(
+      'Bạn có chắc chắn muốn sản phẩm  này không?'
+    );
+    if (!confirmDelete) return;
     try {
       await Promise.all(
         selected.map(async (products) => {
-          await ProductsAdminAPI.deleteProductAPI(products); // Gọi API để xóa product
+          await productsAdminAPI.deleteproductsAPI(products); // Gọi API để xóa product
+          toast.success('Xóa thành công ');
         })
       );
       const newRows = rows.filter((row) => !selected.includes(row.id));
       setRows(newRows);
       setSelected([]);
     } catch (error) {
-      setErrorMessage('Xóa thất bại!');
+      toast.success('Xóa thất bại ');
       setOpenErrorSnackbar(true);
     }
   };
@@ -157,21 +162,35 @@ export default function ProductAdmin() {
     }
 
     try {
+      // Kiểm tra sự tồn tại của category_id
+      const categoryExists = await productsAdminAPI.checkCategoryExists(
+        addProduct.category_id
+      ); // Gọi API để kiểm tra
+      if (!categoryExists) {
+        setErrorMessage('Category không tồn tại!');
+        setOpenErrorSnackbar(true);
+        return;
+      }
+
       if (isEditing) {
         // Cập nhật Product
-        await productsAdminAPI.updateProductAPI(addProduct, addProduct.id); // Gọi API để cập nhật người dùng
+        await productsAdminAPI.updateproductsAPI(addProduct, addProduct.id); // Gọi API để cập nhật sản phẩm
         const updatedRows = rows.map((row) =>
           row.id === addProduct.id ? addProduct : row
         );
         setRows(updatedRows);
       } else {
         // Thêm Product
-        const newProductResponse = await postProductAPI(addProduct); // Gọi API để thêm người dùng
-        setRows([...rows, newProductResponse]); // Cập nhật trạng thái với dữ liệu từ API
+        const response = await productsAdminAPI.postproductsAPI(addProduct); // Gọi API để thêm sản phẩm
+
+        const data = response.data;
+
+        setRows([...rows, data]); // Cập nhật trạng thái với dữ liệu từ API
+        toast.success('Add new product successfully!');
       }
     } catch (error) {
       const errorMessage = isEditing
-        ? 'Cập nhật Product thành công'
+        ? 'Cập nhật Product thất bại!'
         : 'Thêm Product thất bại!';
       setErrorMessage(errorMessage);
       setOpenErrorSnackbar(true);
@@ -203,7 +222,9 @@ export default function ProductAdmin() {
             products.name,
             products.quantity,
             products.description,
-            products.price
+            products.price,
+            products.image,
+            products.category_id
           )
         )
       );
@@ -263,7 +284,7 @@ export default function ProductAdmin() {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
@@ -271,8 +292,18 @@ export default function ProductAdmin() {
                         align="right"
                       >
                         {row.id}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.description}</TableCell>
+                      <TableCell>{row.price}</TableCell>
+                      <TableCell>{row.quantity}</TableCell>
+                      <TableCell>
+                        <img
+                          style={{ width: '100px', height: 'auto' }}
+                          src={row.image}
+                        />
+                      </TableCell>
+                      {/* <TableCell>{row.category_id}</TableCell> */}
                     </TableRow>
                   );
                 })}
@@ -296,6 +327,7 @@ export default function ProductAdmin() {
           }
         />
       </Paper>
+
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{isEditing ? 'Edit Product' : 'Add Product'}</DialogTitle>
         <DialogContent>
@@ -318,7 +350,10 @@ export default function ProductAdmin() {
             fullWidth
             value={addProduct.description}
             onChange={(event) =>
-              setAddProduct({ ...addProduct, description: event.target.value })
+              setAddProduct({
+                ...addProduct,
+                description: event.target.value,
+              })
             }
           />
           <TextField
@@ -362,7 +397,10 @@ export default function ProductAdmin() {
             fullWidth
             value={addProduct.category_id}
             onChange={(event) =>
-              setAddProduct({ ...addProduct, category_id: event.target.value })
+              setAddProduct({
+                ...addProduct,
+                category_id: event.target.value,
+              })
             }
           />
         </DialogContent>
@@ -373,6 +411,7 @@ export default function ProductAdmin() {
           </Button>
         </DialogActions>
       </Dialog>
+
       <Snackbar
         open={openErrorSnackbar}
         autoHideDuration={6000}

@@ -5,8 +5,7 @@ import { visuallyHidden } from '@mui/utils';
 import { Box, Checkbox, TableCell, TableRow } from '@mui/material';
 
 const headCells = [
-  { id: 'id', numeric: true, disablePadding: true, label: 'ID' },
-  { id: 'name', numeric: false, disablePadding: false, label: 'Category Name' },
+  { id: 'name', numeric: false, disablePadding: false, label: 'Product Name' },
   {
     id: 'description',
     numeric: false,
@@ -16,12 +15,12 @@ const headCells = [
   { id: 'price', numeric: false, disablePadding: false, label: 'price' },
   { id: 'quantity', numeric: false, disablePadding: false, label: 'quantity' },
   { id: 'image', numeric: false, disablePadding: false, label: 'image' },
-  {
-    id: 'category_id',
-    numeric: false,
-    disablePadding: false,
-    label: 'category_id',
-  },
+  // {
+  //   id: 'category_id',
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: 'category_id',
+  // },
 ];
 
 export default function EnhancedTableHeadProduct(props) {
