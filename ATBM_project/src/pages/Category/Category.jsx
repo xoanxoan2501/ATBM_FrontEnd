@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import CardProductCategory from '../../components/CardProductCategory/CardProductCategory';
 import { Container } from '@mui/material';
 import { authAPI } from '@/apis/authAPI';
+import { sortProductByCategory } from '@/utils/algorithms';
+import { productsAdminAPI } from '@/apis/productAdminAPI';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -20,32 +22,53 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Category() {
   const [categories, setCategories] = useState([]);
-  const [productsByCategory, setProductsByCategory] = useState({});
 
   useEffect(() => {
     const fetchCategoriesAndProducts = async () => {
       try {
+        // const categoryResponse = await authAPI.getCategory();
+        // const newdataCategory = categoryResponse.data;
+        // console.log(
+        //   '🚀 ~ fetchCategoriesAndProducts ~ categoryResponse:',
+        //   categoryResponse
+        // );
+
+        // setCategories(newdataCategory); // Lưu dữ liệu danh mục vào state
+
+        // // Gọi API lấy sản phẩm cho từng danh mục
+        // const productsData = {};
+
+        // cateogry.id
+        /**
+         * [{
+         *   id: category_id,
+         * name: category_name,
+         * productList: []
+         * }, {}, {}]
+         */
+        // for (const category of newdataCategory) {
+        //   const products = await authAPI.getProductsByCategory(category.id);
+        //   const newDateProduct = products.data;
+        //   productsData[category.id] = newDateProduct; // Lưu sản phẩm theo từng categoryId
+        //   console.log(
+        //     '🚀 ~ fetchCategoriesAndProducts ~ newdataCategory:',
+        //     newdataCategory
+        //   );
+        // }
+        // setProductsByCategory(productsData); // Lưu toàn bộ dữ liệu sản phẩm theo danh mục vào state
         const categoryResponse = await authAPI.getCategory();
-        const newdataCategory = categoryResponse.data;
+        const productResponse = await productsAdminAPI.getproductsAPI();
+
+        const categoryList = sortProductByCategory(
+          categoryResponse.data,
+          productResponse.data
+        );
         console.log(
-          '🚀 ~ fetchCategoriesAndProducts ~ categoryResponse:',
-          categoryResponse
+          '🚀 ~ fetchCategoriesAndProducts ~ categoryList:',
+          categoryList
         );
 
-        setCategories(newdataCategory); // Lưu dữ liệu danh mục vào state
-
-        // Gọi API lấy sản phẩm cho từng danh mục
-        const productsData = {};
-        for (const category of newdataCategory) {
-          const products = await authAPI.getProductsByCategory(category.id);
-          const newDateProduct = products.data;
-          productsData[category.id] = newDateProduct; // Lưu sản phẩm theo từng categoryId
-          console.log(
-            '🚀 ~ fetchCategoriesAndProducts ~ newdataCategory:',
-            newdataCategory
-          );
-        }
-        setProductsByCategory(productsData); // Lưu toàn bộ dữ liệu sản phẩm theo danh mục vào state
+        setCategories(categoryList);
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm hoặc danh mục:', error);
       }
@@ -55,20 +78,20 @@ export default function Category() {
   }, []);
 
   // Render sản phẩm của mỗi danh mục
-  const renderProductsData = (category) =>
-    (productsByCategory[category.id] || []).map((item) => (
-      <Grid item xs={12} sm={6} md={2.3} key={item.id}>
-        <Item>
-          <CardProductCategory
-            url={item.image}
-            content={item.name}
-            // color={item.color}
-            salePrice={item.price}
-            // price={item.price}
-          />
-        </Item>
-      </Grid>
-    ));
+  // const renderProductsData = (category) =>
+  //   (productsByCategory[category.id] || []).map((item) => (
+  //     <Grid item xs={12} sm={6} md={2.3} key={item.id}>
+  //       <Item>
+  //         <CardProductCategory
+  //           url={item.image}
+  //           content={item.name}
+  //           // color={item.color}
+  //           salePrice={item.price}
+  //           // price={item.price}
+  //         />
+  //       </Item>
+  //     </Grid>
+  //   ));
 
   // Render danh mục và các sản phẩm tương ứng
   const renderCategoriesData = () =>
@@ -79,7 +102,7 @@ export default function Category() {
         </h1>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={0.5} justifyContent="space-between">
-            {renderProductsData(category)}
+            {/* {renderProductsData(category)} */}
           </Grid>
         </Box>
       </Box>
