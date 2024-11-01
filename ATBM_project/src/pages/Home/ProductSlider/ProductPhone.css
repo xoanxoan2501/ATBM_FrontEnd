@@ -7,20 +7,52 @@ body {
 
 .navigation-wrapper {
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px;
 }
 
 .keen-slider {
   height: fit-content; /* Đảm bảo chiều cao đầy đủ cho slider */
   background-color: white; /* Đặt màu nền của slider thành màu trắng */
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
 .keen-slider__slide {
+  min-width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 868px; /* Đặt chiều cao cho từng slide */
   max-height: 100vh; /* Đảm bảo không vượt quá chiều cao của viewport */
 }
+
+/* .card-slider {
+  display: flex;
+  flex-direction: column;`` 
+  align-items: center;
+  text-align: center;
+} */
+
+.card-slider img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* .card-slider .title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-slider .description {
+  font-size: 16px;
+  color: #666;
+} */
 
 /* /* .number-slide1 {
   /* background: rgb(64, 175, 255);
@@ -103,8 +135,8 @@ body {
 }
 
 .arrow {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);

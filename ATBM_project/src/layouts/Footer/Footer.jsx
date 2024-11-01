@@ -12,7 +12,7 @@ const Footer = () => {
     <Box sx={{ backgroundColor: '#F5F5F5', padding: spacing, width: '100%' }}>
       <Grid container spacing={spacing}  justifyContent='flex-start' >
         <Grid item xs={12} md={2}>
-          <FormLabel component="legend">Sản Phẩm & Dịch Vụ</FormLabel>
+          <FormLabel component="legend" sx={{ fontSize: '15px', color: '#333', fontWeight: 'bold' }}>Sản Phẩm & Dịch Vụ</FormLabel>
             <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Điện thoại thông minh
             </Typography>
@@ -44,38 +44,8 @@ const Footer = () => {
               Màn hình
             </Typography>
         </Grid>
-        {/* <Grid item xs={12} md={2}>
-          <FormLabel component="legend">Mua Trực Tuyến</FormLabel>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Ưu đãi độc quyền
-          </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Cửa hàng trải nghiệm Samsung
-          </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Câu hỏi thường gặp 
-          </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Khám phá
-          </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Điều khoản & Điều kiện
-          </Typography>
-        </Grid>
         <Grid item xs={12} md={2}>
-          <FormLabel component="legend">Chương trình </FormLabel>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Ưu đãi sinh viên
-          </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Ưu đãi nhân viên đối tác
-          </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
-              Ưu đãi chính phủ
-          </Typography>
-        </Grid> */}
-        <Grid item xs={12} md={2}>
-          <FormLabel component="legend">Tài khoản</FormLabel>
+          <FormLabel component="legend" sx={{ fontSize: '15px', color: '#333', fontWeight: 'bold' }}>Tài khoản</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Tài khoản của tôi 
           </Typography>
@@ -85,11 +55,11 @@ const Footer = () => {
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Danh sách yêu thích 
           </Typography>
-          <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
+          <Typography variant="body2" sx={{ color: '', cursor: 'pointer', marginBottom:'10px'}}>
               Samsung Members
           </Typography>
 
-          <FormLabel component="legend">Giới thiệu về chúng tôi</FormLabel>
+          <FormLabel component="legend" sx={{ fontSize: '15px', color: '#333', fontWeight: 'bold' }}>Giới thiệu về chúng tôi</FormLabel>
           <Typography variant="body2" sx={{ color: '', cursor: 'pointer' }}>
               Thông tin về công ty 
           </Typography>

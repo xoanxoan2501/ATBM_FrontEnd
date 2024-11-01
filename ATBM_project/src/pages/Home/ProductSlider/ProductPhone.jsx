@@ -50,7 +50,14 @@ const ProductPhone = () => {
       description: "Your perfect health companion.",
     },
   ];
-
+  // const CardSlider = ({ image, title, description }) => (
+  //   <div className="card-slider">
+  //     <img src={image} alt={title} />
+  //     <div className="title">{title}</div>
+  //     <div className="description">{description}</div>
+  //   </div>
+  // );
+  
   return (
     <>
       {/* Nút danh mục được đưa lên đầu */}
@@ -77,7 +84,7 @@ const ProductPhone = () => {
           {products.map((product, index) => (
             <div className="keen-slider__slide" key={index}>
               <CardSlider
-                className={currentSlide === index ? "show" : ""}
+                className={`card-slider ${currentSlide === index ? "show" : ""}`}
                 image={product.image}
                 title={product.title}
                 description={product.description}

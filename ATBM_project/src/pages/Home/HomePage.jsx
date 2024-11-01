@@ -4,10 +4,7 @@ import Slider from '../../components/Slider/Slider';
 import ProductSlider from './ProductSlider/ProductSlider';
 import ProductPhone from './ProductSlider/ProductPhone';
 import TVandRadio from './ProductSlider/TVandRadio/TVandRadio';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { useEffect } from 'react';
+import {TextField, Stack,Button,Typography} from '@mui/material';
 export default function HomePage() {
   return (
     // * code cho phan body
@@ -21,101 +18,53 @@ export default function HomePage() {
         />
       </Box>
       {/* //* code cho phan san pham noi bat */}
-      <Box>
-        <h1
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          SẢN PHẨM NỔI BẬT
-        </h1>
+      <Box sx={{
+        textAlign: 'center',
+        marginTop: '40px',
+        marginBottom: '40px',
+      }}>
+        <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', mb:2 }}>
+        SẢN PHẨM NỔI BẬT
+        </Typography>
         <Box>
           <ProductSlider />
         </Box>
-        <h1
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          MOBILE & COMPUTING
-        </h1>
+        <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', mt:'40px', mb:2 }}>
+        MOBILE & COMPUTING
+        </Typography>
         <Box>
           <ProductPhone />
         </Box>
-        <Box sx={{ position: 'relative' }}>
+        <Box sx={{ position: 'relative', mt:'40px' }}>
           {' '}
-          {/* Thêm position: relative cho box chứa TVandRadio */}
-          <h1
-            style={{
-              position: 'absolute', // Đặt vị trí chữ
-              top: '20px', // Điều chỉnh khoảng cách từ trên xuống
-              left: '50%', // Căn giữa theo chiều ngang
-              transform: 'translateX(-50%)', // Điều chỉnh để chữ nằm giữa
-              zIndex: 10, // Đảm bảo chữ nằm trên TVandRadio
-              color: 'Black', // Đặt màu chữ cho dễ nhìn
-            }}
-          >
-            TV And Radio
-          </h1>
+          <Typography 
+            variant="h4"
+            component="h1"
+            sx={{
+            position: 'absolute',
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10,
+            color: 'black',
+            fontWeight: 'bold',
+          }}>
+          TV And Radio
+          </Typography>
           <Box>
             <TVandRadio />
           </Box>
+        </Box>  
           <Box
             sx={{
-              display: 'flex', // Căn giữa cả theo chiều ngang và dọc
-              flexDirection: 'column', // Đặt các phần tử theo cột
-              alignItems: 'center', // Căn giữa theo chiều ngang
-              justifyContent: 'center', // Căn giữa theo chiều dọc
-              marginBottom: '20px',
-              // Đảm bảo thẻ ở giữa toàn bộ chiều cao màn hình
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              my: 4,
             }}
           >
-            <h1>LOOKING FOR SOMETHING ELSE? </h1>
-            <Box sx={{ width: 500, maxWidth: '100%' }}>
-              <TextField
-                fullWidth
-                label="Search"
-                id="fullWidth"
-                sx={{
-                  borderRadius: '40px', // Bo góc cho TextField
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '40px', // Bo góc khi TextField đang focus
-                  },
-                }}
-              />
-            </Box>
-            <Box sx={{ display: 'flex', gap: 2, marginTop: '15px' }}>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: 'black', borderRadius: '20px' }}
-              >
-                Garaxy Gplis
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: 'black', borderRadius: '20px' }}
-              >
-                Television{' '}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: 'black', borderRadius: '20px' }}
-              >
-                Iphone 16{' '}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ borderColor: 'black', borderRadius: '20px' }}
-              >
-                Tai nghe{' '}
-              </Button>
-            </Box>
           </Box>
-        </Box>
       </Box>
     </Container>
   );
