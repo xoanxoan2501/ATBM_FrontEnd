@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
-import "./ProductSlider.css"; // Ensure your CSS here handles layout
-import Endow from "../Item/Endow/Endow";
-import Phone from "../Item/Phone/Phone";
-import ScreenAndMemory from "../Item/ScreenAndMemory/ScreenAndMemory";
-import TV from "../Item/TV/TV";
-import Household from "../Item/Household/Household";
+import React, { useState } from 'react';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
+import './ProductSlider.css'; // Ensure your CSS here handles layout
+import Endow from '../Item/Endow/Endow';
+import Phone from '../Item/Phone/Phone';
+import ScreenAndMemory from '../Item/ScreenAndMemory/ScreenAndMemory';
+import TV from '../Item/TV/TV';
+import Household from '../Item/Household/Household';
 
 export default () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,13 +22,7 @@ export default () => {
   });
 
   // List of category names
-  const categories = [
-    "Ưu đãi",
-    "Điện Thoại",
-    "TV & AV",
-    "Gia Dụng",
-    "Màn hình - Bộ nhớ",
-  ];
+  const categories = ['Điện Thoại', 'TV & AV', 'Gia Dụng', 'Màn hình - Bộ nhớ'];
 
   return (
     <>
@@ -42,7 +36,7 @@ export default () => {
                 instanceRef.current?.moveToIdx(idx);
               }}
               className={`category-title ${
-                currentSlide === idx ? "active" : ""
+                currentSlide === idx ? 'active' : ''
               }`}
             >
               {category}
@@ -53,9 +47,6 @@ export default () => {
 
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          <div className="keen-slider__slide">
-            <Endow />
-          </div>
           <div className="keen-slider__slide">
             <Household />
           </div>
@@ -97,12 +88,12 @@ export default () => {
 
 // Arrow component for navigation
 function Arrow(props) {
-  const disabled = props.disabled ? " arrow--disabled" : "";
+  const disabled = props.disabled ? ' arrow--disabled' : '';
   return (
     <svg
       onClick={props.onClick}
       className={`arrow ${
-        props.left ? "arrow--left" : "arrow--right"
+        props.left ? 'arrow--left' : 'arrow--right'
       } ${disabled}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

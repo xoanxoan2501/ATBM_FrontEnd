@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
-import "./ProductPhone.css";
-import CardSlider from "../Item/CardSlider/CardSlider";
-import { styled } from "@mui/material";
+import React, { useState } from 'react';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
+import './ProductPhone.css';
+import CardSlider from '../Item/CardSlider/CardSlider';
+import { styled } from '@mui/material';
 
-const StyledDiv = styled("div")(({ theme }) => {
-  console.log(theme.palette.customBackGround.main);
+const StyledDiv = styled('div')(({ theme }) => {
+  // console.log(theme.palette.customBackGround.main);
   return {
     backgroundColor: theme.palette.customBackGround.main.toString(), // Màu chính từ theme
   };
@@ -26,28 +26,28 @@ const ProductPhone = () => {
   });
 
   // Danh sách tên danh mục và thông tin cho từng sản phẩm
-  const categories = ["SamSung Galaxy", "Iphone", "AriPod", "Watch"];
+  const categories = ['SamSung Galaxy', 'Iphone', 'AriPod', 'Watch'];
 
   const products = [
     {
-      image: "/images/samsunggalaxy.webp",
-      title: "Samsung Galaxy S21",
-      description: "The latest Samsung Galaxy phone.",
+      image: '/images/samsunggalaxy.webp',
+      title: 'Samsung Galaxy S21',
+      description: 'The latest Samsung Galaxy phone.',
     },
     {
-      image: "/images/iphone13123.webp",
-      title: "iPhone 13",
-      description: "The new iPhone with amazing features.",
+      image: '/images/iphone13123.webp',
+      title: 'iPhone 13',
+      description: 'The new iPhone with amazing features.',
     },
     {
-      image: "/images/tainghe.jpg",
-      title: "AirPods Pro",
-      description: "Wireless and noise-cancelling.",
+      image: '/images/tainghe.jpg',
+      title: 'AirPods Pro',
+      description: 'Wireless and noise-cancelling.',
     },
     {
-      image: "/images/watch.jpeg",
-      title: "Apple Watch Series 6",
-      description: "Your perfect health companion.",
+      image: '/images/watch.jpeg',
+      title: 'Apple Watch Series 6',
+      description: 'Your perfect health companion.',
     },
   ];
 
@@ -63,7 +63,7 @@ const ProductPhone = () => {
                 instanceRef.current?.moveToIdx(idx);
               }}
               className={`category-title ${
-                currentSlide === idx ? "active" : ""
+                currentSlide === idx ? 'active' : ''
               }`}
             >
               {category}
@@ -77,7 +77,7 @@ const ProductPhone = () => {
           {products.map((product, index) => (
             <div className="keen-slider__slide" key={index}>
               <CardSlider
-                className={currentSlide === index ? "show" : ""}
+                className={currentSlide === index ? 'show' : ''}
                 image={product.image}
                 title={product.title}
                 description={product.description}
@@ -112,12 +112,12 @@ const ProductPhone = () => {
 };
 
 function Arrow(props) {
-  const disabled = props.disabled ? " arrow--disabled" : "";
+  const disabled = props.disabled ? ' arrow--disabled' : '';
   return (
     <svg
       onClick={props.onClick}
       className={`arrow ${
-        props.left ? "arrow--left" : "arrow--right"
+        props.left ? 'arrow--left' : 'arrow--right'
       } ${disabled}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

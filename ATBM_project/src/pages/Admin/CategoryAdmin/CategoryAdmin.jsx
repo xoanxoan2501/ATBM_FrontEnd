@@ -24,6 +24,8 @@ import {
   TextField,
   Snackbar,
   Alert,
+  Typography,
+  CircularProgress,
 } from '@mui/material';
 
 const createData = (id, name) => {
@@ -172,8 +174,27 @@ export default function CategoryAdmin() {
     });
   }, []);
 
+  // Kiểm tra `rows.length` để xác định xem có dữ liệu chưa
+  if (rows.length === 0) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CircularProgress />
+        <Typography>Loading .... </Typography>
+      </Box>
+    );
+  }
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', minHeight: '100vh' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbarCateGogy
           numSelected={selected.length}
