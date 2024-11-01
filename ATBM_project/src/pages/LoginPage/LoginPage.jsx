@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button } from '@mui/material';
 import { z } from 'zod';
@@ -10,8 +10,10 @@ import { useState } from 'react';
 import { authAPI } from '../../apis/authAPI';
 import { useNavigate } from 'react-router-dom';
 import useGlobalVariableContext from '@/hooks/MyProvider';
+import { routes } from '@/config/routeConfig';
 const LoginPage = () => {
-  const { setUser } = useGlobalVariableContext();
+  const { setUserToLocalStorage, user } = useGlobalVariableContext();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -40,11 +42,14 @@ const LoginPage = () => {
       if (data.authenticated === true) {
         localStorage.setItem('accessToken', data.token);
         navigate('/');
-        setUser(data);
+        setUserToLocalStorage(data);
       }
       console.log('🚀 ~ authAPI.loginAPI ~ data:', data);
     });
   };
+  if (user) {
+    return <Navigate to={routes.HomePage} />;
+  }
   return (
     <Box>
       <Box

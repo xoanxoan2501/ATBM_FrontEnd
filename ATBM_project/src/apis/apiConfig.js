@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_ROOT } from "../utils/constances";
+import axios from 'axios';
+import { API_ROOT } from '../utils/constances';
 
 // Tạo một instance của axios
 const instance = axios.create({
@@ -11,9 +11,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     // Thêm token vào header nếu cần
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem('accessToken');
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
 
     return config;

@@ -8,8 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import CategoryIcon from '@mui/icons-material/Category';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { routes } from '@/config/routeConfig';
 
 export default function AppBar() {
   const [open, setOpen] = React.useState(true);
@@ -32,23 +35,69 @@ export default function AppBar() {
         }
       >
         <ListItemButton>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="User" />
+          <Link
+            to={routes.HomePage}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              color: 'black',
+              textDecoration: 'none',
+            }}
+          >
+            <ListItemIcon>
+              <ArrowBackIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quay lai" />
+          </Link>
         </ListItemButton>
         <ListItemButton>
-          <ListItemIcon>
-            <WidgetsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Product" />
+          <Link
+            to={routes.AdminUser}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              color: 'black',
+              textDecoration: 'none',
+            }}
+          >
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="User" />
+          </Link>
         </ListItemButton>
-        <ListItemButton onClick={handleClick}>
-          <ListItemIcon>
-            <CategoryIcon />
-          </ListItemIcon>
-          <ListItemText primary="Category" />
-        </ListItemButton>
+        <Link
+          to={routes.AdminProduct}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            color: 'black',
+            textDecoration: 'none',
+          }}
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <WidgetsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Product" />
+          </ListItemButton>
+        </Link>
+        <Link
+          to={routes.AdminCategory}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            color: 'black',
+            textDecoration: 'none',
+          }}
+        >
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>
+              <CategoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="Category" />
+          </ListItemButton>
+        </Link>
       </List>
     </Box>
   );

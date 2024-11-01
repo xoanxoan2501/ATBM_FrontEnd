@@ -21,6 +21,8 @@ import {
   Button,
   TextField,
   Snackbar,
+  CircularProgress,
+  Typography,
   Alert,
 } from '@mui/material';
 import { useEffect } from 'react';
@@ -233,6 +235,25 @@ export default function User() {
       );
     });
   }, []);
+
+  // Kiểm tra `rows.length` để xác định xem có dữ liệu chưa
+  if (rows.length === 0) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CircularProgress />
+        <Typography>Loading .... </Typography>
+      </Box>
+    );
+  }
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>

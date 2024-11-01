@@ -23,6 +23,8 @@ import {
   TextField,
   Snackbar,
   Alert,
+  CircularProgress,
+  Typography,
 } from '@mui/material';
 import { toast } from 'react-toastify';
 
@@ -231,6 +233,25 @@ export default function ProductAdmin() {
     });
   }, []);
 
+  // Kiểm tra `rows.length` để xác định xem có dữ liệu chưa
+  if (rows.length === 0) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100vh',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CircularProgress />
+        <Typography>Loading .... </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -327,7 +348,6 @@ export default function ProductAdmin() {
           }
         />
       </Paper>
-
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{isEditing ? 'Edit Product' : 'Add Product'}</DialogTitle>
         <DialogContent>
@@ -411,7 +431,6 @@ export default function ProductAdmin() {
           </Button>
         </DialogActions>
       </Dialog>
-
       <Snackbar
         open={openErrorSnackbar}
         autoHideDuration={6000}

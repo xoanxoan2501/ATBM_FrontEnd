@@ -9,6 +9,8 @@ import dayjs from 'dayjs';
 import MyDatePicker from '../../components/DatePicker/DatePicker'; // Đảm bảo bạn đã có DatePicker
 import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate
 import { authAPI } from '../../apis/authAPI';
+import { routes } from '@/config/routeConfig';
+import { toast } from 'react-toastify';
 
 // Định nghĩa schema với Zod
 const formDataSchema = z
@@ -68,9 +70,10 @@ const RegisterPage = () => {
 
     try {
       const result = await authAPI.registerAPI(newData);
-      navigate('/'); // Điều hướng đến trang chính
+      toast.success('Đăng kí thành công, vui lòng đăng nhập lại ! ');
+      navigate(routes.LoginPage);
     } catch (error) {
-      console.error('Đăng ký thất bại:', error); // Xử lý lỗi nếu cần
+      toast.error('Đăng kí thất bại'); // Xử lý lỗi nếu cần
     }
   };
 

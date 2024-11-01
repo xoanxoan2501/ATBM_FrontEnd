@@ -12,6 +12,10 @@ const loginAPI = async (data) => {
   return response.data;
 };
 
+const logoutAPI = async (data) => {
+  const response = await instance.post('/auths/logout', data);
+  return response.data;
+};
 // Hàm lấy thông tin sản phẩm với tham số id
 const getDataProduct = async (id) => {
   const response = await instance.get(`/products/${id}`);
@@ -33,4 +37,5 @@ export const authAPI = {
   getDataProduct,
   getCategory,
   getProductsByCategory,
+  logoutAPI,
 };

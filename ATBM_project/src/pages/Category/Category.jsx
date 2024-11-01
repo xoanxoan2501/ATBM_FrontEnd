@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import CardProductCategory from '../../components/CardProductCategory/CardProductCategory';
-import { Container } from '@mui/material';
+import { CircularProgress, Container, Typography } from '@mui/material';
 import { authAPI } from '@/apis/authAPI';
 import { sortProductByCategory } from '@/utils/algorithms';
 import { productsAdminAPI } from '@/apis/productAdminAPI';
@@ -26,36 +26,6 @@ export default function Category() {
   useEffect(() => {
     const fetchCategoriesAndProducts = async () => {
       try {
-        // const categoryResponse = await authAPI.getCategory();
-        // const newdataCategory = categoryResponse.data;
-        // console.log(
-        //   '🚀 ~ fetchCategoriesAndProducts ~ categoryResponse:',
-        //   categoryResponse
-        // );
-
-        // setCategories(newdataCategory); // Lưu dữ liệu danh mục vào state
-
-        // // Gọi API lấy sản phẩm cho từng danh mục
-        // const productsData = {};
-
-        // cateogry.id
-        /**
-         * [{
-         *   id: category_id,
-         * name: category_name,
-         * productList: []
-         * }, {}, {}]
-         */
-        // for (const category of newdataCategory) {
-        //   const products = await authAPI.getProductsByCategory(category.id);
-        //   const newDateProduct = products.data;
-        //   productsData[category.id] = newDateProduct; // Lưu sản phẩm theo từng categoryId
-        //   console.log(
-        //     '🚀 ~ fetchCategoriesAndProducts ~ newdataCategory:',
-        //     newdataCategory
-        //   );
-        // }
-        // setProductsByCategory(productsData); // Lưu toàn bộ dữ liệu sản phẩm theo danh mục vào state
         const categoryResponse = await authAPI.getCategory();
         const productResponse = await productsAdminAPI.getproductsAPI();
 
@@ -78,35 +48,49 @@ export default function Category() {
   }, []);
 
   // Render sản phẩm của mỗi danh mục
-  // const renderProductsData = (category) =>
-  //   (productsByCategory[category.id] || []).map((item) => (
-  //     <Grid item xs={12} sm={6} md={2.3} key={item.id}>
-  //       <Item>
-  //         <CardProductCategory
-  //           url={item.image}
-  //           content={item.name}
-  //           // color={item.color}
-  //           salePrice={item.price}
-  //           // price={item.price}
-  //         />
-  //       </Item>
-  //     </Grid>
-  //   ));
+  const renderProductsData = (category) =>
+    category.products.map((item) => (
+      <Grid item xs={12} sm={6} md={2.3} key={item.id}>
+        <Item>
+          <CardProductCategory product={item} />
+        </Item>
+      </Grid>
+    ));
 
   // Render danh mục và các sản phẩm tương ứng
   const renderCategoriesData = () =>
     categories.map((category) => (
-      <Box key={category.id}>
-        <h1 style={{ textAlign: 'center', fontWeight: 'bold' }}>
-          {category.name}
-        </h1>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={0.5} justifyContent="space-between">
-            {/* {renderProductsData(category)} */}
-          </Grid>
-        </Box>
-      </Box>
+      <Fragment key={category.id}>
+        {category.products.length > 0 && (
+          <Box>
+            <h1 style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              {category.name}
+            </h1>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={0.5} justifyContent="space-between">
+                {renderProductsData(category)}
+              </Grid>
+            </Box>
+          </Box>
+        )}
+      </Fragment>
     ));
+  if (categories.length === 0) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '400px',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CircularProgress />
+        <Typography>Loading .... </Typography>
+      </Box>
+    );
+  }
 
   return <Container>{renderCategoriesData()}</Container>;
 }

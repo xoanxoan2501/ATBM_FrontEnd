@@ -7,8 +7,49 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import useGlobalVariableContext from '@/hooks/MyProvider';
+import { toast } from 'react-toastify';
+import { cloneDeep } from 'lodash';
+import { routes } from '@/config/routeConfig';
+export default function CardProductCategory({ product }) {
+  const { cart, setCartToLocalStorage } = useGlobalVariableContext();
+  const { user, setUerToLocalStrorage } = useGlobalVariableContext();
+  const handleAddToCart = () => {
+    const newItem = {
+      product_id: product.id,
+      product_name: product.name,
+      product_image: product.image,
+      quantity: 1,
+      price: product.price,
+    };
+    const newCart = cloneDeep(cart);
+    // Kiểm tra user có tồn tại không
+    if (!user) {
+      toast.error('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!');
+      routes.LoginPage;
+    }
 
-export default function CardProductCategory(props) {
+    const userCart = newCart.find((item) => item.userId === user.id);
+    if (userCart) {
+      const productIndex = userCart.items.findIndex(
+        (item) => item.product_id === product.id
+      );
+
+      if (productIndex !== -1) {
+        userCart.items[productIndex].quantity += 1;
+      } else {
+        userCart.items.push(newItem);
+      }
+    } else {
+      newCart.push({
+        userId: user.id,
+        items: [newItem],
+      });
+    }
+
+    setCartToLocalStorage(newCart);
+    toast.success('Thêm sản phẩm thành công ! ');
+  };
   return (
     <Card
       sx={{
@@ -22,7 +63,7 @@ export default function CardProductCategory(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={props.url}
+          image={product.url}
           alt="Product Image"
           sx={{ height: '300px', objectFit: 'contain' }} // Adjusting image height
         />
@@ -42,14 +83,14 @@ export default function CardProductCategory(props) {
               textOverflow: 'ellipsis', // Add ellipsis at the end of overflowed content
             }}
           >
-            {props.content}
+            {product.content}
           </Typography>
 
           <Typography
             variant="body2"
             sx={{ textAlign: 'center', color: 'gray', marginBottom: '10px' }}
           >
-            {props.color}
+            {product.color}
           </Typography>
 
           {/* Capacity Information */}
@@ -59,10 +100,10 @@ export default function CardProductCategory(props) {
             sx={{ textAlign: 'center', marginBottom: '10px' }}
           >
             <Grid item xs={6}>
-              <Typography variant="body2">{props.type1}</Typography>
+              <Typography variant="body2">{product.type1}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body2">{props.type2}</Typography>
+              <Typography variant="body2">{product.type2}</Typography>
             </Grid>
           </Grid>
 
@@ -72,13 +113,14 @@ export default function CardProductCategory(props) {
               variant="body2"
               sx={{ color: 'gray', marginBottom: '15px' }}
             >
-              {props.salePrice}
+              {product.salePrice}
             </Typography>
           </Box>
 
           {/* Buy Now Button */}
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button
+              onClick={handleAddToCart}
               variant="contained"
               color="primary"
               sx={{
@@ -88,7 +130,7 @@ export default function CardProductCategory(props) {
                 padding: '10px 20px',
               }}
             >
-              Mua ngay
+              Thêm vào giỏ hàng
             </Button>
           </Grid>
         </CardContent>

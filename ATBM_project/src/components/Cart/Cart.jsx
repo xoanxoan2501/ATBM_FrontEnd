@@ -1,86 +1,52 @@
-import {
-  Typography,
-  Box,
-  IconButton,
-  TextField,
-  Container,
-} from '@mui/material';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Typography, Box, Container } from '@mui/material';
+
 import DenseTable from './DenseTable/DenseTable';
+import useGlobalVariableContext from '@/hooks/MyProvider';
+import { Button } from 'react-admin';
+function formatNumber(number) {
+  return number.toLocaleString('vi-VN');
+}
 
 const Cart = () => {
+  const { cart } = useGlobalVariableContext();
+  const { user } = useGlobalVariableContext();
+  // Lọc giỏ hàng của người dùng hiện tại
+  const userCart = cart.find((userCart) => userCart.userId === user.id);
+  const items = userCart ? userCart.items : [];
+
+  const totalPrice = items.reduce((originalPrice, item) => {
+    return originalPrice + item.price * item.quantity;
+  }, 0);
   return (
     <Container>
-      <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <h1>Giỏ hàng của tôi</h1>
       </Box>
       <DenseTable />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginTop: '20px',
+          marginBottom: '20px',
+        }}
+      >
+        <Typography sx={{ fontWeight: 'bold', fontSize: '1.2 rem' }}>
+          Tổng tiền: {formatNumber(totalPrice)} đ{' '}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginTop: '20px',
+          marginBottom: '20px',
+        }}
+      >
+        <Button variant="outlined"> Thanh toán</Button>
+      </Box>
     </Container>
   );
 };
 
 export default Cart;
-
-{
-  /* <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '10px',
-          borderBottom: '1px solid #ccc',
-          width: '100%',
-          maxHeight: '500px',
-          minHeight: '500px',
-          backgroundColor: '#f9f9f9',
-        }}
-      >
-        {/* Ảnh sản phẩm và tên sản phẩm */
-}
-// <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-//     {/* Ảnh sản phẩm */}
-//     <img
-//       src="/images/iphone13.jpg" // Đường dẫn ảnh mẫu, thay bằng ảnh sản phẩm của bạn
-//       alt="Product"
-//       style={{ width: '60px', height: '60px', borderRadius: '5px' }}
-//     />
-//     {/* Tên sản phẩm */}
-//     <Typography variant="h6">Iphone 13</Typography>
-//   </Box>
-
-//   {/* Số lượng */}
-//   <Box
-//     sx={{
-//       display: 'flex',
-//       alignItems: 'center',
-//       gap: 1,
-//     }}
-//   >
-//     <IconButton color="primary">
-//       <RemoveIcon />
-//     </IconButton>
-//     <TextField
-//       variant="outlined"
-//       size="small"
-//       defaultValue="2"
-//       sx={{ width: '50px', textAlign: 'center' }}
-//     />
-//     <IconButton color="primary">
-//       <AddIcon />
-//     </IconButton>
-//   </Box>
-
-//   {/* Giá */}
-//   <Box>
-//     <Typography variant="h6">150,000 VND</Typography>
-//   </Box>
-
-//   {/* Nút Xóa */}
-//   <Box>
-//     <IconButton color="error">
-//       <DeleteIcon />
-//     </IconButton>
-//   </Box>
-// </Box> */}
