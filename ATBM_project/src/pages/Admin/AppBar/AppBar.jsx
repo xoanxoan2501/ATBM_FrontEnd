@@ -22,9 +22,19 @@ export default function AppBar() {
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Box 
+    sx={{ 
+      display: 'flex', 
+      alignItems: 'center',
+      justifyContent: 'center',    
+      height: '100vh',             
+      bgcolor: '#E3E3E3', 
+      width: '15%',
+      borderRadius: 2,              
+        
+    }}>
       <List
-        sx={{ width: '80%', maxWidth: 250, bgcolor: 'background.paper' }}
+        sx={{ width: '100%', maxWidth: 250,bgcolor: 'transparent' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={

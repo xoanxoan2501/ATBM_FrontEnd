@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Category from './pages/Category/Category';
+import About from './pages/About/About';
+import Contact from './pages/Contact/Contact';
 import RoutesComponent from './router/RoutesComponet';
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
@@ -36,6 +39,11 @@ const App = () => {
         theme="light"
         transitio={Bounce}
       />
+      {/* <DefaultLayout>
+         <About/> 
+        <Contact/> 
+      </DefaultLayout>
+    */}
     </>
   );
 };
