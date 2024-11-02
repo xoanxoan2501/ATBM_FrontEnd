@@ -2,6 +2,8 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { Link } from 'react-router-dom'
+import { routes } from '@/config/routeConfig'
 
 export default function Mac() {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -15,22 +17,24 @@ export default function Mac() {
 
   return (
     <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Sản phẩm
-      </Button>
+      <Link to={routes.CategoryPage}>
+        <Button
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          Sản phẩm
+        </Button>
+      </Link>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button'
+          'aria-labelledby': 'basic-button',
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>

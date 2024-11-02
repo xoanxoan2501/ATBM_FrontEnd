@@ -23,7 +23,7 @@ import {
   DialogTitle,
   Tooltip,
   InputBase,
-  IconButton
+  IconButton,
 } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 // Import các thành phần Menu của bạn
@@ -31,7 +31,7 @@ import Store from './Menus/Store'
 import Ipad from './Menus/Ipad'
 
 import Iphone from './Menus/Iphone'
-import Mac from './Menus/Mac'
+import Mac from './Menus/ProuctItem'
 
 import useGlobalVariableContext from '@/hooks/MyProvider'
 import { saveToLocalStorage } from '@/utils/algorithms'
@@ -93,14 +93,14 @@ const Header = ({ sx }) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 2,
-        marginBottom: '20px'
+        marginBottom: '20px',
       }}
     >
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 2
+          gap: 2,
         }}
       >
         <Tooltip title="homepage">
@@ -109,7 +109,7 @@ const Header = ({ sx }) => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                color: 'black'
+                color: 'black',
               }}
               fontSize="small"
             />
@@ -129,7 +129,7 @@ const Header = ({ sx }) => {
             width: 500,
             height: 35,
             border: '1px solid',
-            borderRadius: 10
+            borderRadius: 10,
           }}
         >
           <InputBase
@@ -147,7 +147,7 @@ const Header = ({ sx }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 1
+          gap: 1,
         }}
       >
         <PersonIcon />
@@ -188,7 +188,7 @@ const Header = ({ sx }) => {
                 {...TransitionProps}
                 style={{
                   transformOrigin:
-                    placement === 'bottom-start' ? 'left top' : 'left bottom'
+                    placement === 'bottom-start' ? 'left top' : 'left bottom',
                 }}
               >
                 <Paper>
