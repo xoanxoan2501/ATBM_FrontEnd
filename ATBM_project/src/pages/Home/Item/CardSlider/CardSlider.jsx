@@ -31,8 +31,13 @@ const CardSlider = ({ className, image, title, description }) => {
   }, [className]);
 
   return (
-    <StyledDiv className={`card ${className}`}>
-      <img src={image} alt={title} className="phone-image" />
+    <StyledDiv className={`card ${className}`} sx={{ height: '500px' }}>
+      <img
+        src={image}
+        alt={title}
+        className="phone-image"
+        style={{ height: '200px', width: 'auto' }}
+      />
       <div className={`afterLayout ${className}`}>
         <h2 className={`text-container ${className}`}>{title}</h2>
         <p className={`text-container ${className}`}>{description}</p>

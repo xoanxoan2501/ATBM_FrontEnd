@@ -7,8 +7,7 @@ import TVandRadio from './ProductSlider/TVandRadio/TVandRadio';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { MyContext } from '@/hooks/MyProvider';
-import useGlobalVariableContext from '@/hooks/MyProvider';
+
 export default function HomePage() {
   return (
     // * code cho phan body

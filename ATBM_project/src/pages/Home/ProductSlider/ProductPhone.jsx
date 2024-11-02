@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import './ProductPhone.css';
 import CardSlider from '../Item/CardSlider/CardSlider';
 import { styled } from '@mui/material';
+import { authAPI } from '@/apis/authAPI';
+// Giả sử authAPI có chứa các hàm API
 
-const StyledDiv = styled('div')(({ theme }) => {
-  // console.log(theme.palette.customBackGround.main);
-  return {
-    backgroundColor: theme.palette.customBackGround.main.toString(), // Màu chính từ theme
-  };
-});
+const StyledDiv = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.customBackGround.main.toString(),
+}));
 
 const ProductPhone = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [products, setProducts] = useState([]);
+
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     slideChanged(slider) {
@@ -25,35 +26,33 @@ const ProductPhone = () => {
     },
   });
 
-  // Danh sách tên danh mục và thông tin cho từng sản phẩm
-  const categories = ['SamSung Galaxy', 'Iphone', 'AriPod', 'Watch'];
-
-  const products = [
-    {
-      image: '/images/samsunggalaxy.webp',
-      title: 'Samsung Galaxy S21',
-      description: 'The latest Samsung Galaxy phone.',
-    },
-    {
-      image: '/images/iphone13123.webp',
-      title: 'iPhone 13',
-      description: 'The new iPhone with amazing features.',
-    },
-    {
-      image: '/images/tainghe.jpg',
-      title: 'AirPods Pro',
-      description: 'Wireless and noise-cancelling.',
-    },
-    {
-      image: '/images/watch.jpeg',
-      title: 'Apple Watch Series 6',
-      description: 'Your perfect health companion.',
-    },
+  const productIds = [
+    '68451ce6-6409-4344-aa34-27a9ac5517bb', // iPhone
+    'c744ec3d-0749-4aa9-815e-afff17a1281e', // Samsung Galaxy
+    '88dd42d6-75f2-4862-885b-9923c1a6c1e5', // Tai nghe
+    '489db35e-ba1a-4c40-9215-d227d8c5cd2b', // Watch
   ];
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productData = await Promise.all(
+        productIds.map(async (id) => {
+          const response = await authAPI.getDataProduct(id);
+
+          const { name, image, description } = response.data;
+          return { name, image, description };
+        })
+      );
+      setProducts(productData);
+    };
+
+    fetchProducts();
+  }, []);
+
+  const categories = ['Samsung Galaxy', 'iPhone', 'AirPod', 'Watch'];
 
   return (
     <>
-      {/* Nút danh mục được đưa lên đầu */}
       {loaded && instanceRef.current && (
         <div className="category-titles">
           {categories.map((category, idx) => (
@@ -62,9 +61,7 @@ const ProductPhone = () => {
               onClick={() => {
                 instanceRef.current?.moveToIdx(idx);
               }}
-              className={`category-title ${
-                currentSlide === idx ? 'active' : ''
-              }`}
+              className={`category-title ${currentSlide === idx ? 'active' : ''}`}
             >
               {category}
             </button>
@@ -79,14 +76,14 @@ const ProductPhone = () => {
               <CardSlider
                 className={currentSlide === index ? 'show' : ''}
                 image={product.image}
-                title={product.title}
+                title={product.name}
                 description={product.description}
               />
             </div>
           ))}
         </StyledDiv>
 
-        {loaded && instanceRef.current && (
+        {/* {loaded && instanceRef.current && instanceRef.current.track && (
           <>
             <Arrow
               left
@@ -105,7 +102,7 @@ const ProductPhone = () => {
               }
             />
           </>
-        )}
+        )} */}
       </div>
     </>
   );
@@ -116,9 +113,7 @@ function Arrow(props) {
   return (
     <svg
       onClick={props.onClick}
-      className={`arrow ${
-        props.left ? 'arrow--left' : 'arrow--right'
-      } ${disabled}`}
+      className={`arrow ${props.left ? 'arrow--left' : 'arrow--right'} ${disabled}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >

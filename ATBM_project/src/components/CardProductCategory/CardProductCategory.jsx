@@ -13,7 +13,7 @@ import { cloneDeep } from 'lodash';
 import { routes } from '@/config/routeConfig';
 export default function CardProductCategory({ product }) {
   const { cart, setCartToLocalStorage } = useGlobalVariableContext();
-  const { user, setUerToLocalStrorage } = useGlobalVariableContext();
+  const { user } = useGlobalVariableContext();
   const handleAddToCart = () => {
     const newItem = {
       product_id: product.id,

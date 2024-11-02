@@ -16,12 +16,19 @@ function MyProvider(props) {
     saveToLocalStorage('cart', cart);
     setCart(cart);
   };
+  // Cập nhật giỏ hàng
+  const updateCart = (newCart) => {
+    setCart(newCart);
+    setCartToLocalStorage(newCart);
+  };
 
   const globalData = {
     user,
     setUserToLocalStorage,
     cart,
     setCartToLocalStorage,
+    setCart,
+    updateCart,
   };
 
   useEffect(() => {
