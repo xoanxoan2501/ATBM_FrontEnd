@@ -1,16 +1,16 @@
-import TextField from '@mui/material/TextField';
-import { Box, Container, Typography } from '@mui/material';
-import { Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import dayjs from 'dayjs';
-import MyDatePicker from '../../components/DatePicker/DatePicker'; // Đảm bảo bạn đã có DatePicker
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate
-import { authAPI } from '../../apis/authAPI';
-import { routes } from '@/config/routeConfig';
-import { toast } from 'react-toastify';
+import TextField from '@mui/material/TextField'
+import { Box, Container, Typography } from '@mui/material'
+import { Button } from '@mui/material'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import dayjs from 'dayjs'
+import MyDatePicker from '../../components/DatePicker/DatePicker' // Đảm bảo bạn đã có DatePicker
+import { useNavigate, Link } from 'react-router-dom' // Import useNavigate
+import { authAPI } from '../../apis/authAPI'
+import { routes } from '@/config/routeConfig'
+import { toast } from 'react-toastify'
 
 // Định nghĩa schema với Zod
 const formDataSchema = z
@@ -24,16 +24,16 @@ const formDataSchema = z
     firstname: z.string().min(2, { message: 'First name is required' }),
     lastname: z.string().min(1, { message: 'Last name is required' }),
     confirmPassword: z.string().min(6, {
-      message: 'Confirm password must be at least 6 characters long',
+      message: 'Confirm password must be at least 6 characters long'
     }),
     dob: z.date().refine((date) => dayjs().diff(date, 'years') >= 16, {
-      message: 'You must be at least 16 years old',
-    }),
+      message: 'You must be at least 16 years old'
+    })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
+    path: ['confirmPassword']
+  })
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -42,19 +42,19 @@ const RegisterPage = () => {
     firstname: '',
     lastname: '',
     confirmPassword: '',
-    dob: dayjs().toDate(),
-  });
+    dob: dayjs().toDate()
+  })
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
+    setValue
   } = useForm({
-    resolver: zodResolver(formDataSchema),
-  });
+    resolver: zodResolver(formDataSchema)
+  })
 
-  const navigate = useNavigate(); // Khởi tạo useNavigate
+  const navigate = useNavigate() // Khởi tạo useNavigate
 
   const handleRegister = async (data) => {
     // Chỉ gửi những trường cần thiết theo yêu cầu của server
@@ -63,19 +63,19 @@ const RegisterPage = () => {
       password: data.password,
       firstname: data.firstname,
       lastname: data.lastname,
-      dob: dayjs(formData.dob).format('YYYY-MM-DD'), // Định dạng lại ngày sinh
-    };
+      dob: dayjs(formData.dob).format('YYYY-MM-DD') // Định dạng lại ngày sinh
+    }
 
-    console.log('Dữ liệu đăng ký:', newData);
+    console.log('Dữ liệu đăng ký:', newData)
 
     try {
-      const result = await authAPI.registerAPI(newData);
-      toast.success('Đăng kí thành công, vui lòng đăng nhập lại ! ');
-      navigate(routes.LoginPage);
+      const result = await authAPI.registerAPI(newData)
+      toast.success('Đăng kí thành công, vui lòng đăng nhập lại ! ')
+      navigate(routes.LoginPage)
     } catch (error) {
-      toast.error('Đăng kí thất bại'); // Xử lý lỗi nếu cần
+      toast.error('Đăng kí thất bại') // Xử lý lỗi nếu cần
     }
-  };
+  }
 
   return (
     <Container>
@@ -85,13 +85,13 @@ const RegisterPage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           marginTop: '32px',
-          gap: 2,
+          gap: 2
         }}
       >
         <Typography
           sx={{
             fontSize: '24px',
-            fontWeight: 'bold',
+            fontWeight: 'bold'
           }}
         >
           TẠO TÀI KHOẢN APPLE
@@ -99,7 +99,7 @@ const RegisterPage = () => {
         <Typography
           sx={{
             fontSize: '16px',
-            marginTop: '5px',
+            marginTop: '5px'
           }}
         >
           Chỉ cần có một Tài khoản Apple để truy cập vào tất cả dịch vụ của
@@ -221,7 +221,7 @@ const RegisterPage = () => {
                 justifyContent: 'center', // Căn giữa theo chiều ngang
                 alignItems: 'center', // Căn giữa theo chiều dọc
                 marginTop: '10px',
-                gap: 2,
+                gap: 2
               }}
             >
               <Button
@@ -233,8 +233,8 @@ const RegisterPage = () => {
                   border: '2px solid black', // Tạo viền màu đen
                   '&:hover': {
                     backgroundColor: 'black', // Màu nền khi hover
-                    color: 'white', // Màu chữ khi hover
-                  },
+                    color: 'white' // Màu chữ khi hover
+                  }
                 }}
               >
                 Register
@@ -249,8 +249,8 @@ const RegisterPage = () => {
                     border: '2px solid black', // Tạo viền màu đen
                     '&:hover': {
                       backgroundColor: 'black', // Màu nền khi hover
-                      color: 'white', // Màu chữ khi hover
-                    },
+                      color: 'white' // Màu chữ khi hover
+                    }
                   }}
                 >
                   Back to Login
@@ -261,7 +261,7 @@ const RegisterPage = () => {
         </Container>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

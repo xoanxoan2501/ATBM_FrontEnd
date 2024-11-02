@@ -1,20 +1,20 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
+import Box from '@mui/material/Box'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
 
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { stableSort, getComparator } from '@/utils/formatters';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import { categoryAdminAPI } from '@/apis/categoryAdminAPI';
-import { useEffect } from 'react';
-import EnhancedTableHeadCateGory from './EnhancedTableHead/EnhancedTableHead';
-import EnhancedTableToolbarCateGogy from './EnhancedTableToobar/EnhancedTableToobar';
+import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
+import { stableSort, getComparator } from '@/utils/formatters'
+import Paper from '@mui/material/Paper'
+import Checkbox from '@mui/material/Checkbox'
+import { categoryAdminAPI } from '@/apis/categoryAdminAPI'
+import { useEffect } from 'react'
+import EnhancedTableHeadCateGory from './EnhancedTableHead/EnhancedTableHead'
+import EnhancedTableToolbarCateGogy from './EnhancedTableToobar/EnhancedTableToobar'
 import {
   Dialog,
   DialogActions,
@@ -25,144 +25,144 @@ import {
   Snackbar,
   Alert,
   Typography,
-  CircularProgress,
-} from '@mui/material';
+  CircularProgress
+} from '@mui/material'
 
 const createData = (id, name) => {
-  let newRoles = '';
+  let newRoles = ''
 
-  return { id, name };
-};
+  return { id, name }
+}
 
 // const initialRows = [createData(1, 'Electronics'), createData(2, 'Furniture')];
 
 export default function CategoryAdmin() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [addCategory, setAddCategory] = React.useState({ name: '' });
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
-  const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false);
+  const [order, setOrder] = React.useState('asc')
+  const [orderBy, setOrderBy] = React.useState('name')
+  const [selected, setSelected] = React.useState([])
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [addCategory, setAddCategory] = React.useState({ name: '' })
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [isEditing, setIsEditing] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false)
 
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState([])
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
+      const newSelected = rows.map((n) => n.id)
+      setSelected(newSelected)
+      return
     }
-    setSelected([]);
-  };
+    setSelected([])
+  }
 
   const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
+    const selectedIndex = selected.indexOf(id)
+    let newSelected = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selected.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
-      );
+      )
     }
 
-    setSelected(newSelected);
-  };
+    setSelected(newSelected)
+  }
 
   const handleAddCategory = () => {
-    setDialogOpen(true);
-    setIsEditing(false);
-    setAddCategory({ name: '' });
-  };
+    setDialogOpen(true)
+    setIsEditing(false)
+    setAddCategory({ name: '' })
+  }
 
   const handleEditCategory = () => {
     if (selected.length === 1) {
-      const categoryToEdit = rows.find((row) => row.id === selected[0]);
-      setAddCategory(categoryToEdit);
-      setDialogOpen(true);
-      setIsEditing(true);
+      const categoryToEdit = rows.find((row) => row.id === selected[0])
+      setAddCategory(categoryToEdit)
+      setDialogOpen(true)
+      setIsEditing(true)
     }
-  };
+  }
 
   const handleDeleteCategory = async () => {
     try {
       await Promise.all(
         selected.map(async (categoriesId) => {
-          await categoryAdminAPI.deleteCategoryAPI(categoriesId); // Gọi API để xóa categogies
+          await categoryAdminAPI.deleteCategoryAPI(categoriesId) // Gọi API để xóa categogies
         })
-      );
-      const newRows = rows.filter((row) => !selected.includes(row.id));
-      setRows(newRows);
-      setSelected([]);
+      )
+      const newRows = rows.filter((row) => !selected.includes(row.id))
+      setRows(newRows)
+      setSelected([])
     } catch (error) {
-      setErrorMessage('Xóa thất bại!');
-      setOpenErrorSnackbar(true);
+      setErrorMessage('Xóa thất bại!')
+      setOpenErrorSnackbar(true)
     }
-  };
+  }
 
   const handleSaveCategory = async () => {
     // Kiểm tra các trường bắt buộc
     if (!addCategory.name) {
-      setErrorMessage('Tất cả các trường đều bắt buộc!');
-      setOpenErrorSnackbar(true);
-      return;
+      setErrorMessage('Tất cả các trường đều bắt buộc!')
+      setOpenErrorSnackbar(true)
+      return
     }
 
     try {
       if (isEditing) {
         // Cập nhật category
-        await categoryAdminAPI.updateCategoryAPI(addCategory, addCategory.id); // Gọi API để cập nhật category
+        await categoryAdminAPI.updateCategoryAPI(addCategory, addCategory.id) // Gọi API để cập nhật category
         const updatedRows = rows.map((row) =>
           row.id === addCategory.id ? addCategory : row
-        );
-        setRows(updatedRows);
+        )
+        setRows(updatedRows)
       } else {
         // Thêm category
         const newCategoryResponse =
-          await categoryAdminAPI.postCategoryAPI(addCategory); // Gọi API để thêm category
-        const data = newCategoryResponse.data;
-        setRows([...rows, data]); // Cập nhật trạng thái với dữ liệu từ API
+          await categoryAdminAPI.postCategoryAPI(addCategory) // Gọi API để thêm category
+        const data = newCategoryResponse.data
+        setRows([...rows, data]) // Cập nhật trạng thái với dữ liệu từ API
       }
     } catch (error) {
       const errorMessage = isEditing
         ? 'Cập nhật category thành công'
-        : 'Thêm category thất bại!';
-      setErrorMessage(errorMessage);
-      setOpenErrorSnackbar(true);
+        : 'Thêm category thất bại!'
+      setErrorMessage(errorMessage)
+      setOpenErrorSnackbar(true)
     }
 
-    setDialogOpen(false);
-    setSelected([]);
-  };
+    setDialogOpen(false)
+    setSelected([])
+  }
 
   const handleCloseSnackbar = () => {
-    setOpenErrorSnackbar(false);
-  };
+    setOpenErrorSnackbar(false)
+  }
 
   const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
+    setDialogOpen(false)
+  }
 
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
 
   useEffect(() => {
     categoryAdminAPI.getCategoryAPI().then((data) => {
@@ -170,9 +170,9 @@ export default function CategoryAdmin() {
         data.data.map((categories) =>
           createData(categories.id, categories.name)
         )
-      );
-    });
-  }, []);
+      )
+    })
+  }, [])
 
   // Kiểm tra `rows.length` để xác định xem có dữ liệu chưa
   if (rows.length === 0) {
@@ -184,13 +184,13 @@ export default function CategoryAdmin() {
           minHeight: '100vh',
           width: '100vh',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
         <CircularProgress />
         <Typography>Loading .... </Typography>
       </Box>
-    );
+    )
   }
 
   return (
@@ -226,8 +226,8 @@ export default function CategoryAdmin() {
                 )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  const isItemSelected = isSelected(row.id)
+                  const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
                     <TableRow
@@ -257,7 +257,7 @@ export default function CategoryAdmin() {
                       </TableCell> */}
                       <TableCell>{row.name}</TableCell>
                     </TableRow>
-                  );
+                  )
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
@@ -313,5 +313,5 @@ export default function CategoryAdmin() {
         </Alert>
       </Snackbar>
     </Box>
-  );
+  )
 }

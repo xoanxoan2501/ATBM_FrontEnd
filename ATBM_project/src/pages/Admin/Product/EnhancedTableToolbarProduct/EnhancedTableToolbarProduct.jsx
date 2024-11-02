@@ -1,11 +1,11 @@
-import { alpha, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
-import PropTypes from 'prop-types';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import { alpha, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
+import PropTypes from 'prop-types'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
 
 export default function EnhancedTableToolbarProduct(props) {
-  const { numSelected, onDelete, onAdd, onEdit } = props;
+  const { numSelected, onDelete, onAdd, onEdit } = props
 
   return (
     <Toolbar
@@ -17,8 +17,8 @@ export default function EnhancedTableToolbarProduct(props) {
             alpha(
               theme.palette.primary.main,
               theme.palette.action.activatedOpacity
-            ),
-        }),
+            )
+        })
       }}
     >
       {numSelected > 0 ? (
@@ -60,12 +60,12 @@ export default function EnhancedTableToolbarProduct(props) {
         </Tooltip>
       )}
     </Toolbar>
-  );
+  )
 }
 
 EnhancedTableToolbarProduct.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onDelete: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
-};
+  onEdit: PropTypes.func.isRequired
+}

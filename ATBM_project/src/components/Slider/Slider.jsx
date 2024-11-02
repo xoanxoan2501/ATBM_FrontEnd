@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
-import "./Slider.css";
+import React, { useState } from 'react'
+import { useKeenSlider } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
+import './Slider.css'
 
 export default function Slider(props) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [loaded, setLoaded] = useState(false)
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel); // Cập nhật slide hiện tại
+      setCurrentSlide(slider.track.details.rel) // Cập nhật slide hiện tại
     },
     created() {
-      setLoaded(true); // Khi slider được khởi tạo
+      setLoaded(true) // Khi slider được khởi tạo
     },
     loop: true, // Thêm loop để slider quay vòng
-    duration: 1000, // Đặt thời gian chuyển tiếp slide
-  });
+    duration: 1000 // Đặt thời gian chuyển tiếp slide
+  })
 
   return (
     <>
@@ -38,15 +38,15 @@ export default function Slider(props) {
             <Arrow
               left
               onClick={(e) => {
-                e.stopPropagation();
-                instanceRef.current?.prev(); // Chuyển về slide trước đó
+                e.stopPropagation()
+                instanceRef.current?.prev() // Chuyển về slide trước đó
               }}
               disabled={currentSlide === 0}
             />
             <Arrow
               onClick={(e) => {
-                e.stopPropagation();
-                instanceRef.current?.next(); // Chuyển tới slide tiếp theo
+                e.stopPropagation()
+                instanceRef.current?.next() // Chuyển tới slide tiếp theo
               }}
               disabled={
                 currentSlide ===
@@ -60,29 +60,29 @@ export default function Slider(props) {
       {loaded && instanceRef.current && (
         <div className="dots">
           {[
-            ...Array(instanceRef.current.track.details.slides.length).keys(),
+            ...Array(instanceRef.current.track.details.slides.length).keys()
           ].map((idx) => (
             <button
               key={idx}
               onClick={() => {
-                instanceRef.current?.moveToIdx(idx); // Di chuyển tới slide chỉ định
+                instanceRef.current?.moveToIdx(idx) // Di chuyển tới slide chỉ định
               }}
-              className={"dot" + (currentSlide === idx ? " active" : "")}
+              className={'dot' + (currentSlide === idx ? ' active' : '')}
             />
           ))}
         </div>
       )}
     </>
-  );
+  )
 }
 
 function Arrow(props) {
-  const disabled = props.disabled ? " arrow--disabled" : "";
+  const disabled = props.disabled ? ' arrow--disabled' : ''
   return (
     <svg
       onClick={props.onClick}
       className={`arrow ${
-        props.left ? "arrow--left" : "arrow--right"
+        props.left ? 'arrow--left' : 'arrow--right'
       } ${disabled}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -93,5 +93,5 @@ function Arrow(props) {
         <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
       )}
     </svg>
-  );
+  )
 }

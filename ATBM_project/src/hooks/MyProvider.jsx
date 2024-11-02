@@ -1,46 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { useContext } from 'react';
-import { useEffect } from 'react';
-import { saveToLocalStorage, getFormLocalStorage } from '@/utils/algorithms';
-const MyContext = React.createContext();
+import { useContext } from 'react'
+import { useEffect } from 'react'
+import { saveToLocalStorage, getFormLocalStorage } from '@/utils/algorithms'
+const MyContext = React.createContext()
 
 function MyProvider(props) {
-  const [user, setUser] = useState(null);
-  const [cart, setCart] = useState([]);
+  const [user, setUser] = useState(null)
+  const [cart, setCart] = useState([])
   const setUserToLocalStorage = (user) => {
-    saveToLocalStorage('user', user);
-    setUser(user);
-  };
-  const setCartToLocalStorage = (cart) => {
-    saveToLocalStorage('cart', cart);
-    setCart(cart);
-  };
+    saveToLocalStorage('user', user)
+  }
+  const setCartToLocalStorage = (newUsercart) => {
+    const allCart = getFormLocalStorage('rootCart')
+    if (!allCart) {
+      saveToLocalStorage('rootCart', [{ userId: user.id, cart: newUsercart }])
+      return
+    }
+
+    const userCart = allCart.find((userCart) => userCart.userId === user.id)
+    userCart.cart = newUsercart
+    saveToLocalStorage('rootCart', allCart)
+  }
 
   const globalData = {
     user,
+
     setUserToLocalStorage,
     cart,
     setCartToLocalStorage,
-  };
+    setCart,
+    setUser
+  }
 
   useEffect(() => {
-    const user = getFormLocalStorage('user');
-    const cart = getFormLocalStorage('cart');
-    if (user) {
-      setUser(user);
+    const userLocalStorage = getFormLocalStorage('user')
+    const allCart = getFormLocalStorage('rootCart')
+    if (userLocalStorage) {
+      setUser(user)
+      if (allCart) {
+        const userCart = allCart.filter(
+          (userCart) => userCart.userId === userLocalStorage.id
+        )
+        setCart(userCart[0].cart)
+      }
     }
-    if (cart) {
-      setCart(cart);
-    }
-  }, []);
+  }, [user])
   return (
     <MyContext.Provider value={globalData}>{props.children}</MyContext.Provider>
-  );
+  )
 }
 
 export default function useGlobalVariableContext() {
-  return useContext(MyContext);
+  return useContext(MyContext)
 }
 
-export { MyContext, MyProvider };
+export { MyContext, MyProvider }

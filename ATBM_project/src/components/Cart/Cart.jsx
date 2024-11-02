@@ -1,22 +1,19 @@
-import { Typography, Box, Container } from '@mui/material';
+import { Typography, Box, Container } from '@mui/material'
 
-import DenseTable from './DenseTable/DenseTable';
-import useGlobalVariableContext from '@/hooks/MyProvider';
-import { Button } from 'react-admin';
+import DenseTable from './DenseTable/DenseTable'
+import useGlobalVariableContext from '@/hooks/MyProvider'
+import { Button } from 'react-admin'
 function formatNumber(number) {
-  return number.toLocaleString('vi-VN');
+  return number.toLocaleString('vi-VN')
 }
 
 const Cart = () => {
-  const { cart } = useGlobalVariableContext();
-  const { user } = useGlobalVariableContext();
-  // Lọc giỏ hàng của người dùng hiện tại
-  const userCart = cart.find((userCart) => userCart.userId === user.id);
-  const items = userCart ? userCart.items : [];
+  const { cart } = useGlobalVariableContext()
+  const { user } = useGlobalVariableContext()
 
-  const totalPrice = items.reduce((originalPrice, item) => {
-    return originalPrice + item.price * item.quantity;
-  }, 0);
+  const totalPrice = cart.reduce((originalPrice, item) => {
+    return originalPrice + item.price * item.quantity
+  }, 0)
   return (
     <Container>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -28,7 +25,7 @@ const Cart = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           marginTop: '20px',
-          marginBottom: '20px',
+          marginBottom: '20px'
         }}
       >
         <Typography sx={{ fontWeight: 'bold', fontSize: '1.2 rem' }}>
@@ -40,13 +37,13 @@ const Cart = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           marginTop: '20px',
-          marginBottom: '20px',
+          marginBottom: '20px'
         }}
       >
         <Button variant="outlined"> Thanh toán</Button>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

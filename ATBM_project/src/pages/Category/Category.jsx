@@ -1,13 +1,13 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import CardProductCategory from '../../components/CardProductCategory/CardProductCategory';
-import { CircularProgress, Container, Typography } from '@mui/material';
-import { authAPI } from '@/apis/authAPI';
-import { sortProductByCategory } from '@/utils/algorithms';
-import { productsAdminAPI } from '@/apis/productAdminAPI';
+import React, { useState, useEffect, Fragment } from 'react'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import CardProductCategory from '../../components/CardProductCategory/CardProductCategory'
+import { CircularProgress, Container, Typography } from '@mui/material'
+import { authAPI } from '@/apis/authAPI'
+import { sortProductByCategory } from '@/utils/algorithms'
+import { productsAdminAPI } from '@/apis/productAdminAPI'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -16,36 +16,36 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
   ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
+    backgroundColor: '#1A2027'
+  })
+}))
 
 export default function Category() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
     const fetchCategoriesAndProducts = async () => {
       try {
-        const categoryResponse = await authAPI.getCategory();
-        const productResponse = await productsAdminAPI.getproductsAPI();
+        const categoryResponse = await authAPI.getCategory()
+        const productResponse = await productsAdminAPI.getproductsAPI()
 
         const categoryList = sortProductByCategory(
           categoryResponse.data,
           productResponse.data
-        );
+        )
         console.log(
           '🚀 ~ fetchCategoriesAndProducts ~ categoryList:',
           categoryList
-        );
+        )
 
-        setCategories(categoryList);
+        setCategories(categoryList)
       } catch (error) {
-        console.error('Lỗi khi lấy sản phẩm hoặc danh mục:', error);
+        console.error('Lỗi khi lấy sản phẩm hoặc danh mục:', error)
       }
-    };
+    }
 
-    fetchCategoriesAndProducts();
-  }, []);
+    fetchCategoriesAndProducts()
+  }, [])
 
   // Render sản phẩm của mỗi danh mục
   const renderProductsData = (category) =>
@@ -55,7 +55,7 @@ export default function Category() {
           <CardProductCategory product={item} />
         </Item>
       </Grid>
-    ));
+    ))
 
   // Render danh mục và các sản phẩm tương ứng
   const renderCategoriesData = () =>
@@ -74,7 +74,7 @@ export default function Category() {
           </Box>
         )}
       </Fragment>
-    ));
+    ))
   if (categories.length === 0) {
     return (
       <Box
@@ -83,14 +83,14 @@ export default function Category() {
           flexDirection: 'column',
           minHeight: '400px',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
         <CircularProgress />
         <Typography>Loading .... </Typography>
       </Box>
-    );
+    )
   }
 
-  return <Container>{renderCategoriesData()}</Container>;
+  return <Container>{renderCategoriesData()}</Container>
 }

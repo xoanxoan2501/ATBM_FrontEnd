@@ -39,7 +39,7 @@ export default [
       'react-hooks/exhaustive-deps': 'warn',
 
       'no-restricted-imports': [
-        'error',
+        'warn',
         {
           patterns: ['@mui/*/*/*']
         }

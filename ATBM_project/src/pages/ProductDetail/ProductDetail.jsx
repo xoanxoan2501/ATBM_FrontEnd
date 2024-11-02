@@ -1,9 +1,9 @@
 import MobileDetail from '../Product/MobileDetail'
 
 const ProductDetailPage = () => {
-  return ( 
-  <MobileDetail />
- )
+  return (
+    <MobileDetail />
+  )
 }
 
 export default ProductDetailPage

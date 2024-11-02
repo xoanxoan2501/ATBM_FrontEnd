@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
-import './ProductSlider.css'; // Ensure your CSS here handles layout
-import Endow from '../Item/Endow/Endow';
-import Phone from '../Item/Phone/Phone';
-import ScreenAndMemory from '../Item/ScreenAndMemory/ScreenAndMemory';
-import TV from '../Item/TV/TV';
-import Household from '../Item/Household/Household';
+import React, { useState } from 'react'
+import { useKeenSlider } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
+import './ProductSlider.css' // Ensure your CSS here handles layout
+import Endow from '../Item/Endow/Endow'
+import Phone from '../Item/Phone/Phone'
+import ScreenAndMemory from '../Item/ScreenAndMemory/ScreenAndMemory'
+import TV from '../Item/TV/TV'
+import Household from '../Item/Household/Household'
 
 export default () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [loaded, setLoaded] = useState(false)
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
+      setCurrentSlide(slider.track.details.rel)
     },
     created() {
-      setLoaded(true);
-    },
-  });
+      setLoaded(true)
+    }
+  })
 
   // List of category names
-  const categories = ['Điện Thoại', 'TV & AV', 'Gia Dụng', 'Màn hình - Bộ nhớ'];
+  const categories = ['Điện Thoại', 'TV & AV', 'Gia Dụng', 'Màn hình - Bộ nhớ']
 
   return (
     <>
@@ -33,7 +33,7 @@ export default () => {
             <button
               key={idx}
               onClick={() => {
-                instanceRef.current?.moveToIdx(idx);
+                instanceRef.current?.moveToIdx(idx)
               }}
               className={`category-title ${
                 currentSlide === idx ? 'active' : ''
@@ -83,12 +83,12 @@ export default () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
 // Arrow component for navigation
 function Arrow(props) {
-  const disabled = props.disabled ? ' arrow--disabled' : '';
+  const disabled = props.disabled ? ' arrow--disabled' : ''
   return (
     <svg
       onClick={props.onClick}
@@ -104,5 +104,5 @@ function Arrow(props) {
         <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
       )}
     </svg>
-  );
+  )
 }

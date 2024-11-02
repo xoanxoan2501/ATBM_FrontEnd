@@ -1,55 +1,50 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import CardActionArea from '@mui/material/CardActionArea';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import useGlobalVariableContext from '@/hooks/MyProvider';
-import { toast } from 'react-toastify';
-import { cloneDeep } from 'lodash';
-import { routes } from '@/config/routeConfig';
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import CardActionArea from '@mui/material/CardActionArea'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import useGlobalVariableContext from '@/hooks/MyProvider'
+import { toast } from 'react-toastify'
+import { cloneDeep } from 'lodash'
+import { routes } from '@/config/routeConfig'
 export default function CardProductCategory({ product }) {
-  const { cart, setCartToLocalStorage } = useGlobalVariableContext();
-  const { user, setUerToLocalStrorage } = useGlobalVariableContext();
+  const { cart, setCartToLocalStorage, setCart } = useGlobalVariableContext()
+  const { user } = useGlobalVariableContext()
   const handleAddToCart = () => {
     const newItem = {
       product_id: product.id,
       product_name: product.name,
       product_image: product.image,
       quantity: 1,
-      price: product.price,
-    };
-    const newCart = cloneDeep(cart);
+      price: product.price
+    }
+    const newCart = cloneDeep(cart)
     // Kiểm tra user có tồn tại không
     if (!user) {
-      toast.error('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!');
-      routes.LoginPage;
+      toast.error('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!')
+      routes.LoginPage
     }
 
-    const userCart = newCart.find((item) => item.userId === user.id);
-    if (userCart) {
-      const productIndex = userCart.items.findIndex(
-        (item) => item.product_id === product.id
-      );
-
-      if (productIndex !== -1) {
-        userCart.items[productIndex].quantity += 1;
-      } else {
-        userCart.items.push(newItem);
-      }
+    // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
+    const existedItem = newCart.find(
+      (item) => item.product_id === newItem.product_id
+    )
+    if (existedItem) {
+      existedItem.quantity += 1
+      setCartToLocalStorage(newCart)
+      setCart(newCart)
+      toast.success('Thêm sản phẩm thành công ! ')
+      return
     } else {
-      newCart.push({
-        userId: user.id,
-        items: [newItem],
-      });
+      setCartToLocalStorage([...newCart, newItem])
+      setCart([...newCart, newItem])
+      toast.success('Thêm sản phẩm thành công ! ')
     }
-
-    setCartToLocalStorage(newCart);
-    toast.success('Thêm sản phẩm thành công ! ');
-  };
+  }
   return (
     <Card
       sx={{
@@ -57,7 +52,7 @@ export default function CardProductCategory({ product }) {
         backgroundColor: '#f7f7f7',
         height: '100%',
         borderRadius: '15px',
-        padding: '10px',
+        padding: '10px'
       }}
     >
       <CardActionArea>
@@ -80,7 +75,7 @@ export default function CardProductCategory({ product }) {
               textAlign: 'center', // Center text
               overflow: 'hidden', // Hide overflow
               whiteSpace: 'nowrap', // Keep the text in one line
-              textOverflow: 'ellipsis', // Add ellipsis at the end of overflowed content
+              textOverflow: 'ellipsis' // Add ellipsis at the end of overflowed content
             }}
           >
             {product.content}
@@ -127,7 +122,7 @@ export default function CardProductCategory({ product }) {
                 backgroundColor: 'black',
                 color: 'white',
                 borderRadius: '20px',
-                padding: '10px 20px',
+                padding: '10px 20px'
               }}
             >
               Thêm vào giỏ hàng
@@ -136,5 +131,5 @@ export default function CardProductCategory({ product }) {
         </CardContent>
       </CardActionArea>
     </Card>
-  );
+  )
 }

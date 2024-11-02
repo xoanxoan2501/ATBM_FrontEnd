@@ -4,16 +4,21 @@ export const sortProductByCategory = (categoryList, productList) => {
       ...category,
       products: productList.filter(
         (product) => product.category_id === category.id
-      ),
-    };
-    return newCategory;
-  });
-};
+      )
+    }
+    return newCategory
+  })
+}
 
 export const saveToLocalStorage = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
-};
+  localStorage.setItem(key, JSON.stringify(value))
+}
 
 export const getFormLocalStorage = (key) => {
-  return JSON.parse(localStorage.getItem(key));
-};
+  const result = localStorage.getItem(key)
+  if (result) {
+    return JSON.parse(result)
+  } else {
+    return null
+  }
+}

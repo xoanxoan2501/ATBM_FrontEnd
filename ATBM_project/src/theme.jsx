@@ -1,4 +1,4 @@
-import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
+import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 
 // extendTheme is a new API
 const theme = extendTheme({
@@ -7,30 +7,30 @@ const theme = extendTheme({
       // palette for light mode
       palette: {
         customText: {
-          main: '#000000', //black
+          main: '#000000' //black
         },
         customBackGround: {
-          main: '#ffffff',
+          main: '#ffffff'
         },
         buttonColor: {
-          main: '#000000',
-        },
-      },
+          main: '#000000'
+        }
+      }
     },
     dark: {
       // palette for dark mode
       palette: {
         customText: {
-          main: '#ffffff', //white
+          main: '#ffffff' //white
         },
         customBackGround: {
-          main: '#000000',
+          main: '#000000'
         },
         buttonColor: {
-          main: '#ffffff',
-        },
-      },
-    },
+          main: '#ffffff'
+        }
+      }
+    }
   },
   components: {
     // Name of the component
@@ -39,29 +39,29 @@ const theme = extendTheme({
         root: ({ theme }) => {
           return {
             textTransform: 'none',
-            color: theme.palette.customText.main,
-          };
-        },
-      },
+            color: theme.palette.customText.main
+          }
+        }
+      }
     },
     MuiFormControl: {
       styleOverrides: {
         root: ({ theme }) => ({
           margin: '0 !important',
-          width: '100%',
-        }),
-      },
+          width: '100%'
+        })
+      }
     },
     MuiPaper: {
       styleOverrides: {
         root: ({ theme }) => ({
           padding: '0 !important',
           // width: "100%",
-          boxShadow: 'none',
-        }),
-      },
-    },
-  },
-});
+          boxShadow: 'none'
+        })
+      }
+    }
+  }
+})
 
-export default theme;
+export default theme

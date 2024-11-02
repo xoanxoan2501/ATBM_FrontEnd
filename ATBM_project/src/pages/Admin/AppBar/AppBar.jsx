@@ -1,40 +1,40 @@
-import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import * as React from 'react'
+import ListSubheader from '@mui/material/ListSubheader'
+import List from '@mui/material/List'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import WidgetsIcon from '@mui/icons-material/Widgets';
-import CategoryIcon from '@mui/icons-material/Category';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import WidgetsIcon from '@mui/icons-material/Widgets'
+import CategoryIcon from '@mui/icons-material/Category'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import { Box } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { routes } from '@/config/routeConfig';
+import { Box } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { routes } from '@/config/routeConfig'
 
 export default function AppBar() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(true)
 
   const handleClick = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
   return (
-    <Box 
-    sx={{ 
-      display: 'flex', 
-      alignItems: 'center',
-      justifyContent: 'center',    
-      height: '100vh',             
-      bgcolor: '#E3E3E3', 
-      width: '15%',
-      borderRadius: 2,              
-        
-    }}>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        bgcolor: '#E3E3E3',
+        width: '15%',
+        borderRadius: 2
+
+      }}>
       <List
-        sx={{ width: '100%', maxWidth: 250,bgcolor: 'transparent' }}
+        sx={{ width: '100%', maxWidth: 250, bgcolor: 'transparent' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
@@ -51,7 +51,7 @@ export default function AppBar() {
               display: 'flex',
               alignItems: 'center',
               color: 'black',
-              textDecoration: 'none',
+              textDecoration: 'none'
             }}
           >
             <ListItemIcon>
@@ -67,7 +67,7 @@ export default function AppBar() {
               display: 'flex',
               alignItems: 'center',
               color: 'black',
-              textDecoration: 'none',
+              textDecoration: 'none'
             }}
           >
             <ListItemIcon>
@@ -82,7 +82,7 @@ export default function AppBar() {
             display: 'flex',
             alignItems: 'center',
             color: 'black',
-            textDecoration: 'none',
+            textDecoration: 'none'
           }}
         >
           <ListItemButton>
@@ -98,7 +98,7 @@ export default function AppBar() {
             display: 'flex',
             alignItems: 'center',
             color: 'black',
-            textDecoration: 'none',
+            textDecoration: 'none'
           }}
         >
           <ListItemButton onClick={handleClick}>
@@ -110,5 +110,5 @@ export default function AppBar() {
         </Link>
       </List>
     </Box>
-  );
+  )
 }

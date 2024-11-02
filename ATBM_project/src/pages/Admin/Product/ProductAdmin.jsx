@@ -1,19 +1,19 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { categoryAdminAPI } from '@/apis/categoryAdminAPI';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import { productsAdminAPI } from '@/apis/productAdminAPI';
-import { useEffect } from 'react';
-import EnhancedTableHeadProduct from './EnhancedTableHeadProdcut/EnhancedTableHeadProduct';
-import EnhancedTableToolbarProduct from './EnhancedTableToolbarProduct/EnhancedTableToolbarProduct';
+import Box from '@mui/material/Box'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
+import { categoryAdminAPI } from '@/apis/categoryAdminAPI'
+import Paper from '@mui/material/Paper'
+import Checkbox from '@mui/material/Checkbox'
+import { productsAdminAPI } from '@/apis/productAdminAPI'
+import { useEffect } from 'react'
+import EnhancedTableHeadProduct from './EnhancedTableHeadProdcut/EnhancedTableHeadProduct'
+import EnhancedTableToolbarProduct from './EnhancedTableToolbarProduct/EnhancedTableToolbarProduct'
 import {
   Dialog,
   DialogActions,
@@ -24,9 +24,9 @@ import {
   Snackbar,
   Alert,
   CircularProgress,
-  Typography,
-} from '@mui/material';
-import { toast } from 'react-toastify';
+  Typography
+} from '@mui/material'
+import { toast } from 'react-toastify'
 
 const createData = (
   id,
@@ -37,116 +37,113 @@ const createData = (
   image,
   category_id
 ) => {
-  let newRoles = '';
+  let newRoles = ''
 
   return {
-    id,
-    name,
     id,
     name,
     description,
     price,
     quantity,
     image,
-    category_id,
-  };
-};
+    category_id
+  }
+}
 
 // const initialRows = [createData(1, 'Electronics'), createData(2, 'Furniture')];
 
 export default function ProductAdmin() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [addProduct, setAddProduct] = React.useState({ name: '' });
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
-  const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false);
+  const [order, setOrder] = React.useState('asc')
+  const [orderBy, setOrderBy] = React.useState('name')
+  const [selected, setSelected] = React.useState([])
+  const [page, setPage] = React.useState(0)
+  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [addProduct, setAddProduct] = React.useState({ name: '' })
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [isEditing, setIsEditing] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [openErrorSnackbar, setOpenErrorSnackbar] = React.useState(false)
 
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState([])
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
-      setSelected(newSelected);
-      return;
+      const newSelected = rows.map((n) => n.id)
+      setSelected(newSelected)
+      return
     }
-    setSelected([]);
-  };
+    setSelected([])
+  }
 
   const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
+    const selectedIndex = selected.indexOf(id)
+    let newSelected = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selected.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
-      );
+      )
     }
 
-    setSelected(newSelected);
-  };
+    setSelected(newSelected)
+  }
 
   const handleAddProduct = () => {
-    setDialogOpen(true);
-    setIsEditing(false);
+    setDialogOpen(true)
+    setIsEditing(false)
     setAddProduct({
       name: '',
       id: '',
-      name: '',
       description: '',
       price: '',
       quantity: '',
       image: '',
-      category_id: '',
-    });
-  };
+      category_id: ''
+    })
+  }
 
   const handleEditProduct = () => {
     if (selected.length === 1) {
-      const ProductToEdit = rows.find((row) => row.id === selected[0]);
-      setAddProduct(ProductToEdit);
-      setDialogOpen(true);
-      setIsEditing(true);
+      const ProductToEdit = rows.find((row) => row.id === selected[0])
+      setAddProduct(ProductToEdit)
+      setDialogOpen(true)
+      setIsEditing(true)
     }
-  };
+  }
 
   const handleDeleteProduct = async () => {
     const confirmDelete = window.confirm(
       'Bạn có chắc chắn muốn sản phẩm  này không?'
-    );
-    if (!confirmDelete) return;
+    )
+    if (!confirmDelete) return
     try {
       await Promise.all(
         selected.map(async (products) => {
-          await productsAdminAPI.deleteproductsAPI(products); // Gọi API để xóa product
-          toast.success('Xóa thành công ');
+          await productsAdminAPI.deleteproductsAPI(products) // Gọi API để xóa product
+          toast.success('Xóa thành công ')
         })
-      );
-      const newRows = rows.filter((row) => !selected.includes(row.id));
-      setRows(newRows);
-      setSelected([]);
+      )
+      const newRows = rows.filter((row) => !selected.includes(row.id))
+      setRows(newRows)
+      setSelected([])
     } catch (error) {
-      toast.success('Xóa thất bại ');
-      setOpenErrorSnackbar(true);
+      toast.success('Xóa thất bại ')
+      setOpenErrorSnackbar(true)
     }
-  };
+  }
 
   const handleSaveProduct = async () => {
     // Kiểm tra các trường bắt buộc
@@ -158,62 +155,62 @@ export default function ProductAdmin() {
       !addProduct.image ||
       !addProduct.quantity
     ) {
-      setErrorMessage('Tất cả các trường đều bắt buộc!');
-      setOpenErrorSnackbar(true);
-      return;
+      setErrorMessage('Tất cả các trường đều bắt buộc!')
+      setOpenErrorSnackbar(true)
+      return
     }
 
     try {
       // Kiểm tra sự tồn tại của category_id
       const categoryExists = await productsAdminAPI.checkCategoryExists(
         addProduct.category_id
-      ); // Gọi API để kiểm tra
+      ) // Gọi API để kiểm tra
       if (!categoryExists) {
-        setErrorMessage('Category không tồn tại!');
-        setOpenErrorSnackbar(true);
-        return;
+        setErrorMessage('Category không tồn tại!')
+        setOpenErrorSnackbar(true)
+        return
       }
 
       if (isEditing) {
         // Cập nhật Product
-        await productsAdminAPI.updateproductsAPI(addProduct, addProduct.id); // Gọi API để cập nhật sản phẩm
+        await productsAdminAPI.updateproductsAPI(addProduct, addProduct.id) // Gọi API để cập nhật sản phẩm
         const updatedRows = rows.map((row) =>
           row.id === addProduct.id ? addProduct : row
-        );
-        setRows(updatedRows);
+        )
+        setRows(updatedRows)
       } else {
         // Thêm Product
-        const response = await productsAdminAPI.postproductsAPI(addProduct); // Gọi API để thêm sản phẩm
+        const response = await productsAdminAPI.postproductsAPI(addProduct) // Gọi API để thêm sản phẩm
 
-        const data = response.data;
+        const data = response.data
 
-        setRows([...rows, data]); // Cập nhật trạng thái với dữ liệu từ API
-        toast.success('Add new product successfully!');
+        setRows([...rows, data]) // Cập nhật trạng thái với dữ liệu từ API
+        toast.success('Add new product successfully!')
       }
     } catch (error) {
       const errorMessage = isEditing
         ? 'Cập nhật Product thất bại!'
-        : 'Thêm Product thất bại!';
-      setErrorMessage(errorMessage);
-      setOpenErrorSnackbar(true);
+        : 'Thêm Product thất bại!'
+      setErrorMessage(errorMessage)
+      setOpenErrorSnackbar(true)
     }
 
-    setDialogOpen(false);
-    setSelected([]);
-  };
+    setDialogOpen(false)
+    setSelected([])
+  }
 
   const handleCloseSnackbar = () => {
-    setOpenErrorSnackbar(false);
-  };
+    setOpenErrorSnackbar(false)
+  }
 
   const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
+    setDialogOpen(false)
+  }
 
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage)
 
   useEffect(() => {
     productsAdminAPI.getproductsAPI().then((data) => {
@@ -229,9 +226,9 @@ export default function ProductAdmin() {
             products.category_id
           )
         )
-      );
-    });
-  }, []);
+      )
+    })
+  }, [])
 
   // Kiểm tra `rows.length` để xác định xem có dữ liệu chưa
   if (rows.length === 0) {
@@ -243,13 +240,13 @@ export default function ProductAdmin() {
           minHeight: '100vh',
           width: '100vh',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
         <CircularProgress />
         <Typography>Loading .... </Typography>
       </Box>
-    );
+    )
   }
 
   return (
@@ -285,8 +282,8 @@ export default function ProductAdmin() {
                 )
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  const isItemSelected = isSelected(row.id)
+                  const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
                     <TableRow
@@ -326,7 +323,7 @@ export default function ProductAdmin() {
                       </TableCell>
                       {/* <TableCell>{row.category_id}</TableCell> */}
                     </TableRow>
-                  );
+                  )
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
@@ -372,7 +369,7 @@ export default function ProductAdmin() {
             onChange={(event) =>
               setAddProduct({
                 ...addProduct,
-                description: event.target.value,
+                description: event.target.value
               })
             }
           />
@@ -419,7 +416,7 @@ export default function ProductAdmin() {
             onChange={(event) =>
               setAddProduct({
                 ...addProduct,
-                category_id: event.target.value,
+                category_id: event.target.value
               })
             }
           />
@@ -441,5 +438,5 @@ export default function ProductAdmin() {
         </Alert>
       </Snackbar>
     </Box>
-  );
+  )
 }

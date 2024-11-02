@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardMedia, Typography, Button, Box, Chip } from '@mui/material';
-import { styled } from '@mui/system';
+import React from 'react'
+import { Card, CardMedia, Typography, Button, Box, Chip } from '@mui/material'
+import { styled } from '@mui/system'
 
 const HoverCard = styled(Card)(({ theme }) => ({
   position: 'relative',
@@ -12,18 +12,18 @@ const HoverCard = styled(Card)(({ theme }) => ({
   width: '100%', // Chiều rộng cố định
   height: '100%', // Chiều cao bằng với chiều rộng để thành hình vuông
   '&:hover .hover-image': {
-    transform: 'scale(1.05)', // Zoom nhẹ khi hover
+    transform: 'scale(1.05)' // Zoom nhẹ khi hover
   },
   '&:hover .hover-button': {
-    opacity: 1, // Hiển thị nút khi hover
-  },
-}));
+    opacity: 1 // Hiển thị nút khi hover
+  }
+}))
 
 const HoverCardImage = styled(CardMedia)(({ theme }) => ({
   transition: 'transform 0.3s ease-in-out', // Hiệu ứng zoom mượt mà
   width: '100%',
-  height: '100%', // Hình ảnh bao phủ toàn bộ card
-}));
+  height: '100%' // Hình ảnh bao phủ toàn bộ card
+}))
 
 const HoverButton = styled(Button)(({ theme }) => ({
   position: 'absolute',
@@ -38,9 +38,9 @@ const HoverButton = styled(Button)(({ theme }) => ({
   padding: '6px 12px', // Kích thước nút nhỏ hơn
   fontSize: '0.8rem', // Font chữ nhỏ hơn
   '&:hover': {
-    backgroundColor: '#333', // Màu nền khi hover
-  },
-}));
+    backgroundColor: '#333' // Màu nền khi hover
+  }
+}))
 
 const NewChip = styled(Chip)(({ theme }) => ({
   position: 'absolute',
@@ -49,8 +49,8 @@ const NewChip = styled(Chip)(({ theme }) => ({
   backgroundColor: '#1e88e5', // Màu xanh cho chip "Mới"
   color: '#fff',
   fontWeight: 'bold',
-  zIndex: 2, // Đảm bảo chip luôn nằm trên cùng
-}));
+  zIndex: 2 // Đảm bảo chip luôn nằm trên cùng
+}))
 
 const TextOverlay = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -61,8 +61,8 @@ const TextOverlay = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: '10px',
   width: '100%', // Để chữ chiếm hết chiều ngang
-  zIndex: 1, // Đảm bảo text không bị che bởi nút
-}));
+  zIndex: 1 // Đảm bảo text không bị che bởi nút
+}))
 
 const CardProduct = (props) => {
   return (
@@ -93,7 +93,7 @@ const CardProduct = (props) => {
         Mua ngay
       </HoverButton>
     </HoverCard>
-  );
-};
+  )
+}
 
-export default CardProduct;
+export default CardProduct

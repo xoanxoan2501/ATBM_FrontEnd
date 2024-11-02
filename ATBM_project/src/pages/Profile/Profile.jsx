@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Box,
   Container,
@@ -7,63 +7,63 @@ import {
   Button,
   Paper,
   Grid,
-  InputAdornment,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EventIcon from "@mui/icons-material/Event";
-import LanguageIcon from "@mui/icons-material/Language";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import LockIcon from "@mui/icons-material/Lock";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import WcIcon from "@mui/icons-material/Wc";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import { styled } from "@mui/material/styles";
+  InputAdornment
+} from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import PhoneIcon from '@mui/icons-material/Phone'
+import EventIcon from '@mui/icons-material/Event'
+import LanguageIcon from '@mui/icons-material/Language'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import LockIcon from '@mui/icons-material/Lock'
+import CreditCardIcon from '@mui/icons-material/CreditCard'
+import WcIcon from '@mui/icons-material/Wc'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import { styled } from '@mui/material/styles'
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
+  backgroundColor: '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+  textAlign: 'center',
+  color: theme.palette.text.secondary
+}))
 
 export default function Profile() {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false)
   const [userInfo, setUserInfo] = useState({
-    name: "Trần Thị Mỹ Xoan",
-    email: "xoan25012003@gmail.com",
-    phone: "(0)",
-    birthDate: "Jan 25, 2003",
-    gender: "Female",
-    twoStepVerification: "Enabled",
-    country: "Việt Nam",
-    address: "123 Đường ABC, Quận 1, TP.HCM",
-    language: "Tiếng Việt",
-    paymentInfo: "Visa **** 1234",
-  });
+    name: 'Trần Thị Mỹ Xoan',
+    email: 'xoan25012003@gmail.com',
+    phone: '(0)',
+    birthDate: 'Jan 25, 2003',
+    gender: 'Female',
+    twoStepVerification: 'Enabled',
+    country: 'Việt Nam',
+    address: '123 Đường ABC, Quận 1, TP.HCM',
+    language: 'Tiếng Việt',
+    paymentInfo: 'Visa **** 1234'
+  })
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
+    const { name, value } = e.target
+    setUserInfo({ ...userInfo, [name]: value })
+  }
 
   const handleSave = () => {
-    setIsEditing(false);
-  };
+    setIsEditing(false)
+  }
 
   return (
     <Container
       sx={{
-        backgroundColor: "#f5f5f5",
-        padding: 4,
+        backgroundColor: '#f5f5f5',
+        padding: 4
       }}
     >
       <h1
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
       >
         Tài khoản của tôi
@@ -72,24 +72,24 @@ export default function Profile() {
         <Box>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              justifyContent: "center",
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              justifyContent: 'center',
               gap: 2,
 
-              margin: "10px 0px 50px 0px",
-              backgroundColor: "white",
-              borderRadius: "20px",
+              margin: '10px 0px 50px 0px',
+              backgroundColor: 'white',
+              borderRadius: '20px'
             }}
           >
             <img
               src="/images/avt.jpg"
               alt="avatar"
               style={{
-                height: "200px",
-                width: "200px",
-                borderRadius: "180px",
+                height: '200px',
+                width: '200px',
+                borderRadius: '180px'
               }}
             />
 
@@ -106,7 +106,7 @@ export default function Profile() {
                     <InputAdornment position="start">
                       <AccountCircle />
                     </InputAdornment>
-                  ),
+                  )
                 }}
                 fullWidth
               />
@@ -127,7 +127,7 @@ export default function Profile() {
                     <InputAdornment position="start">
                       <AccountCircle />
                     </InputAdornment>
-                  ),
+                  )
                 }}
                 fullWidth
               />
@@ -137,9 +137,9 @@ export default function Profile() {
           </Box>
           <Box
             sx={{
-              margin: "10px 0px 30px 0px",
-              backgroundColor: "white",
-              borderRadius: "20px",
+              margin: '10px 0px 30px 0px',
+              backgroundColor: 'white',
+              borderRadius: '20px'
             }}
           >
             <Grid
@@ -150,13 +150,13 @@ export default function Profile() {
             >
               {/* Điện thoại với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -171,7 +171,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <PhoneIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -181,13 +181,13 @@ export default function Profile() {
 
               {/* Ngày sinh với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -202,7 +202,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <EventIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -212,13 +212,13 @@ export default function Profile() {
 
               {/* Giới tính với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -233,7 +233,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <WcIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -243,13 +243,13 @@ export default function Profile() {
 
               {/* Địa chỉ với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -264,7 +264,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <LocationOnIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -274,13 +274,13 @@ export default function Profile() {
 
               {/* Bảo mật hai lớp với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -295,7 +295,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <LockIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -305,13 +305,13 @@ export default function Profile() {
 
               {/* Thông tin thanh toán với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -326,7 +326,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <CreditCardIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -336,13 +336,13 @@ export default function Profile() {
 
               {/* Ngôn ngữ với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -357,7 +357,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <LanguageIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -367,13 +367,13 @@ export default function Profile() {
 
               {/* Quốc gia với biểu tượng */}
               <Grid item xs={6}>
-                <Item sx={{ height: "80px", marginLeft: "20px" }}>
+                <Item sx={{ height: '80px', marginLeft: '20px' }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
-                      height: "100%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      height: '100%'
                     }}
                   >
                     <TextField
@@ -388,7 +388,7 @@ export default function Profile() {
                           <InputAdornment position="start">
                             <LanguageIcon />
                           </InputAdornment>
-                        ),
+                        )
                       }}
                       fullWidth
                     />
@@ -399,38 +399,38 @@ export default function Profile() {
           </Box>
           <Box
             sx={{
-              justifyContent: "center",
-              display: "flex",
-              alignItems: "center",
+              justifyContent: 'center',
+              display: 'flex',
+              alignItems: 'center'
             }}
           >
             <Button
               variant="contained"
               sx={{
-                backgroundColor: "white", // Màu nền trắng
-                color: "black", // Màu chữ đen
-                border: "2px solid black", // Viền màu đen
+                backgroundColor: 'white', // Màu nền trắng
+                color: 'black', // Màu chữ đen
+                border: '2px solid black', // Viền màu đen
 
-                "&:hover": {
-                  border: "2px solid black", // Viền đen vẫn giữ nguyên khi hover
-                  backgroundColor: "white", // Giữ nguyên màu nền khi hover
+                '&:hover': {
+                  border: '2px solid black', // Viền đen vẫn giữ nguyên khi hover
+                  backgroundColor: 'white' // Giữ nguyên màu nền khi hover
                 },
-                marginTop: 2, // Khoảng cách trên để tách khỏi các thành phần khác
+                marginTop: 2 // Khoảng cách trên để tách khỏi các thành phần khác
               }}
               startIcon={<EditIcon />}
               onClick={() => {
                 if (isEditing) {
-                  handleSave(); // Gọi hàm lưu khi đang chỉnh sửa
+                  handleSave() // Gọi hàm lưu khi đang chỉnh sửa
                 } else {
-                  setIsEditing(true); // Bắt đầu chế độ chỉnh sửa
+                  setIsEditing(true) // Bắt đầu chế độ chỉnh sửa
                 }
               }}
             >
-              {isEditing ? "Lưu" : "Chỉnh sửa"}
+              {isEditing ? 'Lưu' : 'Chỉnh sửa'}
             </Button>
           </Box>
         </Box>
       </Box>
     </Container>
-  );
+  )
 }

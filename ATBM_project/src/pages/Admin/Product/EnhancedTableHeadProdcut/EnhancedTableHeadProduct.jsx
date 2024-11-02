@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import TableHead from '@mui/material/TableHead';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import { visuallyHidden } from '@mui/utils';
-import { Box, Checkbox, TableCell, TableRow } from '@mui/material';
+import PropTypes from 'prop-types'
+import TableHead from '@mui/material/TableHead'
+import TableSortLabel from '@mui/material/TableSortLabel'
+import { visuallyHidden } from '@mui/utils'
+import { Box, Checkbox, TableCell, TableRow } from '@mui/material'
 
 const headCells = [
   { id: 'name', numeric: false, disablePadding: false, label: 'Product Name' },
@@ -10,18 +10,18 @@ const headCells = [
     id: 'description',
     numeric: false,
     disablePadding: false,
-    label: 'description',
+    label: 'description'
   },
   { id: 'price', numeric: false, disablePadding: false, label: 'price' },
   { id: 'quantity', numeric: false, disablePadding: false, label: 'quantity' },
-  { id: 'image', numeric: false, disablePadding: false, label: 'image' },
+  { id: 'image', numeric: false, disablePadding: false, label: 'image' }
   // {
   //   id: 'category_id',
   //   numeric: false,
   //   disablePadding: false,
   //   label: 'category_id',
   // },
-];
+]
 
 export default function EnhancedTableHeadProduct(props) {
   const {
@@ -30,11 +30,11 @@ export default function EnhancedTableHeadProduct(props) {
     orderBy,
     numSelected,
     rowCount,
-    onRequestSort,
-  } = props;
+    onRequestSort
+  } = props
   const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+    onRequestSort(event, property)
+  }
 
   return (
     <TableHead>
@@ -71,7 +71,7 @@ export default function EnhancedTableHeadProduct(props) {
         ))}
       </TableRow>
     </TableHead>
-  );
+  )
 }
 
 EnhancedTableHeadProduct.propTypes = {
@@ -80,5 +80,5 @@ EnhancedTableHeadProduct.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
+  rowCount: PropTypes.number.isRequired
+}

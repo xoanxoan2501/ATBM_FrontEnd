@@ -1,33 +1,33 @@
-import Cart from '../../components/Cart/Cart';
-import { Box, Typography } from '@mui/material';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
+import Cart from '../../components/Cart/Cart'
+import { Box, Typography } from '@mui/material'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
+import LocalMallIcon from '@mui/icons-material/LocalMall'
 
 const ShoppingCart = () => {
-    return (  
+  return (
     <>
-        <Box 
+      <Box
         sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '15px',
-            borderBottom: '1px solid #ccc',
-            cursor: 'pointer'
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '15px',
+          borderBottom: '1px solid #ccc',
+          cursor: 'pointer'
         }}>
-            <Box
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-            }}>
-            <KeyboardBackspaceIcon />
-            <Typography>Continue Shopping</Typography>
-            </Box>
-            <LocalMallIcon />
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+          <KeyboardBackspaceIcon />
+          <Typography>Continue Shopping</Typography>
         </Box>
-        <Cart />
+        <LocalMallIcon />
+      </Box>
+      <Cart />
     </>
-    );
+  )
 }
- 
-export default ShoppingCart;
+
+export default ShoppingCart

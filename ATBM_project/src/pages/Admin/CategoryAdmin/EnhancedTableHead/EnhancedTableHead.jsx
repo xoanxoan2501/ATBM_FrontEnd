@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import TableHead from '@mui/material/TableHead';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import { visuallyHidden } from '@mui/utils';
-import { Box, Checkbox, TableCell, TableRow } from '@mui/material';
+import PropTypes from 'prop-types'
+import TableHead from '@mui/material/TableHead'
+import TableSortLabel from '@mui/material/TableSortLabel'
+import { visuallyHidden } from '@mui/utils'
+import { Box, Checkbox, TableCell, TableRow } from '@mui/material'
 
 const headCells = [
   // { id: 'id', numeric: true, disablePadding: true, label: 'ID' },
-  { id: 'name', numeric: false, disablePadding: false, label: 'Category Name' },
-];
+  { id: 'name', numeric: false, disablePadding: false, label: 'Category Name' }
+]
 
 export default function EnhancedTableHeadCateGory(props) {
   const {
@@ -16,11 +16,11 @@ export default function EnhancedTableHeadCateGory(props) {
     orderBy,
     numSelected,
     rowCount,
-    onRequestSort,
-  } = props;
+    onRequestSort
+  } = props
   const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+    onRequestSort(event, property)
+  }
 
   return (
     <TableHead>
@@ -57,7 +57,7 @@ export default function EnhancedTableHeadCateGory(props) {
         ))}
       </TableRow>
     </TableHead>
-  );
+  )
 }
 
 EnhancedTableHeadCateGory.propTypes = {
@@ -66,5 +66,5 @@ EnhancedTableHeadCateGory.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
+  rowCount: PropTypes.number.isRequired
+}

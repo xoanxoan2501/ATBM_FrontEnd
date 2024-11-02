@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { Container, Paper, Grid, Box, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "./style.css";
-import Slider from "../../components/Slider/Slider";
-import HeaderNavigation from './HeaderNavigation/HeaderNavigation';
-import { productsAdminAPI } from '@/apis/productAdminAPI';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Container, Paper, Grid, Box, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import './style.css'
+import Slider from '../../components/Slider/Slider'
+import HeaderNavigation from './HeaderNavigation/HeaderNavigation'
+import { productsAdminAPI } from '@/apis/productAdminAPI'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   left: {
-    width: "50%",
+    width: '50%'
   },
   right: {
-    flex: "1 1 0",
-  },
-}));
+    flex: '1 1 0'
+  }
+}))
 
 const MobileDetail = () => {
-  const classes = useStyles();
-  const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(0);
-  const { id: productId } = useParams();
-  const navigate = useNavigate();
+  const classes = useStyles()
+  const [product, setProduct] = useState(null)
+  const [quantity, setQuantity] = useState(0)
+  const { id: productId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     productsAdminAPI.getproductsAPI().then((data) => {
-      const productFound = data.data.find((product) => product.id === productId);
+      const productFound = data.data.find((product) => product.id === productId)
       if (productFound) {
-        setProduct(productFound);
+        setProduct(productFound)
       } else {
-        navigate("/not-found");
+        navigate('/not-found')
       }
-    });
-  }, [productId, navigate]);
+    })
+  }, [productId, navigate])
   const handleQuantityChange = (type) => {
-    setQuantity((prevQuantity) => 
-      type === "increment" ? prevQuantity + 1 : Math.max(0, prevQuantity - 1)
-    );
-  };
+    setQuantity((prevQuantity) =>
+      type === 'increment' ? prevQuantity + 1 : Math.max(0, prevQuantity - 1)
+    )
+  }
 
   return (
     <>
@@ -57,7 +57,7 @@ const MobileDetail = () => {
                     url1="/images/image-removebg-preview-12.png"
                     url2="/images/image-removebg-preview-12.png"
                     url3="/images/image-removebg-preview-12.png"
-                  />              
+                  />
                 </Box>
               </Grid>
 
@@ -72,7 +72,7 @@ const MobileDetail = () => {
                   </Box>
                   <Typography variant="h4">Màu sắc</Typography>
                   <ul>
-                    {["pink", "green", "black", "white", "blue"].map((color) => (
+                    {['pink', 'green', 'black', 'white', 'blue'].map((color) => (
                       <li key={color} className='color-item' id={color}></li>
                     ))}
                   </ul>
@@ -85,12 +85,12 @@ const MobileDetail = () => {
                   <Box>
                     <Typography variant="h4">Số lượng</Typography>
                     <Box className="quantity-box">
-                    <span className="down" onClick={() => handleQuantityChange("decrement")}>-</span>
-                    <input type="text" value={quantity} readOnly />
-                    <span className="up" onClick={() => handleQuantityChange("increment")}>+</span>
+                      <span className="down" onClick={() => handleQuantityChange('decrement')}>-</span>
+                      <input type="text" value={quantity} readOnly />
+                      <span className="up" onClick={() => handleQuantityChange('increment')}>+</span>
                     </Box>
                   </Box>
-                 
+
                 </Box>
               </Grid>
             </Grid>
@@ -98,7 +98,7 @@ const MobileDetail = () => {
         </Container>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default MobileDetail;
+export default MobileDetail

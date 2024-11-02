@@ -1,4 +1,4 @@
-import RegisterPage from '@/pages/RegisterPage/RegisterPage';
+import RegisterPage from '@/pages/RegisterPage/RegisterPage'
 
 export const routes = {
   HomePage: '/',
@@ -9,5 +9,5 @@ export const routes = {
   RegisterPage: '/register-page',
   AdminUser: '/Admin-user',
   AdminCategory: '/Admin-Category',
-  AdminProduct: '/Admin-Product',
-};
+  AdminProduct: '/Admin-Product'
+}

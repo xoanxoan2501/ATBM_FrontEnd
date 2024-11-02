@@ -1,17 +1,17 @@
-import * as React from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import * as React from 'react'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
 
 export default function SelectRadio() {
   return (
     <FormControl
       sx={{
-        display: "flex",
-        alignItems: "center",
-        fontSize: "15px",
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '15px'
       }}
     >
       {/* <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel> */}
@@ -29,5 +29,5 @@ export default function SelectRadio() {
         />
       </RadioGroup>
     </FormControl>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import HomeIcon from '@mui/icons-material/Home';
-import SvgIcon from '@mui/material/SvgIcon';
-import { ReactComponent as PlanetSvg } from '@/assets/404/planet.svg';
-import { ReactComponent as AstronautSvg } from '@/assets/404/astronaut.svg';
-import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import HomeIcon from '@mui/icons-material/Home'
+import SvgIcon from '@mui/material/SvgIcon'
+import { ReactComponent as PlanetSvg } from '@/assets/404/planet.svg'
+import { ReactComponent as AstronautSvg } from '@/assets/404/astronaut.svg'
+import { Link } from 'react-router-dom'
 
 function NotFoundPage() {
   return (
@@ -14,14 +14,14 @@ function NotFoundPage() {
         width: '100vw',
         height: '100vh',
         bgcolor: '#25344C',
-        color: 'white',
+        color: 'white'
       }}
     >
       <Box
         sx={{
           '@keyframes stars': {
             '0%': { backgroundPosition: '-100% 100%' },
-            '100%': { backgroundPosition: '0 0 ' },
+            '100%': { backgroundPosition: '0 0 ' }
           },
           animation: 'stars 12s linear infinite alternate',
           width: '100%',
@@ -34,7 +34,7 @@ function NotFoundPage() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
       >
         <Typography variant="h1" sx={{ fontSize: '100px', fontWeight: 800 }}>
@@ -46,7 +46,7 @@ function NotFoundPage() {
             lineHeight: '25px',
             fontWeight: 400,
             maxWidth: '350px',
-            textAlign: 'center',
+            textAlign: 'center'
           }}
         >
           &nbsp; Hmm, looks like that page doesn&apos;t exist.
@@ -63,9 +63,9 @@ function NotFoundPage() {
               right: '25px',
               '@keyframes spinAround': {
                 from: { transform: 'rotate(0deg)' },
-                to: { transform: 'rotate(360deg)' },
+                to: { transform: 'rotate(360deg)' }
               },
-              animation: 'spinAround 5s linear 0s infinite',
+              animation: 'spinAround 5s linear 0s infinite'
             }}
           />
           {/* Đoạn này nếu chỉ cần hiện file SVG mà không cần custom css bằng SX prop thì không cần dùng SvgIcon mà cứ gọi trực tiếp luôn cũng được */}
@@ -80,7 +80,7 @@ function NotFoundPage() {
               alignItems: 'center',
               color: 'white',
               borderColor: 'white',
-              '&:hover': { color: '#fdba26', borderColor: '#fdba26' },
+              '&:hover': { color: '#fdba26', borderColor: '#fdba26' }
             }}
           >
             Go Home
@@ -88,7 +88,7 @@ function NotFoundPage() {
         </Link>
       </Box>
     </Box>
-  );
+  )
 }
 
-export default NotFoundPage;
+export default NotFoundPage

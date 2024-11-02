@@ -1,7 +1,7 @@
 const Specification = () => {
-    return ( 
-        <div>Specification</div>
-     );
+  return (
+    <div>Specification</div>
+  )
 }
- 
-export default Specification;
+
+export default Specification

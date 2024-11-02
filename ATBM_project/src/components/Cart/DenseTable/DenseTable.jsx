@@ -1,52 +1,39 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Box, Button, TextField } from '@mui/material';
-import useGlobalVariableContext from '@/hooks/MyProvider';
+import * as React from 'react'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import { Box, Button, TextField } from '@mui/material'
+import useGlobalVariableContext from '@/hooks/MyProvider'
+
+import { cloneDeep } from 'lodash'
 
 export default function DenseTable() {
-  const { cart, setCart } = useGlobalVariableContext();
-  const { user } = useGlobalVariableContext();
+  const { cart, setCartToLocalStorage, setCart } = useGlobalVariableContext()
+  const { user } = useGlobalVariableContext()
+  const handleRemoveItem = (productId) => {
+    const newCart = cart.filter((item) => item.product_id !== productId)
+    setCartToLocalStorage(newCart)
+    setCart(newCart)
+  }
+  const handleUpdateItem = (newQuantity, product_id) => {
+    const newCart = cloneDeep(cart)
 
-  // Lọc giỏ hàng của người dùng hiện tại
-  const userCart = cart.find((userCart) => userCart.userId === user.id);
-  const items = userCart ? userCart.items : [];
-
-  // Hàm xóa sản phẩm khỏi giỏ hàng
-  const handleDelete = (id) => {
-    const updatedItems = items.filter((item) => item.id !== id);
-    const updatedCart = cart.map((userCart) =>
-      userCart.userId === user.id
-        ? { ...userCart, items: updatedItems }
-        : userCart
-    );
-    setCart(updatedCart);
-  };
-
-  // Hàm cập nhật số lượng sản phẩm
-  const handleQuantityChange = (id, newQuantity) => {
-    if (newQuantity < 1) return; // Không cho phép số lượng nhỏ hơn 1
-    const updatedItems = items.map((item) =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    );
-    const updatedCart = cart.map((userCart) =>
-      userCart.userId === user.id
-        ? { ...userCart, items: updatedItems }
-        : userCart
-    );
-    setCart(updatedCart);
-  };
-
+    const item = newCart.find((item) => {
+      return item.product_id === product_id
+    })
+    item.quantity = newQuantity
+    setCartToLocalStorage(newCart)
+    setCart(newCart)
+  }
   return (
     <TableContainer
       component={Paper}
       sx={{
-        maxHeight: '500px',
+        maxHeight: '500px'
       }}
     >
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -59,11 +46,11 @@ export default function DenseTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item) => (
+          {cart.map((item) => (
             <TableRow
               key={item.id}
               sx={{
-                '&:last-child td, &:last-child th': { border: 0 },
+                '&:last-child td, &:last-child th': { border: 0 }
               }}
             >
               <TableCell
@@ -84,15 +71,15 @@ export default function DenseTable() {
                 <TextField
                   type="number"
                   value={item.quantity}
-                  onChange={(e) =>
-                    handleQuantityChange(item.id, Number(e.target.value))
-                  }
                   inputProps={{ min: 1 }} // Đặt số lượng tối thiểu là 1
+                  onChange={(e) =>
+                    handleUpdateItem(e.target.value, item.product_id)
+                  }
                 />
               </TableCell>
               <TableCell align="right">{item.price} đ</TableCell>
               <TableCell align="right">
-                <Button onClick={() => handleDelete(item.id)} color="error">
+                <Button onClick={() => handleRemoveItem(item.product_id)}>
                   Xóa
                 </Button>
               </TableCell>
@@ -101,5 +88,5 @@ export default function DenseTable() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }

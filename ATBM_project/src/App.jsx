@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { ToastContainer, Bounce } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Category from './pages/Category/Category';
-import About from './pages/About/About';
-import Contact from './pages/Contact/Contact';
-import RoutesComponent from './router/RoutesComponet';
+import { ToastContainer, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Category from './pages/Category/Category'
+import About from './pages/About/About'
+import Contact from './pages/Contact/Contact'
+import RoutesComponent from './router/RoutesComponet'
 // * Thứ tự thực hiện khi 1 component khởi tạo hoặc re-render:
 // * 1: Thực hiện hàm clean
 // * 2: Thực hiện khởi tạo hoặc cập nhật các giá trị cho state
@@ -40,12 +40,12 @@ const App = () => {
         transitio={Bounce}
       />
       {/* <DefaultLayout>
-         <About/> 
-        <Contact/> 
+         <About/>
+        <Contact/>
       </DefaultLayout>
     */}
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
