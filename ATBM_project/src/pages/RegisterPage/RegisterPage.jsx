@@ -1,16 +1,16 @@
-import TextField from '@mui/material/TextField';
-import { Box, Container, Typography } from '@mui/material';
-import { Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import dayjs from 'dayjs';
-import MyDatePicker from '../../components/DatePicker/DatePicker'; // Đảm bảo bạn đã có DatePicker
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate
-import { authAPI } from '../../apis/authAPI';
-import { routes } from '@/config/routeConfig';
-import { toast } from 'react-toastify';
+import TextField from '@mui/material/TextField'
+import { Box, Container, Typography } from '@mui/material'
+import { Button } from '@mui/material'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import dayjs from 'dayjs'
+import MyDatePicker from '../../components/DatePicker/DatePicker' // Đảm bảo bạn đã có DatePicker
+import { useNavigate, Link } from 'react-router-dom' // Import useNavigate
+import { authAPI } from '../../apis/authAPI'
+import { routes } from '@/config/routeConfig'
+import { toast } from 'react-toastify'
 
 // Định nghĩa schema với Zod
 const formDataSchema = z
@@ -33,7 +33,7 @@ const formDataSchema = z
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
-  });
+  })
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +43,7 @@ const RegisterPage = () => {
     lastname: '',
     confirmPassword: '',
     dob: dayjs().toDate(),
-  });
+  })
 
   const {
     register,
@@ -52,9 +52,9 @@ const RegisterPage = () => {
     setValue,
   } = useForm({
     resolver: zodResolver(formDataSchema),
-  });
+  })
 
-  const navigate = useNavigate(); // Khởi tạo useNavigate
+  const navigate = useNavigate() // Khởi tạo useNavigate
 
   const handleRegister = async (data) => {
     // Chỉ gửi những trường cần thiết theo yêu cầu của server
@@ -64,18 +64,18 @@ const RegisterPage = () => {
       firstname: data.firstname,
       lastname: data.lastname,
       dob: dayjs(formData.dob).format('YYYY-MM-DD'), // Định dạng lại ngày sinh
-    };
+    }
 
-    console.log('Dữ liệu đăng ký:', newData);
+    console.log('Dữ liệu đăng ký:', newData)
 
     try {
-      const result = await authAPI.registerAPI(newData);
-      toast.success('Đăng kí thành công, vui lòng đăng nhập lại ! ');
-      navigate(routes.LoginPage);
+      const result = await authAPI.registerAPI(newData)
+      toast.success('Đăng kí thành công, vui lòng đăng nhập lại ! ')
+      navigate(routes.LoginPage)
     } catch (error) {
-      toast.error('Đăng kí thất bại'); // Xử lý lỗi nếu cần
+      toast.error('Đăng kí thất bại') // Xử lý lỗi nếu cần
     }
-  };
+  }
 
   return (
     <Container>
@@ -261,7 +261,7 @@ const RegisterPage = () => {
         </Container>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

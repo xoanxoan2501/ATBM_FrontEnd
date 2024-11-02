@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
-import AppleIcon from '@mui/icons-material/Apple';
-import Box from '@mui/material/Box';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-import ModeSelection from '../../components/Modeselection';
-import { Link } from 'react-router-dom';
-import { routes } from '@/config/routeConfig';
-import { authAPI } from '@/apis/authAPI';
+import React, { useState, useRef } from 'react'
+import AppleIcon from '@mui/icons-material/Apple'
+import Box from '@mui/material/Box'
+import SearchIcon from '@mui/icons-material/Search'
+import PersonIcon from '@mui/icons-material/Person'
+import LocalMallIcon from '@mui/icons-material/LocalMall'
+import ModeSelection from '../../components/Modeselection'
+import { Link, useNavigate } from 'react-router-dom'
+import { routes } from '@/config/routeConfig'
+import { authAPI } from '@/apis/authAPI'
 import {
   MenuItem,
   Popper,
@@ -24,74 +24,65 @@ import {
   Tooltip,
   InputBase,
   IconButton,
-} from '@mui/material';
-
+} from '@mui/material'
+import { Navigate } from 'react-router-dom'
 // Import các thành phần Menu của bạn
-import Store from './Menus/Store';
-import Ipad from './Menus/Ipad';
+import Store from './Menus/Store'
+import Ipad from './Menus/Ipad'
 
-import Iphone from './Menus/Iphone';
-import Mac from './Menus/Mac';
+import Iphone from './Menus/Iphone'
+import Mac from './Menus/Mac'
 
-import useGlobalVariableContext from '@/hooks/MyProvider';
+import useGlobalVariableContext from '@/hooks/MyProvider'
+import { saveToLocalStorage } from '@/utils/algorithms'
 const Header = ({ sx }) => {
-  const [open, setOpen] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false); // State để mở Dialog xác nhận đăng xuất
-  const anchorRef = useRef(null);
-
+  const [open, setOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false) // State để mở Dialog xác nhận đăng xuất
+  const anchorRef = useRef(null)
+  const navigate = useNavigate
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+    setOpen((prevOpen) => !prevOpen)
+  }
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleListKeyDown = (event) => {
     if (event.key === 'Tab') {
-      event.preventDefault();
-      setOpen(false);
+      event.preventDefault()
+      setOpen(false)
     }
-  };
+  }
 
   // Hàm mở Dialog xác nhận đăng xuất
   const handleLogoutClick = () => {
-    setDialogOpen(true);
-  };
+    setDialogOpen(true)
+  }
 
   // Đóng Dialog
   const handleDialogClose = () => {
-    setDialogOpen(false);
-  };
-  const { user } = useGlobalVariableContext();
+    setDialogOpen(false)
+  }
+  const { user, setUser, setCart } = useGlobalVariableContext()
 
   const handleConfirmLogout = async () => {
     try {
-      const token = localStorage.getItem('accessToken'); // Lấy token từ accessToken trong localStorage
-
-      if (!token) {
-        console.error('Token is missing');
-        return;
-      }
-
-      const requestData = { token };
-      const response = await authAPI.logoutAPI(requestData);
-
-      console.log('Logout successful:', response);
-
-      // Xóa accessToken khỏi localStorage h sau khi đăng xuất
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('user');
+      localStorage.setItem('user', '')
+      setCart([])
+      setUser(null)
+      navigate(routes.LoginPage)
+      authAPI.logoutAPI()
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error('Logout failed:', error)
     } finally {
-      setDialogOpen(false);
-      setOpen(false);
+      setDialogOpen(false)
+      setOpen(false)
     }
-  };
+  }
 
   return (
     <Box
@@ -101,6 +92,7 @@ const Header = ({ sx }) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 2,
+        marginBottom: '20px',
       }}
     >
       <Box
@@ -219,7 +211,9 @@ const Header = ({ sx }) => {
                         style={{ textDecoration: 'none', color: 'inherit' }}
                         to={routes.AdminUser}
                       >
-                        <MenuItem>My account</MenuItem>
+                        {user.roles.includes('ADMIN') && (
+                          <MenuItem>My account</MenuItem>
+                        )}
                       </Link>
                       <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
                     </MenuList>
@@ -229,7 +223,6 @@ const Header = ({ sx }) => {
             )}
           </Popper>
         </div>
-        <ModeSelection />
       </Box>
 
       {/* Hộp thoại xác nhận đăng xuất */}
@@ -248,7 +241,7 @@ const Header = ({ sx }) => {
         </DialogActions>
       </Dialog>
     </Box>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

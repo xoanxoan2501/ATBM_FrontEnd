@@ -1,32 +1,32 @@
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Link, Navigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { Button } from '@mui/material';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { authAPI } from '../../apis/authAPI';
-import { useNavigate } from 'react-router-dom';
-import useGlobalVariableContext from '@/hooks/MyProvider';
-import { routes } from '@/config/routeConfig';
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { Link, Navigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { Button } from '@mui/material'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { authAPI } from '../../apis/authAPI'
+import { useNavigate } from 'react-router-dom'
+import useGlobalVariableContext from '@/hooks/MyProvider'
+import { routes } from '@/config/routeConfig'
 
 const LoginPage = () => {
-  const { setUserToLocalStorage, user } = useGlobalVariableContext();
+  const { setUserToLocalStorage, user, setUser } = useGlobalVariableContext()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-  });
+  })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const formDataSchema = z.object({
     email: z.string().email({ message: 'Invalid email address' }),
     password: z
       .string()
       .min(6, { message: 'Password must be at least 6 characters long' }),
-  });
+  })
 
   const {
     register,
@@ -34,28 +34,30 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(formDataSchema),
-  });
+  })
 
   const handleLogin = (data) => {
     authAPI
       .loginAPI(data)
       .then((res) => {
-        const data = res.data;
-        console.log(data.authenticated);
+        const data = res.data
+        console.log(data.authenticated)
         if (data.authenticated === true) {
-          localStorage.setItem('accessToken', data.token);
-          navigate('/');
-          setUserToLocalStorage(data);
+          localStorage.setItem('accessToken', data.token)
+
+          setUserToLocalStorage(data)
+          setUser(data)
+          navigate('/')
         }
-        console.log('🚀 ~ authAPI.loginAPI ~ data:', data);
+        console.log('🚀 ~ authAPI.loginAPI ~ data:', data)
       })
       .catch((error) => {
-        console.error('Login error:', error);
-      });
-  };
+        console.error('Login error:', error)
+      })
+  }
 
   if (user) {
-    return <Navigate to={routes.HomePage} />;
+    return <Navigate to={routes.HomePage} />
   }
 
   return (
@@ -157,7 +159,7 @@ const LoginPage = () => {
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage
