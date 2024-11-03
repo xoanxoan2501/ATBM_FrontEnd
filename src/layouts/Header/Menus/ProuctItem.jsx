@@ -28,7 +28,7 @@ export default function Mac() {
           Sản phẩm
         </Button>
       </Link>
-      <Menu
+      {/* <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -40,7 +40,7 @@ export default function Mac() {
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      </Menu> */}
     </div>
   )
 }

@@ -24,19 +24,19 @@ export default function Ipad() {
       >
         Giới thiệu
       </Button>
-      <Menu
+      {/* <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button'
+          'aria-labelledby': 'basic-button',
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      </Menu> */}
     </div>
   )
 }

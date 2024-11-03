@@ -17,18 +17,20 @@ import Profile from '@/pages/Profile/Profile'
 import Cart from '@/components/Cart/Cart'
 
 const publicRouteList = [
-  { path: routes.HomePage, component: HomePage, layout: DefaultLayout },
   { path: routes.LoginPage, component: LoginPage, layout: DefaultLayout },
-  { path: routes.CategoryPage, component: Category, layout: DefaultLayout },
-  { path: routes.RegisterPage, component: RegisterPage, layout: DefaultLayout }
+  { path: routes.RegisterPage, component: RegisterPage, layout: DefaultLayout },
 ]
 
 const authenticatedRouteList = [
+  { path: routes.HomePage, component: HomePage, layout: DefaultLayout },
+
+  { path: routes.CategoryPage, component: Category, layout: DefaultLayout },
+
   { path: routes.Cart, component: Cart, layout: DefaultLayout },
   { path: routes.AdminUser, component: User, layout: AdminLayout },
   { path: routes.Profile, component: Profile, layout: DefaultLayout },
   { path: routes.AdminCategory, component: CategoryAdmin, layout: AdminLayout },
-  { path: routes.AdminProduct, component: ProductAdmin, layout: AdminLayout }
+  { path: routes.AdminProduct, component: ProductAdmin, layout: AdminLayout },
 ]
 
 // Sửa tên thành ProtectedRoute và kiểm tra điều kiện của user

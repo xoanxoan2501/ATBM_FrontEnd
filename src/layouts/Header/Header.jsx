@@ -71,12 +71,13 @@ const Header = ({ sx }) => {
 
   const handleConfirmLogout = async () => {
     try {
-      localStorage.setItem('user', '')
-      localStorage.setItem('accessToken', '')
+      const token = localStorage.accessToken
+      authAPI.logoutAPI(token)
+      localStorage.removeItem('user')
+      localStorage.removeItem('accessToken', '')
       setCart([])
       setUser(null)
       navigate('/login-page')
-      authAPI.logoutAPI()
     } catch (error) {
       console.error('Logout failed:', error)
     } finally {

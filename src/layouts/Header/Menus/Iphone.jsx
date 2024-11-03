@@ -24,7 +24,7 @@ export default function Iphone() {
       >
         Liên hệ
       </Button>
-      <Menu
+      {/* <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -36,7 +36,7 @@ export default function Iphone() {
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      </Menu> */}
     </div>
   )
 }
