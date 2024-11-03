@@ -30,7 +30,7 @@ function MyProvider(props) {
     cart,
     setCartToLocalStorage,
     setCart,
-    setUser,
+    setUser
   }
 
   useEffect(() => {

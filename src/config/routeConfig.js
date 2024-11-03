@@ -11,5 +11,5 @@ export const routes = {
   AdminCategory: '/Admin-Category',
   AdminProduct: '/Admin-Product',
   AboutPage: '/About-page',
- ContrastPage : '/Contrast-page',
+  ContrastPage : '/Contrast-page'
 }

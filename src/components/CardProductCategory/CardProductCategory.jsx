@@ -20,7 +20,7 @@ export default function CardProductCategory({ product }) {
       product_name: product.name,
       product_image: product.image,
       quantity: 1,
-      price: product.price,
+      price: product.price
     }
     const newCart = cloneDeep(cart)
     // Kiểm tra user có tồn tại không
@@ -52,7 +52,7 @@ export default function CardProductCategory({ product }) {
         backgroundColor: '#f7f7f7',
         height: '100%',
         borderRadius: '15px',
-        padding: '10px',
+        padding: '10px'
       }}
     >
       <CardActionArea>
@@ -75,7 +75,7 @@ export default function CardProductCategory({ product }) {
               textAlign: 'center', // Center text
               overflow: 'hidden', // Hide overflow
               whiteSpace: 'nowrap', // Keep the text in one line
-              textOverflow: 'ellipsis', // Add ellipsis at the end of overflowed content
+              textOverflow: 'ellipsis' // Add ellipsis at the end of overflowed content
             }}
           >
             {product.name}
@@ -107,7 +107,7 @@ export default function CardProductCategory({ product }) {
             sx={{
               textAlign: 'center',
               display: 'flex',
-              justifyContent: 'center',
+              justifyContent: 'center'
             }}
           >
             <Typography>Giá bán : </Typography>
@@ -126,7 +126,7 @@ export default function CardProductCategory({ product }) {
                 backgroundColor: 'black',
                 color: 'white',
                 borderRadius: '20px',
-                padding: '10px 20px',
+                padding: '10px 20px'
               }}
             >
               Thêm vào giỏ hàng

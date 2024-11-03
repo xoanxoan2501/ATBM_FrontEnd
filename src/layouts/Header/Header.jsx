@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import SearchIcon from '@mui/icons-material/Search'
 import PersonIcon from '@mui/icons-material/Person'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles'
 import ModeSelection from '../../components/Modeselection'
 import { Link, useNavigate } from 'react-router-dom'
 import { routes } from '@/config/routeConfig'
@@ -25,7 +25,7 @@ import {
   Tooltip,
   InputBase,
   IconButton,
-  AppBar,
+  AppBar
 } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 // Import các thành phần Menu của bạn
@@ -64,15 +64,15 @@ const Header = ({ sx }) => {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
+      width: 'auto'
+    }
+  }))
   const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -80,8 +80,8 @@ const Header = ({ sx }) => {
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-  }));
+    justifyContent: 'center'
+  }))
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -94,11 +94,11 @@ const Header = ({ sx }) => {
       [theme.breakpoints.up('sm')]: {
         width: '12ch',
         '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
-  }));
+          width: '20ch'
+        }
+      }
+    }
+  }))
   // Hàm mở Dialog xác nhận đăng xuất
   const handleLogoutClick = () => {
     setDialogOpen(true)
@@ -135,14 +135,14 @@ const Header = ({ sx }) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         gap: 2,
-        marginBottom: '20px',
+        marginBottom: '20px'
       }}
     >
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 2,
+          gap: 2
         }}
       >
         <Tooltip title="homepage">
@@ -151,7 +151,7 @@ const Header = ({ sx }) => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                color: 'black',
+                color: 'black'
               }}
               fontSize="small"
             />
@@ -171,10 +171,10 @@ const Header = ({ sx }) => {
             width: 500,
             height: 35,
             border: '1px solid',
-            borderRadius: 10,
+            borderRadius: 10
           }}
         >
-         
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -184,7 +184,7 @@ const Header = ({ sx }) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-         
+
           {/* <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search"
@@ -200,7 +200,7 @@ const Header = ({ sx }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 1,
+          gap: 1
         }}
       >
         {/* <PersonIcon /> */}
@@ -241,7 +241,7 @@ const Header = ({ sx }) => {
                 {...TransitionProps}
                 style={{
                   transformOrigin:
-                    placement === 'bottom-start' ? 'left top' : 'left bottom',
+                    placement === 'bottom-start' ? 'left top' : 'left bottom'
                 }}
               >
                 <Paper>

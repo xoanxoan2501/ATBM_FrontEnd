@@ -21,7 +21,7 @@ import About from '@/pages/About/About'
 
 const publicRouteList = [
   { path: routes.LoginPage, component: LoginPage, layout: DefaultLayout },
-  { path: routes.RegisterPage, component: RegisterPage, layout: DefaultLayout },
+  { path: routes.RegisterPage, component: RegisterPage, layout: DefaultLayout }
 ]
 
 const authenticatedRouteList = [
@@ -34,7 +34,7 @@ const authenticatedRouteList = [
   { path: routes.AdminUser, component: User, layout: AdminLayout },
   { path: routes.Profile, component: Profile, layout: DefaultLayout },
   { path: routes.AdminCategory, component: CategoryAdmin, layout: AdminLayout },
-  { path: routes.AdminProduct, component: ProductAdmin, layout: AdminLayout },
+  { path: routes.AdminProduct, component: ProductAdmin, layout: AdminLayout }
 ]
 
 // Sửa tên thành ProtectedRoute và kiểm tra điều kiện của user

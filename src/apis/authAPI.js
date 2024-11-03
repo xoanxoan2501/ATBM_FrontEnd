@@ -37,5 +37,5 @@ export const authAPI = {
   getDataProduct,
   getCategory,
   getProductsByCategory,
-  logoutAPI,
+  logoutAPI
 }
