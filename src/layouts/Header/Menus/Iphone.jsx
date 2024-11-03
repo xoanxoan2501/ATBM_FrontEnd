@@ -2,6 +2,8 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { Link } from 'react-router-dom'
+import { routes } from '@/config/routeConfig'
 
 export default function Iphone() {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -15,15 +17,17 @@ export default function Iphone() {
 
   return (
     <div>
-      <Button
+      <Link to={routes.ContrastPage}> 
+        <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-      >
+        >
         Liên hệ
-      </Button>
+        </Button>
+      </Link>
       {/* <Menu
         id="basic-menu"
         anchorEl={anchorEl}

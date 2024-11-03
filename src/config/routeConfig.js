@@ -9,5 +9,7 @@ export const routes = {
   RegisterPage: '/register-page',
   AdminUser: '/Admin-user',
   AdminCategory: '/Admin-Category',
-  AdminProduct: '/Admin-Product'
+  AdminProduct: '/Admin-Product',
+  AboutPage: '/About-page',
+ ContrastPage : '/Contrast-page',
 }
