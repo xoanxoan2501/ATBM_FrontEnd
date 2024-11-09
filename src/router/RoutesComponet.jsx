@@ -15,6 +15,7 @@ import Category from '@/pages/Category/Category'
 import NotFoundPage from '@/pages/404/NotFoundPage'
 import Profile from '@/pages/Profile/Profile'
 import Cart from '@/components/Cart/Cart'
+import About from '@/pages/About/About'
 
 const publicRouteList = [
   { path: routes.LoginPage, component: LoginPage, layout: DefaultLayout },
@@ -23,7 +24,7 @@ const publicRouteList = [
 
 const authenticatedRouteList = [
   { path: routes.HomePage, component: HomePage, layout: DefaultLayout },
-
+  { path: routes.AboutPage, component: About, layout: DefaultLayout },
   { path: routes.CategoryPage, component: Category, layout: DefaultLayout },
 
   { path: routes.Cart, component: Cart, layout: DefaultLayout },
