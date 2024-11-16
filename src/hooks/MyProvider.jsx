@@ -37,15 +37,13 @@ function MyProvider(props) {
     const userLocalStorage = getFormLocalStorage('user')
     const allCart = getFormLocalStorage('rootCart')
     if (userLocalStorage) {
-      setUser(user)
+      setUser(userLocalStorage)
       if (allCart) {
         const userCart = allCart.filter(
           (userCart) => userCart.userId === userLocalStorage.id
         )
         if (userCart.length === 0) {
           setCart([])
-
-          console.log(userCart)
         } else {
           setCart(userCart[0].cart)
         }
