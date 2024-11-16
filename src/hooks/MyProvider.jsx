@@ -42,7 +42,13 @@ function MyProvider(props) {
         const userCart = allCart.filter(
           (userCart) => userCart.userId === userLocalStorage.id
         )
-        setCart(userCart[0].cart)
+        if (userCart.length === 0) {
+          setCart([])
+
+          console.log(userCart)
+        } else {
+          setCart(userCart[0].cart)
+        }
       }
     }
   }, [user])
