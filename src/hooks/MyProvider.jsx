@@ -19,8 +19,15 @@ function MyProvider(props) {
     }
 
     const userCart = allCart.find((userCart) => userCart.userId === user.id)
-    userCart.cart = newUsercart
-    saveToLocalStorage('rootCart', allCart)
+    if (userCart) {
+      userCart.cart = newUsercart
+      saveToLocalStorage('rootCart', allCart)
+    } else {
+      saveToLocalStorage('rootCart', [
+        ...allCart,
+        { userId: user.id, cart: newUsercart },
+      ])
+    }
   }
 
   const globalData = {
@@ -49,7 +56,7 @@ function MyProvider(props) {
         }
       }
     }
-  }, [user])
+  }, [])
   return (
     <MyContext.Provider value={globalData}>{props.children}</MyContext.Provider>
   )

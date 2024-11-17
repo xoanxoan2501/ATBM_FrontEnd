@@ -15,22 +15,40 @@ export default function Slider(props) {
       setLoaded(true) // Khi slider được khởi tạo
     },
     loop: true, // Thêm loop để slider quay vòng
-    duration: 1000 // Đặt thời gian chuyển tiếp slide
+    duration: 1000, // Đặt thời gian chuyển tiếp slide
   })
+
+  const { product } = props
+  const renderProductImages = () => {
+    return [product.image, ...product.images].map((image, index) => {
+      return (
+        <div key={index} className="keen-slider__slide number-slide1">
+          <img src={image} alt="product iamge" />
+        </div>
+      )
+    })
+  }
 
   return (
     <>
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          <div className="keen-slider__slide number-slide1">
-            <img src={props.url1} alt="Slide 1" />
-          </div>
-          <div className="keen-slider__slide number-slide2">
-            <img src={props.url2} alt="Slide 2" />
-          </div>
-          <div className="keen-slider__slide number-slide3">
-            <img src={props.url3} alt="Slide 3" />
-          </div>
+          {product ? (
+            renderProductImages()
+          ) : (
+            <>
+              {' '}
+              <div className="keen-slider__slide number-slide1">
+                <img src={props.url1} alt="Slide 1" />
+              </div>
+              <div className="keen-slider__slide number-slide2">
+                <img src={props.url2} alt="Slide 2" />
+              </div>
+              <div className="keen-slider__slide number-slide3">
+                <img src={props.url3} alt="Slide 3" />
+              </div>{' '}
+            </>
+          )}
         </div>
 
         {loaded && instanceRef.current && (
@@ -60,7 +78,7 @@ export default function Slider(props) {
       {loaded && instanceRef.current && (
         <div className="dots">
           {[
-            ...Array(instanceRef.current.track.details.slides.length).keys()
+            ...Array(instanceRef.current.track.details.slides.length).keys(),
           ].map((idx) => (
             <button
               key={idx}

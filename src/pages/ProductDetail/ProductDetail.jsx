@@ -1,9 +1,7 @@
-import MobileDetail from '../Product/MobileDetail'
+import MobileDetail from '../Product/ProductDetailPage'
 
-const ProductDetailPage = () => {
-  return (
-    <MobileDetail />
-  )
+const ProductDetailPageDemo = () => {
+  return <MobileDetail />
 }
 
-export default ProductDetailPage
+export default ProductDetailPageDemo

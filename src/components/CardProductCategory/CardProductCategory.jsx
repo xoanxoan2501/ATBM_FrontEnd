@@ -11,6 +11,7 @@ import useGlobalVariableContext from '@/hooks/MyProvider'
 import { toast } from 'react-toastify'
 import { cloneDeep } from 'lodash'
 import { routes } from '@/config/routeConfig'
+import { Link } from 'react-router-dom'
 export default function CardProductCategory({ product }) {
   const { cart, setCartToLocalStorage, setCart } = useGlobalVariableContext()
   const { user } = useGlobalVariableContext()
@@ -46,94 +47,101 @@ export default function CardProductCategory({ product }) {
     }
   }
   return (
-    <Card
-      sx={{
-        maxWidth: '100%',
-        backgroundColor: '#f7f7f7',
-        height: '100%',
-        borderRadius: '15px',
-        padding: '10px',
-      }}
-    >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          image={product.image}
-          alt="Product Image"
-          sx={{ height: '300px', objectFit: 'contain' }} // Adjusting image height
-        />
-        <CardContent>
-          {/* Product Information */}
-          <Typography
-            gutterBottom
-            variant="h6"
-            component="div"
-            sx={{
-              display: 'block', // Ensure it's block-level for ellipsis
-              width: '100%', // Make it take up full available width
-              fontWeight: 'bold',
-              textAlign: 'center', // Center text
-              overflow: 'hidden', // Hide overflow
-              whiteSpace: 'nowrap', // Keep the text in one line
-              textOverflow: 'ellipsis', // Add ellipsis at the end of overflowed content
-            }}
-          >
-            {product.name}
-          </Typography>
+    <Link to={`${routes.ProductDetailPage}/${product.id}`}>
+      <Card
+        sx={{
+          maxWidth: '100%',
+          backgroundColor: '#f7f7f7',
+          height: '100%',
+          borderRadius: '15px',
+          padding: '10px',
+        }}
+      >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            image={product.image}
+            alt="Product Image"
+            sx={{ height: '300px', objectFit: 'contain' }} // Adjusting image height
+          />
+          <CardContent>
+            {/* Product Information */}
 
-          <Typography
-            variant="body2"
-            sx={{ textAlign: 'center', color: 'gray', marginBottom: '10px' }}
-          >
-            {product.color}
-          </Typography>
-
-          {/* Capacity Information */}
-          <Grid
-            container
-            spacing={2}
-            sx={{ textAlign: 'center', marginBottom: '10px' }}
-          >
-            <Grid item xs={6}>
-              <Typography variant="body2">{product.type1}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="body2">{product.type2}</Typography>
-            </Grid>
-          </Grid>
-
-          {/* Price Information */}
-          <Box
-            sx={{
-              textAlign: 'center',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography>Giá bán : </Typography>
-            <Typography sx={{ color: 'black', marginBottom: '15px' }}>
-              {product.price}
-            </Typography>
-          </Box>
-
-          {/* Buy Now Button */}
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button
-              onClick={handleAddToCart}
-              variant="contained"
-              color="primary"
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
               sx={{
-                backgroundColor: 'black',
-                color: 'white',
-                borderRadius: '20px',
-                padding: '10px 20px',
+                display: 'block', // Ensure it's block-level for ellipsis
+                width: '100%', // Make it take up full available width
+                fontWeight: 'bold',
+                textAlign: 'center', // Center text
+                overflow: 'hidden', // Hide overflow
+                whiteSpace: 'nowrap', // Keep the text in one line
+                textOverflow: 'ellipsis', // Add ellipsis at the end of overflowed content
               }}
             >
-              Thêm vào giỏ hàng
-            </Button>
-          </Grid>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+              {product.name}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              sx={{ textAlign: 'center', color: 'gray', marginBottom: '10px' }}
+            >
+              {product.color}
+            </Typography>
+
+            {/* Capacity Information */}
+            <Grid
+              container
+              spacing={2}
+              sx={{ textAlign: 'center', marginBottom: '10px' }}
+            >
+              <Grid item xs={6}>
+                <Typography variant="body2">{product.type1}</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body2">{product.type2}</Typography>
+              </Grid>
+            </Grid>
+
+            {/* Price Information */}
+            <Box
+              sx={{
+                textAlign: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography>Giá bán : </Typography>
+              <Typography sx={{ color: 'black', marginBottom: '15px' }}>
+                {product.price}
+              </Typography>
+            </Box>
+
+            {/* Buy Now Button */}
+            <Grid
+              item
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <Button
+                onClick={handleAddToCart}
+                variant="contained"
+                color="primary"
+                sx={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: '20px',
+                  padding: '10px 20px',
+                }}
+              >
+                Thêm vào giỏ hàng
+              </Button>
+            </Grid>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   )
 }
