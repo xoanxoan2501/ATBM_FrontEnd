@@ -1,435 +1,218 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Container,
   Typography,
   TextField,
   Button,
-  Paper,
   Grid,
-  InputAdornment
+  InputAdornment,
+  CircularProgress,
 } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import PhoneIcon from '@mui/icons-material/Phone'
-import EventIcon from '@mui/icons-material/Event'
-import LanguageIcon from '@mui/icons-material/Language'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import LockIcon from '@mui/icons-material/Lock'
-import CreditCardIcon from '@mui/icons-material/CreditCard'
-import WcIcon from '@mui/icons-material/Wc'
-import AccountCircle from '@mui/icons-material/AccountCircle'
-import { styled } from '@mui/material/styles'
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary
-}))
+import {
+  Edit as EditIcon,
+  Phone as PhoneIcon,
+  Event as EventIcon,
+  AccountCircle,
+} from '@mui/icons-material'
+import { userAPI } from '@/apis/UserAPI'
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false)
-  const [userInfo, setUserInfo] = useState({
-    name: 'Trần Thị Mỹ Xoan',
-    email: 'xoan25012003@gmail.com',
-    phone: '(0)',
-    birthDate: 'Jan 25, 2003',
-    gender: 'Female',
-    twoStepVerification: 'Enabled',
-    country: 'Việt Nam',
-    address: '123 Đường ABC, Quận 1, TP.HCM',
-    language: 'Tiếng Việt',
-    paymentInfo: 'Visa **** 1234'
-  })
+  const [userInfo, setUserInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  // console.log(userInfo)
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      setLoading(true)
+      try {
+        const response = await userAPI.getUserAPIProfile()
+        console.log('Data from API:', response) // Kiểm tra dữ liệu trả về từ API
+        setUserInfo(response.data) // Gán dữ liệu từ API vào state
+      } catch (error) {
+        console.error('Error fetching user profile:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUserProfile()
+  }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setUserInfo({ ...userInfo, [name]: value })
+    console.log(e.target)
   }
 
-  const handleSave = () => {
-    setIsEditing(false)
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      await userAPI.updateUserAPI(userInfo, userInfo.id)
+      setIsEditing(false)
+    } catch (error) {
+      console.error('Error updating profile:', error)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    )
+  }
+
+  if (!userInfo) {
+    return (
+      <Box sx={{ textAlign: 'center', marginTop: '20px' }}>
+        <Typography variant="h6" color="error">
+          Không tải được thông tin người dùng.
+        </Typography>
+      </Box>
+    )
   }
 
   return (
     <Container
       sx={{
         backgroundColor: '#f5f5f5',
-        padding: 4
+        padding: 4,
+        borderRadius: 2,
+        maxWidth: '800px',
+        margin: '0 auto',
       }}
     >
-      <h1
-        style={{
+      <Typography variant="h4" textAlign="center" gutterBottom>
+        Thông tin tài khoản
+      </Typography>
+      <Box
+        sx={{
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          flexDirection: 'column',
+          gap: 2,
+          padding: 2,
+          backgroundColor: 'white',
+          borderRadius: 2,
+          boxShadow: 1,
         }}
       >
-        Tài khoản của tôi
-      </h1>
-      <Box>
-        <Box>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              gap: 2,
+        {/* First Name */}
+        <TextField
+          label="Họ"
+          variant="standard"
+          name="firstName"
+          value={userInfo.firstname || ''}
+          onChange={(e) => {
+            setUserInfo({ ...userInfo, firstname: e.target.value })
+          }}
+          InputProps={{
+            readOnly: !isEditing,
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircle />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+        />
 
-              margin: '10px 0px 50px 0px',
-              backgroundColor: 'white',
-              borderRadius: '20px'
-            }}
-          >
-            <img
-              src="/images/avt.jpg"
-              alt="avatar"
-              style={{
-                height: '200px',
-                width: '200px',
-                borderRadius: '180px'
-              }}
-            />
+        {/* Last Name */}
+        <TextField
+          label="Tên"
+          variant="standard"
+          name="lastName"
+          value={userInfo.lastname || ''}
+          onChange={(e) => {
+            setUserInfo({ ...userInfo, lastname: e.target.value })
+          }}
+          InputProps={{
+            readOnly: !isEditing,
+            startAdornment: (
+              <InputAdornment position="start">
+                <AccountCircle />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+        />
 
-            {/* Tên với biểu tượng */}
-            {isEditing ? (
-              <TextField
-                label="Tên"
-                variant="standard"
-                name="name"
-                value={userInfo.name}
-                onChange={handleInputChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle />
-                    </InputAdornment>
-                  )
-                }}
-                fullWidth
-              />
-            ) : (
-              <Typography variant="h6">{userInfo.name}</Typography>
-            )}
+        {/* Email */}
+        <TextField
+          label="Email"
+          variant="standard"
+          name="email"
+          value={userInfo.email || ''}
+          disabled={true}
+          InputProps={{
+            readOnly: !isEditing,
+          }}
+          fullWidth
+        />
 
-            {/* Email với biểu tượng */}
-            {isEditing ? (
-              <TextField
-                label="Email"
-                variant="standard"
-                name="email"
-                value={userInfo.email}
-                onChange={handleInputChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle />
-                    </InputAdornment>
-                  )
-                }}
-                fullWidth
-              />
-            ) : (
-              <Typography variant="h6">{userInfo.email}</Typography>
-            )}
-          </Box>
-          <Box
-            sx={{
-              margin: '10px 0px 30px 0px',
-              backgroundColor: 'white',
-              borderRadius: '20px'
-            }}
-          >
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              alignItems="center"
-            >
-              {/* Điện thoại với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Điện thoại"
-                      variant="standard"
-                      name="phone"
-                      value={userInfo.phone}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <PhoneIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
+        {/* Ngày sinh */}
+        <TextField
+          label="Ngày sinh"
+          variant="standard"
+          name="birthDate"
+          value={userInfo.dob || ''}
+          disabled={true}
+          InputProps={{
+            readOnly: !isEditing,
+            startAdornment: (
+              <InputAdornment position="start">
+                <EventIcon />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+        />
+        <TextField
+          type="password"
+          label="Mật khẩu "
+          variant="standard"
+          name="mật khẩu"
+          value={userInfo.password || ''}
+          onChange={(e) => {
+            setUserInfo({ ...userInfo, password: e.target.value })
+          }}
+          InputProps={{
+            readOnly: !isEditing,
+            startAdornment: (
+              <InputAdornment position="start">
+                <EventIcon />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+        />
+      </Box>
 
-              {/* Ngày sinh với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Ngày sinh"
-                      variant="standard"
-                      name="birthDate"
-                      value={userInfo.birthDate}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <EventIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-
-              {/* Giới tính với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Giới tính"
-                      variant="standard"
-                      name="gender"
-                      value={userInfo.gender}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <WcIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-
-              {/* Địa chỉ với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Địa chỉ"
-                      variant="standard"
-                      name="address"
-                      value={userInfo.address}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LocationOnIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-
-              {/* Bảo mật hai lớp với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Bảo mật hai lớp"
-                      variant="standard"
-                      name="twoStepVerification"
-                      value={userInfo.twoStepVerification}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LockIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-
-              {/* Thông tin thanh toán với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Thông tin thanh toán"
-                      variant="standard"
-                      name="paymentInfo"
-                      value={userInfo.paymentInfo}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <CreditCardIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-
-              {/* Ngôn ngữ với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Ngôn ngữ"
-                      variant="standard"
-                      name="language"
-                      value={userInfo.language}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LanguageIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-
-              {/* Quốc gia với biểu tượng */}
-              <Grid item xs={6}>
-                <Item sx={{ height: '80px', marginLeft: '20px' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      height: '100%'
-                    }}
-                  >
-                    <TextField
-                      label="Quốc gia"
-                      variant="standard"
-                      name="country"
-                      value={userInfo.country}
-                      onChange={isEditing ? handleInputChange : null}
-                      InputProps={{
-                        readOnly: !isEditing,
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LanguageIcon />
-                          </InputAdornment>
-                        )
-                      }}
-                      fullWidth
-                    />
-                  </Box>
-                </Item>
-              </Grid>
-            </Grid>
-          </Box>
-          <Box
-            sx={{
-              justifyContent: 'center',
-              display: 'flex',
-              alignItems: 'center'
-            }}
-          >
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: 'white', // Màu nền trắng
-                color: 'black', // Màu chữ đen
-                border: '2px solid black', // Viền màu đen
-
-                '&:hover': {
-                  border: '2px solid black', // Viền đen vẫn giữ nguyên khi hover
-                  backgroundColor: 'white' // Giữ nguyên màu nền khi hover
-                },
-                marginTop: 2 // Khoảng cách trên để tách khỏi các thành phần khác
-              }}
-              startIcon={<EditIcon />}
-              onClick={() => {
-                if (isEditing) {
-                  handleSave() // Gọi hàm lưu khi đang chỉnh sửa
-                } else {
-                  setIsEditing(true) // Bắt đầu chế độ chỉnh sửa
-                }
-              }}
-            >
-              {isEditing ? 'Lưu' : 'Chỉnh sửa'}
-            </Button>
-          </Box>
-        </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
+        <Button
+          variant="contained"
+          color={isEditing ? 'primary' : 'secondary'}
+          onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+          disabled={saving}
+        >
+          {saving ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : isEditing ? (
+            'Lưu'
+          ) : (
+            'Chỉnh sửa'
+          )}
+        </Button>
       </Box>
     </Container>
   )

@@ -17,8 +17,7 @@ import Profile from '@/pages/Profile/Profile'
 import Cart from '@/components/Cart/Cart'
 import Contact from '@/pages/Contact/Contact'
 import About from '@/pages/About/About'
-
-
+import ProductDetailPage from '@/pages/Product/ProductDetailPage'
 const publicRouteList = [
   { path: routes.LoginPage, component: LoginPage, layout: DefaultLayout },
   { path: routes.RegisterPage, component: RegisterPage, layout: DefaultLayout }
@@ -29,6 +28,11 @@ const authenticatedRouteList = [
   { path: routes.ContrastPage, component: Contact, layout: DefaultLayout },
   { path: routes.AboutPage, component: About, layout: DefaultLayout },
   { path: routes.CategoryPage, component: Category, layout: DefaultLayout },
+  {
+    path: `${routes.ProductDetailPage}/:productId`,
+    component: ProductDetailPage,
+    layout: DefaultLayout,
+  },
 
   { path: routes.Cart, component: Cart, layout: DefaultLayout },
   { path: routes.AdminUser, component: User, layout: AdminLayout },

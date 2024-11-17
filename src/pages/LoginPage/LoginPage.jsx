@@ -16,7 +16,7 @@ const LoginPage = () => {
   const { setUserToLocalStorage, user, setUser } = useGlobalVariableContext()
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   })
 
   const navigate = useNavigate()
@@ -25,15 +25,15 @@ const LoginPage = () => {
     email: z.string().email({ message: 'Invalid email address' }),
     password: z
       .string()
-      .min(6, { message: 'Password must be at least 6 characters long' })
+      .min(8, { message: 'Password must be at least 8 characters long' }),
   })
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(formDataSchema)
+    resolver: zodResolver(formDataSchema),
   })
 
   const handleLogin = (data) => {
@@ -67,13 +67,13 @@ const LoginPage = () => {
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Typography
           sx={{
             fontSize: '1.6rem',
-            marginTop: '40px'
+            marginTop: '40px',
           }}
         >
           Đăng nhập vào tài khoản Apple
@@ -85,7 +85,7 @@ const LoginPage = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
-              marginTop: '20px'
+              marginTop: '20px',
             }}
           >
             <TextField
@@ -101,8 +101,8 @@ const LoginPage = () => {
                 width: '480px',
                 height: '56px',
                 '& .MuiOutlinedInput-notchedOutline': {
-                  borderRadius: '12px'
-                }
+                  borderRadius: '12px',
+                },
               }}
             />
             {errors.email && (
@@ -123,8 +123,8 @@ const LoginPage = () => {
                 width: '480px',
                 height: '56px',
                 '& .MuiOutlinedInput-notchedOutline': {
-                  borderRadius: '12px'
-                }
+                  borderRadius: '12px',
+                },
               }}
             />
             {errors.password && (
@@ -141,8 +141,8 @@ const LoginPage = () => {
                 backgroundColor: 'black',
                 color: 'white',
                 '&:hover': {
-                  backgroundColor: 'grey'
-                }
+                  backgroundColor: 'grey',
+                },
               }}
             >
               Đăng nhập

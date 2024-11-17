@@ -4,6 +4,10 @@ export function descendingComparator(a, b, orderBy) {
   return 0
 }
 
+export function formatNumber(number) {
+  return number.toLocaleString('vi-VN')
+}
+
 export function getComparator(order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)

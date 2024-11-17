@@ -19,8 +19,15 @@ function MyProvider(props) {
     }
 
     const userCart = allCart.find((userCart) => userCart.userId === user.id)
-    userCart.cart = newUsercart
-    saveToLocalStorage('rootCart', allCart)
+    if (userCart) {
+      userCart.cart = newUsercart
+      saveToLocalStorage('rootCart', allCart)
+    } else {
+      saveToLocalStorage('rootCart', [
+        ...allCart,
+        { userId: user.id, cart: newUsercart },
+      ])
+    }
   }
 
   const globalData = {
@@ -37,15 +44,19 @@ function MyProvider(props) {
     const userLocalStorage = getFormLocalStorage('user')
     const allCart = getFormLocalStorage('rootCart')
     if (userLocalStorage) {
-      setUser(user)
+      setUser(userLocalStorage)
       if (allCart) {
         const userCart = allCart.filter(
           (userCart) => userCart.userId === userLocalStorage.id
         )
-        setCart(userCart[0].cart)
+        if (userCart.length === 0) {
+          setCart([])
+        } else {
+          setCart(userCart[0].cart)
+        }
       }
     }
-  }, [user])
+  }, [])
   return (
     <MyContext.Provider value={globalData}>{props.children}</MyContext.Provider>
   )

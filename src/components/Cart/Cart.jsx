@@ -25,7 +25,7 @@ const Cart = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           marginTop: '20px',
-          marginBottom: '20px'
+          marginBottom: '20px',
         }}
       >
         <Typography sx={{ fontWeight: 'bold', fontSize: '1.2 rem' }}>
@@ -37,7 +37,7 @@ const Cart = () => {
           display: 'flex',
           justifyContent: 'flex-end',
           marginTop: '20px',
-          marginBottom: '20px'
+          marginBottom: '20px',
         }}
       >
         <Button variant="outlined"> Thanh toán</Button>

@@ -29,10 +29,16 @@ const deleteproductsAPI = async (productsId) => {
   return response.data
 }
 
+const getProductDetail = async (productId) => {
+  const response = await instance.get(`/products/${productId}`)
+  return response.data
+}
+
 export const productsAdminAPI = {
   getproductsAPI,
   updateproductsAPI,
   deleteproductsAPI,
   postproductsAPI,
-  checkCategoryExists
+  checkCategoryExists,
+  getProductDetail,
 }
