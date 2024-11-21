@@ -14,66 +14,57 @@ export default function Slider(props) {
     created() {
       setLoaded(true) // Khi slider được khởi tạo
     },
-    loop: true, // Thêm loop để slider quay vòng
+    loop: true, // Kích hoạt vòng lặp cho slider
     duration: 1000, // Đặt thời gian chuyển tiếp slide
   })
 
   const { product } = props
+
+  // Hàm render ảnh sản phẩm
   const renderProductImages = () => {
-    return [product.image, ...product.images].map((image, index) => {
-      return (
-        <div key={index} className="keen-slider__slide number-slide1">
-          <img src={image} alt="product iamge" />
-        </div>
-      )
-    })
+    const images = [product.image, ...product.images.map((img) => img.url)] // Ảnh chính + ảnh phụ
+    return images.map((image, index) => (
+      <div key={index} className="keen-slider__slide number-slide1">
+        <img src={image} alt={`product-image-${index}`} />
+      </div>
+    ))
   }
 
   return (
-    <>
-      <div className="navigation-wrapper">
-        <div ref={sliderRef} className="keen-slider">
-          {product ? (
-            renderProductImages()
-          ) : (
-            <>
-              {' '}
-              <div className="keen-slider__slide number-slide1">
-                <img src={props.url1} alt="Slide 1" />
-              </div>
-              <div className="keen-slider__slide number-slide2">
-                <img src={props.url2} alt="Slide 2" />
-              </div>
-              <div className="keen-slider__slide number-slide3">
-                <img src={props.url3} alt="Slide 3" />
-              </div>{' '}
-            </>
-          )}
-        </div>
-
-        {loaded && instanceRef.current && (
-          <>
-            <Arrow
-              left
-              onClick={(e) => {
-                e.stopPropagation()
-                instanceRef.current?.prev() // Chuyển về slide trước đó
-              }}
-              disabled={currentSlide === 0}
-            />
-            <Arrow
-              onClick={(e) => {
-                e.stopPropagation()
-                instanceRef.current?.next() // Chuyển tới slide tiếp theo
-              }}
-              disabled={
-                currentSlide ===
-                instanceRef.current.track.details.slides.length - 1
-              }
-            />
-          </>
+    <div className="navigation-wrapper">
+      <div ref={sliderRef} className="keen-slider">
+        {product ? (
+          renderProductImages() // Hiển thị ảnh sản phẩm nếu có dữ liệu
+        ) : (
+          // Fallback khi không có sản phẩm
+          <div className="keen-slider__slide number-slide1">
+            <img src={props.url1} alt="Fallback Slide 1" />
+          </div>
         )}
       </div>
+
+      {loaded && instanceRef.current && (
+        <>
+          <Arrow
+            left
+            onClick={(e) => {
+              e.stopPropagation()
+              instanceRef.current?.prev() // Chuyển về slide trước
+            }}
+            disabled={currentSlide === 0}
+          />
+          <Arrow
+            onClick={(e) => {
+              e.stopPropagation()
+              instanceRef.current?.next() // Chuyển tới slide tiếp theo
+            }}
+            disabled={
+              currentSlide ===
+              instanceRef.current.track.details.slides.length - 1
+            }
+          />
+        </>
+      )}
 
       {loaded && instanceRef.current && (
         <div className="dots">
@@ -90,7 +81,7 @@ export default function Slider(props) {
           ))}
         </div>
       )}
-    </>
+    </div>
   )
 }
 
@@ -99,9 +90,7 @@ function Arrow(props) {
   return (
     <svg
       onClick={props.onClick}
-      className={`arrow ${
-        props.left ? 'arrow--left' : 'arrow--right'
-      } ${disabled}`}
+      className={`arrow ${props.left ? 'arrow--left' : 'arrow--right'} ${disabled}`}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
     >
