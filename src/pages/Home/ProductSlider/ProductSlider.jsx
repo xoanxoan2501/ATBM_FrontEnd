@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import './ProductSlider.css' // Ensure your CSS here handles layout
-import Endow from '../Item/Endow/Endow'
+
 import Phone from '../Item/Phone/Phone'
 import ScreenAndMemory from '../Item/ScreenAndMemory/ScreenAndMemory'
 import TV from '../Item/TV/TV'
@@ -18,7 +18,7 @@ export default () => {
     },
     created() {
       setLoaded(true)
-    }
+    },
   })
 
   // List of category names

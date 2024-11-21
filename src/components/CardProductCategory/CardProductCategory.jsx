@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import { cloneDeep } from 'lodash'
 import { routes } from '@/config/routeConfig'
 import { Link } from 'react-router-dom'
+import { formatNumber } from '@/utils/formatters'
 export default function CardProductCategory({ product }) {
   const { cart, setCartToLocalStorage, setCart } = useGlobalVariableContext()
   const { user } = useGlobalVariableContext()
@@ -47,26 +48,28 @@ export default function CardProductCategory({ product }) {
     }
   }
   return (
-    <Link to={`${routes.ProductDetailPage}/${product.id}`}>
-      <Card
-        sx={{
-          maxWidth: '100%',
-          backgroundColor: '#f7f7f7',
-          height: '100%',
-          borderRadius: '15px',
-          padding: '10px',
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            image={product.image}
-            alt="Product Image"
-            sx={{ height: '300px', objectFit: 'contain' }} // Adjusting image height
-          />
-          <CardContent>
-            {/* Product Information */}
-
+    <Card
+      sx={{
+        maxWidth: '100%',
+        backgroundColor: '#f7f7f7',
+        height: '100%',
+        borderRadius: '15px',
+        padding: '10px',
+      }}
+    >
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          image={product.image}
+          alt="Product Image"
+          sx={{ height: '300px', objectFit: 'contain' }} // Adjusting image height
+        />
+        <CardContent>
+          {/* Product Information */}
+          <Link
+            to={`${routes.ProductDetailPage}/${product.id}`}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
             <Typography
               gutterBottom
               variant="h6"
@@ -115,33 +118,29 @@ export default function CardProductCategory({ product }) {
             >
               <Typography>Giá bán : </Typography>
               <Typography sx={{ color: 'black', marginBottom: '15px' }}>
-                {product.price}
+                {formatNumber(product.price)} đ
               </Typography>
             </Box>
+          </Link>
 
-            {/* Buy Now Button */}
-            <Grid
-              item
-              xs={12}
-              sx={{ display: 'flex', justifyContent: 'center' }}
+          {/* Buy Now Button */}
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              onClick={handleAddToCart}
+              variant="contained"
+              color="primary"
+              sx={{
+                backgroundColor: 'black',
+                color: 'white',
+                borderRadius: '20px',
+                padding: '10px 20px',
+              }}
             >
-              <Button
-                onClick={handleAddToCart}
-                variant="contained"
-                color="primary"
-                sx={{
-                  backgroundColor: 'black',
-                  color: 'white',
-                  borderRadius: '20px',
-                  padding: '10px 20px',
-                }}
-              >
-                Thêm vào giỏ hàng
-              </Button>
-            </Grid>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Link>
+              Thêm vào giỏ hàng
+            </Button>
+          </Grid>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   )
 }

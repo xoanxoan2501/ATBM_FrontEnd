@@ -10,6 +10,7 @@ import { Box, Button, TextField } from '@mui/material'
 import useGlobalVariableContext from '@/hooks/MyProvider'
 
 import { cloneDeep } from 'lodash'
+import { formatNumber } from '@/utils/formatters'
 
 export default function DenseTable() {
   const { cart, setCartToLocalStorage, setCart } = useGlobalVariableContext()
@@ -33,7 +34,7 @@ export default function DenseTable() {
     <TableContainer
       component={Paper}
       sx={{
-        maxHeight: '500px'
+        maxHeight: '500px',
       }}
     >
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -50,7 +51,7 @@ export default function DenseTable() {
             <TableRow
               key={item.id}
               sx={{
-                '&:last-child td, &:last-child th': { border: 0 }
+                '&:last-child td, &:last-child th': { border: 0 },
               }}
             >
               <TableCell
@@ -77,7 +78,7 @@ export default function DenseTable() {
                   }
                 />
               </TableCell>
-              <TableCell align="right">{item.price} đ</TableCell>
+              <TableCell align="right">{formatNumber(item.price)} đ</TableCell>
               <TableCell align="right">
                 <Button onClick={() => handleRemoveItem(item.product_id)}>
                   Xóa
