@@ -7,7 +7,7 @@ import { styled } from '@mui/material'
 import { authAPI } from '@/apis/authAPI'
 
 const StyledDiv = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.customBackGround.main.toString()
+  backgroundColor: theme.palette.customBackGround.main.toString(),
 }))
 
 const ProductPhone = () => {
@@ -22,14 +22,14 @@ const ProductPhone = () => {
     },
     created() {
       setLoaded(true)
-    }
+    },
   })
 
   const productIds = [
-    '68451ce6-6409-4344-aa34-27a9ac5517bb', // iPhone
-    'c744ec3d-0749-4aa9-815e-afff17a1281e', // Samsung Galaxy
-    '88dd42d6-75f2-4862-885b-9923c1a6c1e5', // Tai nghe
-    '489db35e-ba1a-4c40-9215-d227d8c5cd2b' // Watch
+    '93dcff86-3d49-46c4-b646-7b032727d6ee', // iPhone
+    '86140e42-eda9-4e3b-ac57-a1195e17e2cd', // Samsung Galaxy
+    'e9efc95b-b1a8-4879-a52c-2803ff2d5932', // Tai nghe
+    '21fb8977-54fa-4dc9-b0d9-9fcfc9264d70', // Watch
   ]
   // const CardSlider = ({ image, title, description }) => (
   //   <div className="card-slider">
