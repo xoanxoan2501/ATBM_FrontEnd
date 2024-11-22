@@ -14,6 +14,7 @@ const ProductPhone = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true) // Trạng thái loading
 
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
@@ -31,25 +32,24 @@ const ProductPhone = () => {
     'e9efc95b-b1a8-4879-a52c-2803ff2d5932', // Tai nghe
     '21fb8977-54fa-4dc9-b0d9-9fcfc9264d70', // Watch
   ]
-  // const CardSlider = ({ image, title, description }) => (
-  //   <div className="card-slider">
-  //     <img src={image} alt={title} />
-  //     <div className="title">{title}</div>
-  //     <div className="description">{description}</div>
-  //   </div>
-  // );
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productData = await Promise.all(
-        productIds.map(async (id) => {
-          const response = await authAPI.getDataProduct(id)
-
-          const { name, image, description } = response.data
-          return { name, image, description }
-        })
-      )
-      setProducts(productData)
+      try {
+        setLoading(true) // Bắt đầu tải
+        const productData = await Promise.all(
+          productIds.map(async (id) => {
+            const response = await authAPI.getDataProduct(id)
+            const { name, image, description } = response.data
+            return { name, image, description }
+          })
+        )
+        setProducts(productData)
+      } catch (error) {
+        console.error('Lỗi tải sản phẩm:', error)
+      } finally {
+        setLoading(false) // Kết thúc tải
+      }
     }
 
     fetchProducts()
@@ -59,57 +59,42 @@ const ProductPhone = () => {
 
   return (
     <>
-      {loaded && instanceRef.current && (
-        <div className="category-titles">
-          {categories.map((category, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                instanceRef.current?.moveToIdx(idx)
-              }}
-              className={`category-title ${currentSlide === idx ? 'active' : ''}`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className="navigation-wrapper">
-        <StyledDiv ref={sliderRef} className="keen-slider">
-          {products.map((product, index) => (
-            <div className="keen-slider__slide" key={index}>
-              <CardSlider
-                className={currentSlide === index ? 'show' : ''}
-                image={product.image}
-                title={product.name}
-                description={product.description}
-              />
+      {loading ? ( // Hiển thị thông báo khi đang tải
+        <div className="loading-message">Đang tải dữ liệu...</div>
+      ) : (
+        <>
+          {loaded && instanceRef.current && (
+            <div className="category-titles">
+              {categories.map((category, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    instanceRef.current?.moveToIdx(idx)
+                  }}
+                  className={`category-title ${currentSlide === idx ? 'active' : ''}`}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
-          ))}
-        </StyledDiv>
+          )}
 
-        {/* {loaded && instanceRef.current && instanceRef.current.track && (
-          <>
-            <Arrow
-              left
-              onClick={(e) =>
-                e.stopPropagation() || instanceRef.current?.prev()
-              }
-              disabled={currentSlide === 0}
-            />
-            <Arrow
-              onClick={(e) =>
-                e.stopPropagation() || instanceRef.current?.next()
-              }
-              disabled={
-                currentSlide ===
-                instanceRef.current.track.details.slides.length - 1
-              }
-            />
-          </>
-        )} */}
-      </div>
+          <div className="navigation-wrapper">
+            <StyledDiv ref={sliderRef} className="keen-slider">
+              {products.map((product, index) => (
+                <div className="keen-slider__slide" key={index}>
+                  <CardSlider
+                    className={currentSlide === index ? 'show' : ''}
+                    image={product.image}
+                    title={product.name}
+                    description={product.description}
+                  />
+                </div>
+              ))}
+            </StyledDiv>
+          </div>
+        </>
+      )}
     </>
   )
 }
