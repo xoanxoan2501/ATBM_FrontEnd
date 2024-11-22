@@ -72,33 +72,35 @@ const TextOverlay = styled(Box)(({ theme }) => ({
   transition: 'transform 0.3s ease, background-color 0.3s ease', // Thêm hiệu ứng khi hover
 }))
 
-const CardProduct = (props) => {
+const CardProduct = (product) => {
   return (
-    <HoverCard>
-      {/* Hình ảnh */}
-      <HoverCardImage
-        className="hover-image"
-        component="img"
-        image={props.image}
-        alt="Hover effect image"
-      />
+    <Link to={`${routes.ProductDetailPage}/${product.id}`}>
+      <HoverCard>
+        {/* Hình ảnh */}
+        <HoverCardImage
+          className="hover-image"
+          component="img"
+          image={product.image}
+          alt="Hover effect image"
+        />
 
-      {/* Dòng chữ đè lên hình ảnh */}
-      <TextOverlay className="text-overlay">
-        <Typography variant="h6" component="div" gutterBottom>
-          {props.content1}
-        </Typography>
-        <Typography variant="body2" color="inherit">
-          {props.content}
-        </Typography>
-      </TextOverlay>
+        {/* Dòng chữ đè lên hình ảnh */}
+        <TextOverlay className="text-overlay">
+          <Typography variant="h6" component="div" gutterBottom>
+            {product.content1}
+          </Typography>
+          <Typography variant="body2" color="inherit">
+            {product.content}
+          </Typography>
+        </TextOverlay>
 
-      {/* Nút mua hàng chỉ hiển thị khi hover */}
+        {/* Nút mua hàng chỉ hiển thị khi hover */}
 
-      <HoverButton className="hover-button" variant="contained">
-        Mua ngay
-      </HoverButton>
-    </HoverCard>
+        <HoverButton className="hover-button" variant="contained">
+          Mua ngay
+        </HoverButton>
+      </HoverCard>
+    </Link>
   )
 }
 
