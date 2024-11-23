@@ -14,9 +14,9 @@ export default function HomePage() {
       {/* //* phan nay cho slider */}
       <Box sx={{ marginTop: '10px' }}>
         <Slider
-          url1="/images/16pro.jpg"
-          url2="/images/HOME_R12_KV_Main-KV_pc.webp"
-          url3="/images/galaxy.jpg"
+        // url1="/images/16pro.jpg"
+        // url2="/images/HOME_R12_KV_Main-KV_pc.webp"
+        // url3="/images/galaxy.jpg"
         />
       </Box>
       {/* //* code cho phan san pham noi bat */}
@@ -24,7 +24,7 @@ export default function HomePage() {
         sx={{
           textAlign: 'center',
           marginTop: '40px',
-          marginBottom: '40px'
+          marginBottom: '40px',
         }}
       >
         <Typography
@@ -59,7 +59,7 @@ export default function HomePage() {
               transform: 'translateX(-50%)',
               zIndex: 10,
               color: 'black',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}
           >
             TV And Radio
@@ -74,7 +74,7 @@ export default function HomePage() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            my: 4
+            my: 4,
           }}
         ></Box>
       </Box>

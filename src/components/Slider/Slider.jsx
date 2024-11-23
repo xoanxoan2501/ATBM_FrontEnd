@@ -30,17 +30,26 @@ export default function Slider(props) {
     ))
   }
 
+  const renderImagesProduct = () => {
+    const images = [
+      '/images/16pro.jpg',
+      '/images/HOME_R12_KV_Main-KV_pc.webp',
+      '/images/galaxy.jpg',
+    ]
+    return images.map((image, index) => (
+      <div key={index} className="keen-slider__slide number-slide1">
+        <img src={image} alt={`image-${index}`} />
+      </div>
+    ))
+  }
   return (
     <div className="navigation-wrapper">
       <div ref={sliderRef} className="keen-slider">
-        {product ? (
-          renderProductImages() // Hiển thị ảnh sản phẩm nếu có dữ liệu
-        ) : (
-          // Fallback khi không có sản phẩm
-          <div className="keen-slider__slide number-slide1">
-            <img src={props.url1} alt="Fallback Slide 1" />
-          </div>
-        )}
+        {product
+          ? renderProductImages() // Hiển thị ảnh sản phẩm nếu có dữ liệu
+          : // Fallback khi không có sản phẩm
+            //
+            renderImagesProduct()}
       </div>
 
       {loaded && instanceRef.current && (
