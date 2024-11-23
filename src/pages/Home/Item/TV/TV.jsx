@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import CardProduct from '../../../../components/CardProduct/CardProduct'
 import { authAPI } from '@/apis/authAPI'
+import { formatNumber } from '@/utils/formatters'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -59,6 +60,7 @@ export default function TV() {
         <Grid container xs={6}>
           <Item sx={{ width: '98%' }}>
             <CardProduct
+              id={products[0]?.id}
               image={products[0]?.image}
               label="Sale"
               content1={products[0]?.name}
@@ -79,6 +81,8 @@ export default function TV() {
                   <Grid item xs={6} key={product.id}>
                     <Item>
                       <CardProduct
+                        id={product.id}
+                        content={`Giá : ${formatNumber(product.price)}đ`}
                         image={product.image}
                         content1={product.name}
                       />

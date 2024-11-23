@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react'
 import './CardSlider.css' // Ensure this is your actual CSS file path
 import { styled } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { routes } from '@/config/routeConfig'
 
 const StyledDiv = styled('div')(({ theme }) => {
   // console.log(theme.palette.customBackGround.main);
   return {
-    backgroundColor: theme.palette.customBackGround.main.toString() // Màu chính từ theme
+    backgroundColor: theme.palette.customBackGround.main.toString(), // Màu chính từ theme
   }
 })
 
 const StyledButton = styled('button')(({ theme }) => {
   return {
     borderColor: theme.palette.buttonColor.main, // Màu chính từ theme
-    color: theme.palette.customText.main
+    color: theme.palette.customText.main,
   }
 })
-const CardSlider = ({ className, image, title, description }) => {
+const CardSlider = ({ className, image, title, description, productId }) => {
   // Effect to add the show class for animation
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,10 +43,15 @@ const CardSlider = ({ className, image, title, description }) => {
       <div className={`afterLayout ${className}`}>
         <h2 className={`text-container ${className}`}>{title}</h2>
         <p className={`text-container ${className}`}>{description}</p>
-        <div className="buttons">
-          <StyledButton className="learn-more">Learn more</StyledButton>
-          <button className="buy-now">Buy now</button>
-        </div>
+        <Link
+          to={`${routes.ProductDetailPage}/${productId}`}
+          style={{ textDecorationLine: 'none' }}
+        >
+          <div className="buttons">
+            <StyledButton className="learn-more">Learn more</StyledButton>
+            <button className="buy-now">Buy now</button>
+          </div>
+        </Link>
       </div>
     </StyledDiv>
   )

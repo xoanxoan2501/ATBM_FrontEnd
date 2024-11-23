@@ -60,6 +60,7 @@ export default function ScreenAndMemory() {
         <Grid container xs={6}>
           <Item sx={{ width: '98%' }}>
             <CardProduct
+              id={products[0]?.id}
               image={products[0]?.image}
               label="Sale"
               content1={products[0]?.name}
@@ -80,9 +81,10 @@ export default function ScreenAndMemory() {
                   <Grid item xs={6} key={product.id}>
                     <Item>
                       <CardProduct
+                        id={product.id}
                         image={product.image}
                         content1={product.name}
-                        content2={formatNumber(product.price)}
+                        content={`Giá : ${formatNumber(product.price)}đ`}
                       />
                     </Item>
                   </Grid>

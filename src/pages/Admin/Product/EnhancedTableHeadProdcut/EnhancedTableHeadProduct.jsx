@@ -10,17 +10,18 @@ const headCells = [
     id: 'description',
     numeric: false,
     disablePadding: false,
-    label: 'description'
+    label: 'description',
   },
   { id: 'price', numeric: false, disablePadding: false, label: 'price' },
   { id: 'quantity', numeric: false, disablePadding: false, label: 'quantity' },
-  { id: 'image', numeric: false, disablePadding: false, label: 'image' }
+  { id: 'image', numeric: false, disablePadding: false, label: 'image' },
   // {
   //   id: 'category_id',
   //   numeric: false,
   //   disablePadding: false,
   //   label: 'category_id',
   // },
+  { id: 'images', numeric: false, disablePadding: false, label: 'images' },
 ]
 
 export default function EnhancedTableHeadProduct(props) {
@@ -30,7 +31,7 @@ export default function EnhancedTableHeadProduct(props) {
     orderBy,
     numSelected,
     rowCount,
-    onRequestSort
+    onRequestSort,
   } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
@@ -80,5 +81,5 @@ EnhancedTableHeadProduct.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
+  rowCount: PropTypes.number.isRequired,
 }

@@ -88,6 +88,7 @@ const ProductPhone = () => {
                     image={product.image}
                     title={product.name}
                     description={product.description}
+                    productId={productIds[index] || product.id} // Dùng productIds hoặc fallback sang product.id nếu có
                   />
                 </div>
               ))}

@@ -2,7 +2,9 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-
+import { Link } from 'react-router-dom'
+import RoutesComponent from '@/router/RoutesComponet'
+import { routes } from '@/config/routeConfig'
 export default function Store() {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -14,17 +16,18 @@ export default function Store() {
   }
 
   return (
-    <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Trang chủ
-      </Button>
-      {/* <Menu
+    <Link to={routes.HomePage}>
+      <div>
+        <Button
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          Trang chủ
+        </Button>
+        {/* <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -37,6 +40,7 @@ export default function Store() {
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu> */}
-    </div>
+      </div>
+    </Link>
   )
 }

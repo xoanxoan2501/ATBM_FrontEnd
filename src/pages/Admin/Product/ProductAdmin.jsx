@@ -24,7 +24,7 @@ import {
   Snackbar,
   Alert,
   CircularProgress,
-  Typography
+  Typography,
 } from '@mui/material'
 import { toast } from 'react-toastify'
 
@@ -35,7 +35,8 @@ const createData = (
   price,
   quantity,
   image,
-  category_id
+  category_id,
+  images
 ) => {
   let newRoles = ''
 
@@ -46,7 +47,8 @@ const createData = (
     price,
     quantity,
     image,
-    category_id
+    category_id,
+    images,
   }
 }
 
@@ -111,7 +113,8 @@ export default function ProductAdmin() {
       price: '',
       quantity: '',
       image: '',
-      category_id: ''
+      category_id: '',
+      images: '',
     })
   }
 
@@ -153,7 +156,8 @@ export default function ProductAdmin() {
       !addProduct.category_id ||
       !addProduct.description ||
       !addProduct.image ||
-      !addProduct.quantity
+      !addProduct.quantity ||
+      !addProduct.images
     ) {
       setErrorMessage('Tất cả các trường đều bắt buộc!')
       setOpenErrorSnackbar(true)
@@ -223,7 +227,8 @@ export default function ProductAdmin() {
             products.description,
             products.price,
             products.image,
-            products.category_id
+            products.category_id,
+            products.images
           )
         )
       )
@@ -240,7 +245,7 @@ export default function ProductAdmin() {
           minHeight: '100vh',
           width: '100vh',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <CircularProgress />
@@ -321,6 +326,12 @@ export default function ProductAdmin() {
                           src={row.image}
                         />
                       </TableCell>
+                      <TableCell>
+                        <img
+                          style={{ width: '100px', height: 'auto' }}
+                          src={row.images}
+                        />
+                      </TableCell>
                       {/* <TableCell>{row.category_id}</TableCell> */}
                     </TableRow>
                   )
@@ -369,7 +380,7 @@ export default function ProductAdmin() {
             onChange={(event) =>
               setAddProduct({
                 ...addProduct,
-                description: event.target.value
+                description: event.target.value,
               })
             }
           />
@@ -416,7 +427,21 @@ export default function ProductAdmin() {
             onChange={(event) =>
               setAddProduct({
                 ...addProduct,
-                category_id: event.target.value
+                category_id: event.target.value,
+              })
+            }
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="images"
+            type="text"
+            fullWidth
+            value={addProduct.category_id}
+            onChange={(event) =>
+              setAddProduct({
+                ...addProduct,
+                images: event.target.value,
               })
             }
           />
