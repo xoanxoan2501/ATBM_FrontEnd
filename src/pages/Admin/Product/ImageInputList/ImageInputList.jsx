@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import TextField from '@mui/material/TextField'
 
 function ImageInputList({ images, setImages }) {
-  const [randomImages, setRandomImages] = useState([])
-
-  // Chọn 4 hình ảnh ngẫu nhiên
-  const getRandomImages = () => {
-    const shuffled = [...images].sort(() => Math.random() - 0.5) // Trộn ngẫu nhiên
-    setRandomImages(shuffled.slice(0, 4)) // Lấy 4 hình ảnh đầu tiên sau khi trộn
-  }
-
-  useEffect(() => {
-    getRandomImages()
-  }, [images]) // Cập nhật random images mỗi khi images thay đổi
-
   const handleImageChange = (index, value) => {
     if (value.trim()) {
       // Cập nhật URL nếu không trống
@@ -34,9 +22,9 @@ function ImageInputList({ images, setImages }) {
 
   return (
     <div>
-      {/* Hiển thị 4 hình ảnh ngẫu nhiên theo hàng ngang */}
+      {/* Hiển thị tất cả hình ảnh */}
       <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '16px' }}>
-        {randomImages.map((image, index) => (
+        {images.map((image, index) => (
           <div key={index} style={{ marginRight: '8px', marginBottom: '8px' }}>
             <img
               src={image}

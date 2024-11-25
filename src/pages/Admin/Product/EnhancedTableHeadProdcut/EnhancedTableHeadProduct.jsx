@@ -21,7 +21,7 @@ const headCells = [
   //   disablePadding: false,
   //   label: 'category_id',
   // },
-  { id: 'images', numeric: false, disablePadding: false, label: 'images' },
+  // { id: 'images', numeric: false, disablePadding: false, label: 'images' },
 ]
 
 export default function EnhancedTableHeadProduct(props) {

@@ -122,10 +122,26 @@ export default function ProductAdmin() {
     })
   }
 
+  // const handleEditProduct = () => {
+  //   if (selected.length === 1) {
+  //     const ProductToEdit = rows.find((row) => row.id === selected[0])
+  //     setAddProduct(ProductToEdit)
+  //     setDialogOpen(true)
+  //     setIsEditing(true)
+  //   }
+  // }
   const handleEditProduct = () => {
     if (selected.length === 1) {
       const ProductToEdit = rows.find((row) => row.id === selected[0])
-      setAddProduct(ProductToEdit)
+
+      // Chắc chắn rằng thông tin ảnh được lấy chính xác từ 'ProductToEdit'
+      setAddProduct({
+        ...ProductToEdit, // Cập nhật tất cả thông tin sản phẩm
+        images: ProductToEdit.images
+          ? ProductToEdit.images.map((img) => img.url)
+          : [], // Đảm bảo lấy đúng URL ảnh
+      })
+
       setDialogOpen(true)
       setIsEditing(true)
     }
@@ -316,25 +332,6 @@ export default function ProductAdmin() {
                           style={{ width: '100px', height: 'auto' }}
                           src={row.image}
                         />
-                      </TableCell>
-
-                      <TableCell align="left">
-                        {row.images && row.images.length > 0 ? (
-                          row.images.map((image, index) => (
-                            <img
-                              key={index}
-                              src={image}
-                              alt={`product image ${index + 1}`}
-                              style={{
-                                width: '100px',
-                                height: '100px',
-                                margin: '5px',
-                              }}
-                            />
-                          ))
-                        ) : (
-                          <span>No Images Available</span>
-                        )}
                       </TableCell>
                     </TableRow>
                   )
