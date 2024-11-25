@@ -27,6 +27,7 @@ import {
   Typography,
 } from '@mui/material'
 import { toast } from 'react-toastify'
+import ImageInputList from './ImageInputList/ImageInputList'
 
 const createData = (
   id,
@@ -38,7 +39,10 @@ const createData = (
   category_id,
   images
 ) => {
-  let newRoles = ''
+  // Kiểm tra và chuyển đổi trường 'images' thành mảng các đối tượng { url: "image_url" }
+  const imageObjects = Array.isArray(images)
+    ? images.map((img) => ({ url: img })) // Chuyển đổi mỗi URL thành đối tượng { url: "image_url" }
+    : []
 
   return {
     id,
@@ -48,7 +52,7 @@ const createData = (
     quantity,
     image,
     category_id,
-    images,
+    images: imageObjects, // Gán mảng đối tượng { url: "image_url" }
   }
 }
 
@@ -114,7 +118,7 @@ export default function ProductAdmin() {
       quantity: '',
       image: '',
       category_id: '',
-      images: '',
+      images: [],
     })
   }
 
@@ -147,7 +151,6 @@ export default function ProductAdmin() {
       setOpenErrorSnackbar(true)
     }
   }
-
   const handleSaveProduct = async () => {
     // Kiểm tra các trường bắt buộc
     if (
@@ -157,46 +160,34 @@ export default function ProductAdmin() {
       !addProduct.description ||
       !addProduct.image ||
       !addProduct.quantity ||
-      !addProduct.images
+      !Array.isArray(addProduct.images) ||
+      addProduct.images.length === 0
     ) {
-      setErrorMessage('Tất cả các trường đều bắt buộc!')
-      setOpenErrorSnackbar(true)
+      toast.error('Tất cả các trường đều bắt buộc!')
       return
     }
 
     try {
-      // Kiểm tra sự tồn tại của category_id
-      const categoryExists = await productsAdminAPI.checkCategoryExists(
-        addProduct.category_id
-      ) // Gọi API để kiểm tra
-      if (!categoryExists) {
-        setErrorMessage('Category không tồn tại!')
-        setOpenErrorSnackbar(true)
-        return
-      }
-
       if (isEditing) {
-        // Cập nhật Product
+        // Cập nhật sản phẩm
         await productsAdminAPI.updateproductsAPI(addProduct, addProduct.id) // Gọi API để cập nhật sản phẩm
         const updatedRows = rows.map((row) =>
           row.id === addProduct.id ? addProduct : row
         )
         setRows(updatedRows)
+        toast.success('Cập nhật sản phẩm thành công!')
       } else {
-        // Thêm Product
-        const response = await productsAdminAPI.postproductsAPI(addProduct) // Gọi API để thêm sản phẩm
-
-        const data = response.data
-
-        setRows([...rows, data]) // Cập nhật trạng thái với dữ liệu từ API
-        toast.success('Add new product successfully!')
+        // Thêm sản phẩm mới
+        const newProductResponse =
+          await productsAdminAPI.postproductsAPI(addProduct) // Gọi API để thêm sản phẩm
+        setRows([...rows, newProductResponse]) // Cập nhật trạng thái với dữ liệu từ API
+        toast.success('Thêm sản phẩm thành công!')
       }
     } catch (error) {
       const errorMessage = isEditing
-        ? 'Cập nhật Product thất bại!'
-        : 'Thêm Product thất bại!'
-      setErrorMessage(errorMessage)
-      setOpenErrorSnackbar(true)
+        ? 'Cập nhật sản phẩm thất bại!'
+        : 'Thêm sản phẩm thất bại!'
+      toast.error(errorMessage)
     }
 
     setDialogOpen(false)
@@ -219,16 +210,16 @@ export default function ProductAdmin() {
   useEffect(() => {
     productsAdminAPI.getproductsAPI().then((data) => {
       setRows(
-        data.data.map((products) =>
+        data.data.map((product) =>
           createData(
-            products.id,
-            products.name,
-            products.quantity,
-            products.description,
-            products.price,
-            products.image,
-            products.category_id,
-            products.images
+            product.id,
+            product.name,
+            product.quantity,
+            product.description,
+            product.price,
+            product.image,
+            product.category_id,
+            product.images ? product.images.map((img) => img.url) : [] // Ensure images are mapped to URLs
           )
         )
       )
@@ -326,13 +317,25 @@ export default function ProductAdmin() {
                           src={row.image}
                         />
                       </TableCell>
-                      <TableCell>
-                        <img
-                          style={{ width: '100px', height: 'auto' }}
-                          src={row.images}
-                        />
+
+                      <TableCell align="left">
+                        {row.images && row.images.length > 0 ? (
+                          row.images.map((image, index) => (
+                            <img
+                              key={index}
+                              src={image}
+                              alt={`product image ${index + 1}`}
+                              style={{
+                                width: '100px',
+                                height: '100px',
+                                margin: '5px',
+                              }}
+                            />
+                          ))
+                        ) : (
+                          <span>No Images Available</span>
+                        )}
                       </TableCell>
-                      {/* <TableCell>{row.category_id}</TableCell> */}
                     </TableRow>
                   )
                 })}
@@ -431,18 +434,11 @@ export default function ProductAdmin() {
               })
             }
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            label="images"
-            type="text"
-            fullWidth
-            value={addProduct.category_id}
-            onChange={(event) =>
-              setAddProduct({
-                ...addProduct,
-                images: event.target.value,
-              })
+
+          <ImageInputList
+            images={addProduct.images} // Current images for the product
+            setImages={
+              (newImages) => setAddProduct({ ...addProduct, images: newImages }) // Update the image list when a new image is selected
             }
           />
         </DialogContent>

@@ -6,7 +6,7 @@ import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
-
+import { toast } from 'react-toastify'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 
@@ -23,7 +23,7 @@ import {
   Snackbar,
   CircularProgress,
   Typography,
-  Alert
+  Alert,
 } from '@mui/material'
 import { useEffect } from 'react'
 import { stableSort, getComparator } from '@/utils/formatters'
@@ -49,7 +49,7 @@ export default function User() {
     lastname: '',
     dob: '',
     roles: '',
-    password: ''
+    password: '',
   })
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [isEditing, setIsEditing] = React.useState(false)
@@ -111,7 +111,7 @@ export default function User() {
       lastname: '',
       dob: '',
       roles: '',
-      password: ''
+      password: '',
     })
   }
 
@@ -154,6 +154,7 @@ export default function User() {
       await Promise.all(
         selected.map(async (userId) => {
           await userAPI.deleteUserAPI(userId) // Gọi API để xóa người dùng
+          toast.success('Xóa thành công')
         })
       )
 
@@ -163,7 +164,7 @@ export default function User() {
       setSelected([])
     } catch (error) {
       // Hiển thị thông báo lỗi nếu xóa thất bại
-      setErrorMessage('Xóa người dùng thất bại!')
+      toast.success('Xóa thất bại ')
       setOpenErrorSnackbar(true)
     }
   }
@@ -191,10 +192,12 @@ export default function User() {
           row.id === addUser.id ? addUser : row
         )
         setRows(updatedRows)
+        toast.success('Cập nhật người dùng thành công!')
       } else {
         // Thêm người dùng mới
         const newUserResponse = await userAPI.postUserAPI(addUser) // Gọi API để thêm người dùng
         setRows([...rows, newUserResponse]) // Cập nhật trạng thái với dữ liệu từ API
+        toast.success('Thêm người dùng thành công!')
       }
     } catch (error) {
       const errorMessage = isEditing
@@ -247,7 +250,7 @@ export default function User() {
           minHeight: '100vh',
           width: '100vh',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <CircularProgress />
@@ -300,7 +303,7 @@ export default function User() {
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
-                            'aria-labelledby': labelId
+                            'aria-labelledby': labelId,
                           }}
                         />
                       </TableCell>
@@ -322,7 +325,7 @@ export default function User() {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: 53 * emptyRows
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />

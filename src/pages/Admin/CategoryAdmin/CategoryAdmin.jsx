@@ -5,7 +5,7 @@ import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
-
+import { toast } from 'react-toastify'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import { stableSort, getComparator } from '@/utils/formatters'
@@ -25,7 +25,7 @@ import {
   Snackbar,
   Alert,
   Typography,
-  CircularProgress
+  CircularProgress,
 } from '@mui/material'
 
 const createData = (id, name) => {
@@ -105,13 +105,15 @@ export default function CategoryAdmin() {
       await Promise.all(
         selected.map(async (categoriesId) => {
           await categoryAdminAPI.deleteCategoryAPI(categoriesId) // Gọi API để xóa categogies
+          toast.success('Xóa thành công ')
         })
       )
       const newRows = rows.filter((row) => !selected.includes(row.id))
       setRows(newRows)
+
       setSelected([])
     } catch (error) {
-      setErrorMessage('Xóa thất bại!')
+      toast.success('Xóa thất bại ')
       setOpenErrorSnackbar(true)
     }
   }
@@ -132,12 +134,14 @@ export default function CategoryAdmin() {
           row.id === addCategory.id ? addCategory : row
         )
         setRows(updatedRows)
+        toast.success(' Cập nhật sản phẩm thành công!')
       } else {
         // Thêm category
         const newCategoryResponse =
           await categoryAdminAPI.postCategoryAPI(addCategory) // Gọi API để thêm category
         const data = newCategoryResponse.data
         setRows([...rows, data]) // Cập nhật trạng thái với dữ liệu từ API
+        toast.success('Thêm category thành công!')
       }
     } catch (error) {
       const errorMessage = isEditing
@@ -184,7 +188,7 @@ export default function CategoryAdmin() {
           minHeight: '100vh',
           width: '100vh',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <CircularProgress />
